@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="help" namespace="/help" extends="struts-default">
+        <action name="*" class="cn.zeroall.cow.web.PlainAction">
+            <result name="success" type="velocity">/templates/help/{1}.vm</result>
+        </action>
+    </package>
+</struts>

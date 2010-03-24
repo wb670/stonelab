@@ -1,0 +1,38 @@
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="loginId">
+        <field-validator type="requiredstring">
+            <message>请填写有效Email地址（长度不大于64个字符）</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">64</param>
+            <message>请填写有效Email地址（长度不大于64个字符）</message>
+        </field-validator>
+        <field-validator type="email">
+            <message>请填写有效Email地址（长度不大于64个字符）</message>
+        </field-validator>
+    </field>
+    <field name="password">
+        <field-validator type="requiredstring">
+            <message>密码由6-18位数字或字母组成，字母区分大小写</message>
+        </field-validator>
+        <field-validator type="regex">
+            <param name="trim">false</param>
+            <param name="expression">[0-9a-zA-Z]{6,18}</param>
+            <message>密码由6-18位数字或字母组成，字母区分大小写</message>
+        </field-validator>
+    </field>
+    <field name="repassword">
+        <field-validator type="repassword">
+            <param name="passwordFiled">password</param>
+            <message>两次密码输入保持一致性</message>
+        </field-validator>
+    </field>
+    <field name="checkCode">
+        <field-validator type="checkCode">
+            <message>验证码不正确</message>
+        </field-validator>
+    </field>
+</validators>

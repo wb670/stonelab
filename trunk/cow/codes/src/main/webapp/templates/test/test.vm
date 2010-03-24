@@ -1,0 +1,21 @@
+<title>测试</title>
+<table>
+    <tr>
+        <td>名称</td>
+        <td>状态</td>
+        <td>描述</td>
+    </tr>
+    <tr>
+        <td>$testPO.getName()</td>
+        <td>$testPO.getStatus()</td>
+        <td>$testPO.getDescription()</td>
+    </tr>
+</table>
+<hr />
+所有状态:
+<table>
+    <tr>
+        <td>状态值</td>
+        <td>状态名</td>
+    </tr>
+</table>

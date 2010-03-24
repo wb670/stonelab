@@ -1,0 +1,10 @@
+<html>
+    <title>welcome $name</title>
+    <body>
+        <table>
+            <tr><td>name</td><td>password</td></tr>
+            <tr><td>stone</td><td>stone</td></tr>
+            <tr><td>connie</td><td>connie</td></tr>
+        </table>
+    </body>
+</html>

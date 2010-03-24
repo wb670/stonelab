@@ -1,0 +1,18 @@
+<div class="pro_size_table">
+    <h1>产品尺码表</h1>
+    <div>
+        <table>
+            <tr><td>尺码</td><td>型号</td></tr>
+            <tr><td>0~3个月</td><td>59/42</td></tr>
+            <tr><td>3~6个月</td><td>66/44</td></tr>
+            <tr><td>6~12个月</td><td>73/46</td></tr>
+            <tr><td>12~18个月</td><td>80/48</td></tr>
+            <tr><td>3周岁</td><td>100/56</td></tr>
+            <tr><td>S</td><td>155/94</td></tr>
+            <tr><td>M</td><td>160/96</td></tr>
+            <tr><td>L</td><td>165/98</td></tr>
+            <tr><td>XL</td><td>170/100</td></tr>
+            <tr><td>XXL</td><td>175/102</td></tr>
+        </table>
+    </div>
+</div>

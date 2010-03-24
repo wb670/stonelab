@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: weblab
+Bundle-SymbolicName: weblab
+Bundle-Version: 1.0.0.qualifier
+Export-Package: com,
+ com.alibaba,
+ com.alibaba.weblab,
+ com.alibaba.weblab.statistics,
+ com.alibaba.weblab.statistics.service,
+ com.alibaba.weblab.statistics.service.domain,
+ com.alibaba.weblab.statistics.web,
+ com.alibaba.weblab.statistics.web.page,
+ com.alibaba.weblab.statistics.web.page.statistics

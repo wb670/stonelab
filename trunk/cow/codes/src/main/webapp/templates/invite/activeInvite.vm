@@ -1,0 +1,15 @@
+
+<div class="activity">
+	<img src="#imageServer('exhk/f_banner01.jpg')" alt="爱可幼品，邀请朋友注册得爱可礼金"/>
+	<img src="#imageServer('exhk/f_banner02.jpg')" alt="爱可幼品，邀请朋友注册得爱可礼金"/>
+	<div class="invite_bt">
+		<a href="#cowApp('member/register')" target="_blank">
+			<img src="#imageServer('exhk/f_banner03.jpg')" alt="新用户在这里点击注册" class="invite_l"/>
+		</a>
+		<a href="#cowApp('member/invite')" target="_blank">
+			<img src="#imageServer('exhk/f_banner06.jpg')" alt="爱可注册会员点击这里邀请朋友" class="invite_l"/>
+		</a>
+	</div>
+	<img src="#imageServer('exhk/f_banner04.jpg')" alt="爱可幼品，邀请朋友注册得爱可礼金"/>
+</div>
+		

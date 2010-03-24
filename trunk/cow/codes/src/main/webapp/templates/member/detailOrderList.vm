@@ -1,0 +1,292 @@
+#set($memberSession = $session.getAttribute("__MEMBER__SESSION__"))
+#set($accountDetailList = $accountVO.accountDetailList)
+#set($accountTradeDetailList = $accountVO.accountTradeDetailList)
+
+<div class="bgstyle01_hd"><h2 class="big">#actionMessages()#actionErrors()</h2></div>
+	<div class="bgstyle01_mid">
+		<h1>
+			爱可帐户
+		</h1>
+		<div>
+			<br />
+			<br />
+			<div align="center">
+				截至$dateUtil.parseToString($accountVO.deadline,"yyyy-MM-dd hh:mm:ss")，您共有
+				<span class="STYLE2"> $!accountVO.tradeCount </span>张订单完成交易，累计消费
+				<span class="STYLE2"> $!accountVO.totalPrice</span> 元。
+				<br />
+			</div>
+			<table class="order_style">
+				<tr class="order_style02">
+					<th colspan="6">
+						帐户金额：$!accountVO.totalAmount元
+					</th>
+				</tr>
+				<tr>
+					<td height="27" class="bgstyle_02">
+						<strong>用户名</strong>
+					</td>
+					<td>
+						<strong>金额</strong>
+					</td>
+					<td>
+						<strong>类型</strong>
+					</td>
+					<td>
+						<strong>状态</strong>
+					</td>
+					<td>
+						<strong>生效日期</strong>
+					</td>
+					<td>
+						<strong>失效日期</strong>
+					</td>
+				</tr>
+				#if($accountDetailList.size()>0)
+    				#foreach($accountDetailPO in $accountDetailList)
+    				<tr>
+    					<td height="25">
+    						$!memberSession.loginId
+    					</td>
+    					<td>
+    						$!accountDetailPO.amount
+    					</td>
+    					<td>
+    						$!accountDetailPO.type
+    					</td>
+    					<td>
+    						$!accountDetailPO.status
+    					</td>
+    					<td>
+    						$!accountDetailPO.validDate
+    					</td>
+    					<td>
+    						$!accountDetailPO.invalidDate
+    					</td>
+    				</tr>
+					#end
+				#end
+				
+			</table>
+			<br />
+			<br />
+			<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="STYLE1">交易查询</span>
+			<table class="order_style">
+				<tr>
+					<td height="20" bgcolor="#F7F7F7" class="bgstyle_02">
+						<strong>用户名</strong>
+					</td>
+					<td bgcolor="#F7F7F7">
+						<strong>金额</strong>
+					</td>
+					<td bgcolor="#F7F7F7">
+						<strong>类型</strong>
+					</td>
+					<td bgcolor="#F7F7F7">
+						<strong>备注</strong>
+					</td>
+					<td bgcolor="#F7F7F7">
+						<strong>交易日期</strong>
+					</td>
+				</tr>	
+				#if($accountTradeDetailList.size()>0)
+    				#foreach($accountTradeDetailPO in $accountTradeDetailList)
+    				<tr>
+    					<td height="25">
+    						$!memberSession.loginId
+    					</td>
+    					<td>
+    						$!accountTradeDetailPO.amount
+    					</td>
+    					<td>
+    						$!accountTradeDetailPO.type
+    					</td>
+    					<td>
+    						$!accountTradeDetailPO.memo
+    					</td>
+    					<td>
+    						$!accountTradeDetailPO.gmtCreated
+    					</td>
+    					
+    				</tr>
+    				#end
+				#end
+				
+			</table>
+			<form action="" method="post" name="accountForm">
+				<label class="exhk_info03">
+					<div align="left">
+						<strong>交易日期选择</strong>&nbsp;&nbsp;&nbsp;年份：
+						<select name="startYear" id="startYear">
+							<option value="2009">
+								2009
+							</option>
+							<option value="2010">
+								2010
+							</option>
+							<option value="2011">
+								2011
+							</option>
+							<option value="2012">
+								2012
+							</option>
+							<option value="2013">
+								2013
+							</option>
+							<option value="2014">
+								2014
+							</option>
+							<option value="2015">
+								2015
+							</option>
+							<option value="2016">
+								2016
+							</option>
+						</select>
+						月份：
+						<select name="startMonth" id="startMonth">
+							<option value="1">
+								1
+							</option>
+							<option value="2">
+								2
+							</option>
+							<option value="3">
+								3
+							</option>
+							<option value="4">
+								4
+							</option>
+							<option value="5">
+								5
+							</option>
+							<option value="6">
+								6
+							</option>
+							<option value="7">
+								7
+							</option>
+							<option value="8">
+								8
+							</option>
+							<option value="9">
+								9
+							</option>
+							<option value="10">
+								10
+							</option>
+							<option value="11">
+								11
+							</option>
+							<option value="12">
+								12
+							</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="endYear" id="endYear">
+							<option value="2009">
+								2009
+							</option>
+							<option value="2010">
+								2010
+							</option>
+							<option value="2011">
+								2011
+							</option>
+							<option value="2012">
+								2012
+							</option>
+							<option value="2013">
+								2013
+							</option>
+							<option value="2014">
+								2014
+							</option>
+							<option value="2015">
+								2015
+							</option>
+							<option value="2016">
+								2016
+							</option>
+						</select>
+						月份：
+						<select name="endMonth" id="endMonth">
+							<option value="1">
+								1
+							</option>
+							<option value="2">
+								2
+							</option>
+							<option value="3">
+								3
+							</option>
+							<option value="4">
+								4
+							</option>
+							<option value="5">
+								5
+							</option>
+							<option value="6">
+								6
+							</option>
+							<option value="7">
+								7
+							</option>
+							<option value="8">
+								8
+							</option>
+							<option value="9">
+								9
+							</option>
+							<option value="10">
+								10
+							</option>
+							<option value="11">
+								11
+							</option>
+							<option value="12">
+								12
+							</option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<img src="#imageServer('exhk/gif-0973.gif')" width="54" height="21"
+								align="absbottom"  style="cursor:hand;" onclick="return submitForm()"/>
+						
+					</div>
+				</label>
+			</form>
+		</div>
+
+	</div>
+	<div class="bgstyle01_ft"></div>
+
+
+<script type="text/javascript">
+    function submitForm() { 
+    	 document.accountForm.action='#cowApp("member/listByDate")';
+         document.accountForm.submit();
+    }
+	
+	function init(eId,value) {
+		if(value!=null && value!=""){
+			var select = document.getElementById(eId);
+        	var options = select.options;
+            for(i = 0; i <= options.length; i++) {
+                if(options[i].value == value) {
+                    options[i].selected = true;
+                    break;
+                }
+            }
+		}
+        
+    }
+	
+	init("startYear","$!startYear");
+    init("startMonth","$!startMonth");
+    init("endYear","$!endYear");
+    init("endMonth","$!endMonth");
+	
+    
+</script>

@@ -1,0 +1,49 @@
+#set($paginator = $priceRangeVO.getProductPageList().getPaginator())
+#set($products = $priceRangeVO.getProductPageList())
+
+#set($prePageUrl = "priceRange?price=$priceRangeVO.getMin()&page=$paginator.getPrePage()")
+#set($nextPageUrl = "priceRange?price=$priceRangeVO.getMin()&page=$paginator.getNextPage()")
+
+<div id="ct_mod04">
+    <div class="ct_mod04_position">
+        <h1>
+            <a href="#cowApp('index')" class="a_style01">首页</a>
+            <cite>></cite>
+            <a href="" class="a_style01">
+                <em>$priceRangeVO.getMin() ~ $priceRangeVO.getMax()</em>
+            </a>
+        </h1>
+        #if(!$products.isEmpty())
+        <div class="ct_mod04_page">
+                翻页<cite>$paginator.getPage()</cite>of<cite>$paginator.getPages()</cite>
+            #if($paginator.getPage() > 1)<a href="$prePageUrl" class="a_style09"><em>上一页</em></a>#end
+            #if($paginator.getPage() < $paginator.getPages())<a href="$nextPageUrl" class="a_style09"><em>下一页</em></a>#end
+        </div>
+        #end
+    </div>
+    <div id="ct_mod04_ad"></div>
+    <div class="ct_mod04_list">
+        #foreach($product in $products)
+        #if($velocityCount % 4 == 0 || $velocityCount == $products.size())#set($showStyle = "ct_mod04_pro_show02")#else#set($showStyle = "ct_mod04_pro_show")#end
+        <ul class="$showStyle">
+            <li class="ct_mod04_pro_show_img">
+                <a href="productDetail?id=$product.getId()">
+                    <img src="#productImageServer("$product.getSumCoverImgName()")" alt=""/>
+                </a>
+            </li>
+            <li>
+                <a href="productDetail?id=$product.getId()" class="a_style01">$product.getName()</a>
+            </li>
+            <li>爱可价<em>￥$product.getMyPrice()</em><h4>市场价<cite>￥$product.getMarketPrice()</cite></h4>
+            </li>
+        </ul>
+        #end
+    </div>
+    #if(!$products.isEmpty())
+    <div class="ct_mod04_page02">
+         翻页<cite>$paginator.getPage()</cite>of<cite>$paginator.getPages()</cite>
+       #if($paginator.getPage() > 1) <a href="$prePageUrl" class="a_style09"><em>上一页</em></a>#end
+       #if($paginator.getPage() < $paginator.getPages())<a href="$nextPageUrl" class="a_style09"><em>下一页</em></a>#end
+    </div>
+    #end
+</div>

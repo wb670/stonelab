@@ -1,0 +1,42 @@
+<div id="ct_mod05">
+    <ul>
+        <li>
+            <h1>联盟帐号：</h1>
+            <br />
+            <a href="#cowApp('alliance/AlliedLogin/doLoginout')" class="exhk_nav04">
+                <img src="#imageServer('exhk/exhk_logout.jpg')" border="0" />
+            </a>
+        </li>
+        <br />
+        <li>
+            <h1>报表</h1>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/Performance/performance')" class="a_style01">查询业绩</a>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/Income/income')" class="a_style01">收益报表</a>
+        </li>
+        <li>
+            <h1>链接制作</h1>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/Link/imageLinks')" class="a_style01">轻松链</a>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/Link/literalLinks')" class="a_style01">文字链</a>
+        </li>
+        <li>
+            <h1>修改帐户信息</h1>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/AlliedMemberInfo/modify')" class="a_style01">个人档案</a>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/AlliedMemberInfo/modifyPwd')" class="a_style01">密码修改</a>
+        </li>
+        <li>
+            <a href="#cowApp('alliance/Receive/modify')" class="a_style01">收款帐户信息</a>
+        </li>
+    </ul>
+</div>

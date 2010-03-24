@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<toolbox>
+    <!-- stringUtil -->
+    <tool>
+        <key>stringUtil</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.StringUtils</class>
+    </tool>
+    <tool>
+        <key>subStringUtil</key>
+        <scope>application</scope>
+        <class>cn.zeroall.cow.web.common.util.SubStringUtil</class>
+    </tool>
+    
+    <tool>
+        <key>escapeUtil</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.StringEscapeUtils</class>
+    </tool>
+    <!-- session util -->
+    <tool>
+        <key>sessionUtil</key>
+        <session>application</session>
+        <class>cn.zeroall.cow.web.common.util.SessionUtil</class>
+    </tool>
+    <!-- date util -->
+    <tool>
+        <key>dateUtil</key>
+        <session>application</session>
+        <class>cn.zeroall.cow.web.common.util.DateUtil</class>
+    </tool>
+    
+    
+</toolbox>

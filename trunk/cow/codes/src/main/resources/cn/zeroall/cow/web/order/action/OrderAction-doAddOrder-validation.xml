@@ -1,0 +1,104 @@
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="tradeOrderVO.name">
+        <field-validator type="requiredstring">
+            <message>请填写姓名</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">16</param>
+            <message>姓名最大为16个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.country">
+        <field-validator type="stringlength">
+            <param name="maxLength">4</param>
+            <message>国家最多为4个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.province">
+        <field-validator type="requiredstring">
+            <message>请选择省份</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">20</param>
+            <message>省份最多为20个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.city">
+        <field-validator type="requiredstring">
+            <message>请选择城市</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">20</param>
+            <message>城市最多为20个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.area">
+        <field-validator type="stringlength">
+            <param name="maxLength">20</param>
+            <message>地区最多为20个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.address">
+        <field-validator type="requiredstring">
+            <message>请填写详细地址</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">128</param>
+            <message>地址最多为128个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.zipcode">
+        <field-validator type="requiredstring">
+            <message>请填写邮编</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">128</param>
+            <message>邮编最多为10个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.telphone">
+        <field-validator type="stringlength">
+            <param name="maxLength">16</param>
+            <message>电话号码最多为16个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.mobile">
+        <field-validator type="requiredstring">
+            <message>请填写手机</message>
+        </field-validator>
+        <field-validator type="regex">
+            <param name="trim">false</param>
+            <param name="expression">[0-9]{11}</param>
+            <message>请填写正确的手机号码</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.memo">
+        <field-validator type="stringlength">
+            <param name="maxLength">1000</param>
+            <message>备注最多为1000个字符</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.payId">
+        <field-validator type="requiredstring">
+            <message>请选择支付方式</message>
+        </field-validator>
+        <field-validator type="regex">
+            <param name="trim">false</param>
+            <param name="expression">[0-9]{1,11}</param>
+            <message>请选择支付方式</message>
+        </field-validator>
+    </field>
+    <field name="tradeOrderVO.deliveryId">
+        <field-validator type="requiredstring">
+            <message>请选择配送方式</message>
+        </field-validator>
+        <field-validator type="regex">
+            <param name="trim">false</param>
+            <param name="expression">[0-9]{1,11}</param>
+            <message>请选择配送方式</message>
+        </field-validator>
+    </field>
+</validators>

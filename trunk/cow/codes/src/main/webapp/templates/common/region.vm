@@ -1,0 +1,39 @@
+<script type="text/javascript">
+function regionQuery(elementId,id) {
+    jQuery.get(
+        "#cowApp('misc/regionQuery')?id="+id,
+        function(resp) {
+            var data = eval("(" + resp + ")");
+            var element = document.getElementById(elementId);
+            initSelectElement(element);
+            element.options.add(new Option("请选择",''));
+            for(i=0; i < data.regions.length; i++) {
+                element.options.add(new Option(data.regions[i].name,data.regions[i].code));
+            }
+        }
+    );
+}
+function initRegions(elementId, id, value) {
+    jQuery.get(
+        "#cowApp('misc/regionQuery')?id="+id,
+        function(resp) {
+            var data = eval("(" + resp + ")");
+            var element = document.getElementById(elementId);
+            initSelectElement(element);
+            element.options.add(new Option("请选择",''));
+            for(i=0; i < data.regions.length; i++) {
+                var option = new Option(data.regions[i].name,data.regions[i].code);
+                element.options.add(new Option(data.regions[i].name,data.regions[i].code));
+            }
+            for(j=0; j < element.options.length; j++) {
+                if(element.options[j].value == value) {
+                    element.options[j].selected = true;
+                }
+            }
+        }
+    );
+}
+function initSelectElement(element) {
+    element.options.length = 0;
+}
+</script>

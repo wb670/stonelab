@@ -1,0 +1,39 @@
+<div class="bgstyle01_hd"></div>
+<div class="bgstyle01_mid">
+    <h1>个人档案</h1>
+    <p>帮助我们完善您的个人信息，有助于我们未来根据您的情况提供更加个性化的服务。</p>
+    <h2 class="big">#actionMessages()#actionErrors()</h2>
+    <form action="#cowApp('member/doModify')" method="post">
+        <label><input type="hidden" name="country" value="CN" /></label>
+        <label class="exhk_info01">姓名：<input type="text" name="name" value="$!name" /><span>#fieldError("name")</span></label>
+        <br/>
+        <span class="exhk_info02">性别：
+        #foreach($each in $sexes)
+            $each.getMessage()<input type="radio" name="sex" #if($stringUtil.equals($each.toString(),$sex))checked="checked"#end value="$each"/>
+        #end
+        </span>
+        <label class="exhk_info03">省份/直辖市：
+            <select id="province" name="province" onchange="regionQuery('city',this.value);regionQuery('area','-1');"><option value="">请选择</option></select>
+        </label>
+        <label class="exhk_info04">城市：
+            <select id="city" name="city" onchange="regionQuery('area',this.value);"><option value="">请选择</option></select>
+        </label>
+        <label class="exhk_info05">地区：
+            <select id="area" name="area"><option value="">请选择</option></select>
+        </label>
+        <label class="exhk_info06">详细地址：<input type="text" class="address_text" name="address" value="$!address"/><span>#fieldError("address")</span></label>
+        <label class="exhk_info08">固定电话：<input type="text" name="telphone" value="$!telphone"/><span>#fieldError("telphone")</span></label>
+        <label class="exhk_info09">手机：<input type="text" name="mobile" value="$!mobile"/><span>#fieldError("mobile")</span></label>
+        <button type="submit" class="button01"></button>
+    </form>
+</div>
+<div class="bgstyle01_ft"></div>
+#parse("templates/common/region.vm")
+<script type="text/javascript">
+//初始化省份
+initRegions("province","1","$!province");
+//初始化城市
+#if($!city)initRegions("city","$!province","$!city");#end
+//初始化地区
+#if($!area)initRegions("area","$!city","$!area");#end
+</script>

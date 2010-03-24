@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+                		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+    default-autowire="byName"
+>
+    <!-- database -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="org.gjt.mm.mysql.Driver" />
+        <property name="jdbcUrl" value="${cow_jdbc_url}" />
+        <property name="user" value="${cow_jdbc_username}" />
+        <property name="password" value="${cow_jdbc_password}" />
+    </bean>
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:sqlmaps.xml" />
+    </bean>
+    <bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate" />
+
+    <!-- hibernate -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQLDialect
+				</prop>
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>cn.zeroall.cow.dal.**.po</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate" />
+
+    <!-- test -->
+    <bean id="testDAO" class="cn.zeroall.cow.dal.test.hibernate.TestHibernateDAO" />
+
+    <!-- common -->
+    <bean id="regionDAO" class="cn.zeroall.cow.dal.common.xml.RegionXmlDAO">
+        <property name="xmlFile" value="classpath:vtree/regionCN.xml" />
+        <property name="xmlEncoding" value="utf-8" />
+    </bean>
+
+    <!-- product -->
+    <bean id="productCategoryDAO" class="cn.zeroall.cow.dal.product.ibatis.ProductCategoryIbatisDAO" />
+    <bean id="productInfoDAO" class="cn.zeroall.cow.dal.product.ibatis.ProductInfoIbatisDAO" />
+    <bean id="productColorDAO" class="cn.zeroall.cow.dal.product.ibatis.ProductColorIbatisDAO" />
+    <bean id="productWashingDAO" class="cn.zeroall.cow.dal.product.ibatis.ProductWashingIbatisDAO" />
+    <bean id="washingDAO" class="cn.zeroall.cow.dal.product.xml.WashingXmlDAO">
+        <property name="xmlFile" value="classpath:vtree/washing.xml" />
+        <property name="xmlEncoding" value="utf-8" />
+    </bean>
+    <bean id="productOperatorDAO" class="cn.zeroall.cow.dal.product.ibatis.ProductOperatorIbatisDAO" />
+
+    <!-- image -->
+    <bean id="imgGroupDAO" class="cn.zeroall.cow.dal.image.ibatis.ImgGroupIbatisDAO" />
+    <bean id="imgDAO" class="cn.zeroall.cow.dal.image.ibatis.ImgIbatisDAO" />
+
+    <!-- member -->
+    <bean id="memberDAO" class="cn.zeroall.cow.dal.member.ibatis.MemberIbatisDAO" />
+    <bean id="inviteHibernateDAO" class="cn.zeroall.cow.dal.member.hibernate.InviteHibernateDAO" />
+    
+
+    <!-- order -->
+    <bean id="deliveryDAO" class="cn.zeroall.cow.dal.order.hibernate.DeliveryHibernateDAO" />
+    <bean id="paymentDAO" class="cn.zeroall.cow.dal.order.hibernate.PaymentHibernateDAO" />
+    <bean id="orderProductDAO" class="cn.zeroall.cow.dal.order.hibernate.OrderProductHibernateDAO" />
+    <bean id="tradeOrderDAO" class="cn.zeroall.cow.dal.order.hibernate.TradeOrderHibernateDAO" />
+    <bean id="addressInfoDAO" class="cn.zeroall.cow.dal.order.hibernate.AddressInfoHibernateDAO" />
+    
+    <!-- account -->
+    <bean id="accountDetailHibernateDAO" class="cn.zeroall.cow.dal.account.hibernate.AccountDetailHibernateDAO" />
+    <bean id="accountTradeDetailHibernateDAO" class="cn.zeroall.cow.dal.account.hibernate.AccountTradeDetailHibernateDAO" />
+
+   <!-- comment -->
+    <bean id="commentHibernateDAO" class="cn.zeroall.cow.dal.comment.hibernate.CommentHibernateDAO" />
+   
+   <!-- comment -->
+    <bean id="sizeHibernateDAO" class="cn.zeroall.cow.dal.size.hibernate.SizeHibernateDAO" />
+   
+    <!-- alliance -->
+    <bean id="alliedMemberDAO" class="cn.zeroall.cow.dal.alliance.dao.AlliedMemberDAO" />
+    <bean id="alliedLinkDAO" class="cn.zeroall.cow.dal.alliance.dao.AlliedLinkDAO" />
+    <bean id="alliedOrderDAO" class="cn.zeroall.cow.dal.alliance.dao.AlliedOrderDAO" />
+    <bean id="alliedReceiveDAO" class="cn.zeroall.cow.dal.alliance.dao.AlliedReceiveDAO" />
+</beans>

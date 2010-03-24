@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- project -->
+    <appender name="projectAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="${cow_loggingRoot}/project.log" />
+        <param name="append" value="false" />
+        <param name="encoding" value="UTF8" />
+        <param name="threshold" value="debug" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %c{2} - %m%n" />
+        </layout>
+    </appender>
+
+    <!-- chinabank -->
+    <appender name="payAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="${cow_loggingRoot}/biz/pay.log" />
+        <param name="append" value="false" />
+        <param name="encoding" value="UTF8" />
+        <param name="threshold" value="info" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %c{2} - %m%n" />
+        </layout>
+    </appender>
+
+    <!-- pay -->
+    <logger name="pay" additivity="false">
+        <level value="info" />
+        <appender-ref ref="payAppender" />
+    </logger>
+
+
+    <root>
+        <level value="${cow_loggingLevel}" />
+        <appender-ref ref="projectAppender" />
+    </root>
+</log4j:configuration>

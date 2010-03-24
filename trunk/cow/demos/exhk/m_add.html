@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台管理</title>
+<link  type="text/css" rel="stylesheet" href="styles/m_style.css"/>
+</head>
+
+<body>
+	<div id="m_wrap">
+		<div id="m_hd">
+			<a href="#"><img  src="images/exhk/log_out.jpg" alt="退出后台管理"/></a>
+		</div>
+		<div id="m_mid">
+			<div id="m_menu_list">
+				<div id="m_menu_list_hd"></div>
+				<div id="m_menu_list_mid">
+					<ul class="m_menu_list_ul01">
+						<li>
+							<h1 class="m_h1_01">商品管理</h1>
+							<ul class="m_menu_list_ul02">
+								<li><a href="#" class="m_a_01">商品列表</a></li>
+								<li><a href="#" class="m_a_01">添加新商品</a></li>
+							</ul>
+						</li>
+						<li>
+							<h1 class="m_h1_01">订单管理</h1>
+							<ul class="m_menu_list_ul02">
+								<li><a href="#" class="m_a_01">订单列表</a></li>
+								<li><a href="#" class="m_a_01">订单列表</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div id="m_menu_list_ft"></div>
+			</div>
+			<div id="m_ct">
+				<div id="m_ct_title"></div>
+				<form action="" method="post">
+					<div class="m_ct_mod_hd"></div>
+					<div class="m_ct_mod_mid">
+						<h1 class="m_h1_02">1.商品基本属性</h1>
+						<table>
+							<tr>
+								<td class="m_ct_mod_tb_td">商品名称：</td>
+								<td><input  type="text" size="36" maxlength="36" /><span class="note">不超过18个汉字（36个字符）</span></td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">市场价：</td>
+								<td><input  type="text" size="10" maxlength="10"/><span class="other">元</span></td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">爱可价：</td>
+								<td><input  type="text" size="10" maxlength="10"/><span class="other">元</span></td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">商品分类：</td>
+								<td>
+									<select>
+										<option value="">请选择商品分类......</option>
+										<option value="">衣物</option>
+										<option value="">&nbsp;连体衣</option>
+										<option value="">&nbsp;爬衣</option>
+										<option value="">&nbsp;浴袍</option>
+										<option value="">&nbsp;套服</option>
+										<option value="">&nbsp;T恤</option>
+										<option value="">&nbsp;线衫</option>
+										<option value="">&nbsp;裤子</option>
+										<option value="">鞋帽</option>
+										<option value="">&nbsp;鞋子</option>
+										<option value="">&nbsp;帽子</option>
+										<option value="">&nbsp;手脚套</option>
+										<option value="">盖毯</option>
+										<option value="">&nbsp;斗篷</option>
+										<option value="">&nbsp;睡袋</option>
+										<option value="">&nbsp;裹被</option>
+										<option value="">&nbsp;毯子</option>
+										<option value="">围嘴</option>
+										<option value="">尿裤尿布</option>
+										<option value="">孕妇系列（奶片垫等）</option>
+										<option value="">礼品装</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">可选尺寸：</td>
+								<td>
+									<input  type="checkbox" value=""/>NB
+									<input  type="checkbox" value=""/>S
+									<input  type="checkbox" value=""/>M
+									<input  type="checkbox" value=""/>L
+									<input  type="checkbox" value=""/>XL
+									<input  type="checkbox" value=""/>2
+									<input  type="checkbox" value=""/>3
+									<input  type="checkbox" value=""/>均码
+									<span class="note">无尺寸的物品可不选</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">产品属性：</td>
+								<td><input  type="button" value="" class="btn_add"/><span class="note">可添加多个产品属性</span></td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">&nbsp;</td>
+								<td>
+										属性名：<input  type="text" size="10" maxlength="10"/>&nbsp;
+										属性值：<input  type="text" size="10" maxlength="10"/>
+										<input type="button" value="" class="m_delete"/>
+										<span class="note">属性值不超过50个汉字</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">&nbsp;</td>
+								<td>
+										属性名：<input  type="text" size="10" maxlength="10"/>&nbsp;
+										属性值：<input  type="text" size="10" maxlength="10"/>
+										<input type="button" value="" class="m_delete"/>
+										<span class="note">属性值不超过50个汉字</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">洗涤方式：</td>
+								<td>
+									<input  type="checkbox" value=""/>30度水温常规水洗
+									<input  type="checkbox" value=""/>分色洗涤
+									<input  type="checkbox" value=""/>不可拧干
+									<input  type="checkbox" value=""/>不可氯漂
+									<input  type="checkbox" value=""/>不可干洗
+									<input  type="checkbox" value=""/>低温烘干
+									<input  type="checkbox" value=""/>平摊干燥
+									<input  type="checkbox" value=""/>不可暴晒
+								</td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">&nbsp;</td>
+								<td>
+									<input  type="checkbox" value=""/>30度水温常规水洗
+									<input  type="checkbox" value=""/>分色洗涤
+									<input  type="checkbox" value=""/>不可拧干
+									<input  type="checkbox" value=""/>不可氯漂
+									<input  type="checkbox" value=""/>不可干洗
+									<input  type="checkbox" value=""/>低温烘干
+									<input  type="checkbox" value=""/>平摊干燥
+									<input  type="checkbox" value=""/>不可暴晒
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="m_ct_mod_ft"></div>
+					<div class="m_ct_mod_hd"></div>
+					<div class="m_ct_mod_mid">
+						<h1 class="m_h1_02">2.商品颜色</h1>
+						<table>
+							<tr>
+								<td class="m_ct_mod_tb_td">可选颜色：</td>
+								<td><input  type="button" value="" class="btn_add"/><span class="note">可添加多个颜色，图片使用jpg或gif格式。</span></td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">&nbsp;</td>
+								<td>
+									颜色名：<input  type="text" size="10" maxlength="10"/>
+									&nbsp;&nbsp;图片上传：<input  type="file" value=""/>
+									缩略图：<span><img src="images/exhk/16010012.jpg"/></span>
+									<input type="button" value="" class="m_delete"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="m_ct_mod_tb_td">&nbsp;</td>
+								<td>
+									颜色名：<input  type="text" size="10" maxlength="10"/>
+									&nbsp;&nbsp;图片上传：<input  type="file" value=""/>
+									缩略图：<span><img src="images/exhk/1650160.jpg"/></span>
+									<input type="button" value="" class="m_delete"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="m_ct_mod_ft"></div>
+					<div class="m_ct_mod_hd"></div>
+					<div class="m_ct_mod_mid">
+						<h1 class="m_h1_02">3.商品详细描述</h1>
+						<table cellpadding="0" cellspacing="0" class="style01">
+							<tr>
+								<td><img src="images/exhk/m_copy.jpg" alt="复制" title="复制"/></td>
+								<td><img src="images/exhk/m_cut.jpg" alt="剪切" title="剪切"/></td>
+								<td><img src="images/exhk/m_viscous.jpg" alt="粘帖" title="粘帖"/></td>
+								<td><img src="images/exhk/m_apart.jpg" alt=""/></td>
+								<td><img src="images/exhk/m_bold.jpg" alt="粗体" title="粗体"/></td>
+								<td><img src="images/exhk/m_italic.jpg" alt="斜体" title="斜体"/></td>
+								<td><img src="images/exhk/m_underline.jpg" alt="下划线" title="下划线"/></td>
+								<td><img src="images/exhk/m_left.jpg" alt="左对齐" title="左对齐"/></td>
+								<td><img src="images/exhk/m_mid.jpg" alt="居中" title="居中"/></td>
+								<td><img src="images/exhk/m_right.jpg" alt="右对齐" title="右对齐"/></td>
+								<td><img src="images/exhk/m_apart.jpg" alt=""/></td>
+								<td><img src="images/exhk/m_num_list.jpg" alt="编号" title="编号"/></td>
+								<td><img src="images/exhk/m_square_list.jpg" alt="项目列表" title="项目列表"/></td>
+								<td><img src="images/exhk/m_apart.jpg" alt=""/></td>
+								<td><img src="images/exhk/m_sup.jpg" alt="上标" title="上标"/></td>
+								<td><img src="images/exhk/m_sub.jpg" alt="下标" title="下标"/></td>
+								<td><img src="images/exhk/m_apart.jpg" alt=""/></td>
+								<td><img src="images/exhk/m_url.jpg" alt="插入url" title="插入url"/></td>
+								<td><img src="images/exhk/m_delete_url.jpg" alt="删除url" title="删除url"/></td>
+								<td><img src="images/exhk/m_apart.jpg" alt=""/></td>
+								<td><img src="images/exhk/m_line.jpg" alt="插入水平线" title="插入水平线"/></td>
+								<td><img src="images/exhk/m_img.jpg" alt="上传/修改图片" title="上传/修改图片"/></td>
+								<td><img src="images/exhk/m_edit.jpg" alt="编辑源文件" title="编辑源文件"/></td>
+							</tr>
+							<tr>
+								<td colspan="23"><textarea cols="65" rows="20"></textarea></td>
+							</tr>
+							<tr>
+								<td colspan="23"><span class="note">为保持产品详细页面效果的统一性，编辑器省去字体样式和字体颜色功能。字数不超过2000个汉字。</span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="m_ct_mod_ft"></div>
+					<div class="m_btn">
+						<input  type="submit" value="" class="m_btn_do"/>
+						<input  type="submit" value="" class="m_btn_reset"/>
+					</div>
+				</form>
+				</div>
+			</div>
+		<div id="m_ft">版权所有&copy;2009COW项目团队，并保留所以权利。</div>
+	</div>
+</body>
+</html>

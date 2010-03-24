@@ -1,0 +1,131 @@
+<div id="register">
+    <h2 class="big">#actionMessages()#actionErrors()</h2>
+	<form action="#cowApp('alliance/AlliedMember/doRegister')" method="post">
+        <h1>新用户从这里注册</h1>
+        <label class="exhk_info10">
+            联盟帐户名：
+            <input type="text" name="alliedMember.loginId" value="$!alliedMember.loginId" class="username"/>
+            <span class="red">**#fieldError("alliedMember.loginId") </span>
+        </label>
+        <label class="exhk_info10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;帐户密码：<input  type="password" name="alliedMember.password" value="$!alliedMember.password" class="userpassword"/>
+            <span class="red">**#fieldError("alliedMember.password")  </span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码确认：<input  type="password" name="repassword" value="$!repassword" class="ueerpassword2"/>
+            <span class="red">** #fieldError("repassword")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系邮件：<input  type="text" name="alliedMember.email" value="$!alliedMember.email" class="useremial"/>
+            <span class="red">** #fieldError("alliedMember.email")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;联系人姓名：<input  type="text" name="alliedMember.name" value="$!alliedMember.name" value="$!alliedMember.name" class="username"/>
+            <span class="red">** #fieldError("alliedMember.name")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话：<input  type="text" name="alliedMember.telphone" value="$!alliedMember.telphone"  class="username"/>
+            <span class="red">** #fieldError("alliedMember.telphone")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系手机：<input  type="text" name="alliedMember.mobile" value="$!alliedMember.mobile" class="username"/>
+            <span class="red">**#fieldError("alliedMember.mobile")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;传真：<input  type="text" name="alliedMember.fax" value="$!alliedMember.fax" class="username"/>
+            <span class="red"></span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ：<input  type="text" name="alliedMember.qq" value="$!alliedMember.qq" class="username"/>
+            <span class="red">** #fieldError("alliedMember.qq")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MSN：<input  type="text" name="alliedMember.msn" value="$!alliedMember.msn" class="username"/>
+            <span class="red">**#fieldError("alliedMember.msn")</span>
+        </label>
+        <label class="exhk_info06">
+            &nbsp;&nbsp;&nbsp;通信地址：
+            <input type="text" name="alliedMember.address" value="$!alliedMember.address" class="address_text"/>
+            <span class="red">** #fieldError("alliedMember.address")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮政编码：<input  type="text" name="alliedMember.zip" value="$!alliedMember.zip" class="username"/>
+            <span class="red">** #fieldError("alliedMember.zip")</span>
+        </label>
+        <label class="exhk_info10">
+            身份证号码：
+            <input name="alliedMember.identityCard"  type="text" value="$!alliedMember.identityCard" class="username"/>
+            <span class="red">** #fieldError("alliedMember.identityCard")</span>
+        </label>
+        <label class="exhk_info10">
+            网站/店地址：
+            <input name="alliedMember.siteAddress"  type="text" value="$!alliedMember.siteAddress" class="username"/>
+            <span class="red">** #fieldError("alliedMember.siteAddress")</span>
+        </label>
+        <label class="exhk_info10">
+            网站/店名称：
+            <input name="alliedMember.siteName" value="$!alliedMember.siteName" type="text" class="username"/>
+            <span class="red">** #fieldError("alliedMember.siteName")</span>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站分类：
+            <select id="siteType" name="alliedMember.siteType">
+                <option value="">-请选择-</option>
+                <option value="爱情交友">爱情交友</option>
+                <option value="两性生活">两性生活</option>
+                <option value="体育运动">体育运动</option>
+                <option value="医疗保健">医疗保健</option>
+                <option value="娱乐八卦">娱乐八卦</option>
+                <option value="广告联盟">广告联盟</option>
+                <option value="财经证券">财经证券</option>
+                <option value="论坛社区站">论坛社区站</option>
+                <option value="图片写真">图片写真</option>
+                <option value="音乐MP3">音乐MP3</option>
+                <option value="综合网站">综合网站</option>
+                <option value="电脑网络">电脑网络</option>
+                <option value="明星美女">明星美女</option>
+                <option value="网上购物">网上购物</option>
+                <option value="影视宽带">影视宽带</option>
+                <option value="足彩博彩">足彩博彩</option>
+                <option value="动漫卡通">动漫卡通</option>
+                <option value="软件下载">软件下载</option>
+                <option value="网址大全">网址大全</option>
+                <option value="硬件资讯">硬件资讯</option>
+                <option value="sem/seo">sem/seo</option>
+                <option value="广告直投">广告直投</option>
+                <option value="生活服务">生活服务</option>
+                <option value="文学小说">文学小说</option>
+                <option value="幽默笑话">幽默笑话</option>
+                <option value="网店">网店</option>
+                <option value="其它">其它</option>
+            </select>
+        </label>
+        <label class="exhk_info10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站所属：
+            <select id="siteKind" name="alliedMember.siteKind">
+                <option value="">-请选择-</option>
+                <option value="个人">个人</option>
+                <option value="单位">单位</option>
+            </select>
+        </label>
+        <label class="exhk_info10">
+            网站所属单位名称：
+            <input name="alliedMember.enterpriseName" value="$!alliedMember.enterpriseName" type="text" class="username"/>
+            <span class="red">** #fieldError("alliedMember.enterpriseName")</span>
+        </label>
+        <button type="submit"></button>
+    </form>
+</div>
+<script type="text/javascript">
+function init(eId,value) {
+    var select = document.getElementById(eId);
+    var options = select.options;
+    for(i = 0; i <= options.length; i++) {
+        if(options[i].value == value) {
+            options[i].selected = true;
+            break;
+        }
+    }
+}
+init("siteType","$!alliedMember.siteType");
+init("siteKind","$!alliedMember.siteKind");
+</script>

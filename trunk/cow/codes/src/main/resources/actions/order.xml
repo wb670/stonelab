@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="order" namespace="/order" extends="json-default">
+        <!-- 权限拦截器 -->
+        <interceptors>
+            <interceptor name="memberAuthInterceptor" class="cn.zeroall.cow.web.common.interceptors.MemberAuthInterceptor" />
+            <interceptor-stack name="memberAuthDefaultStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="memberAuthInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+        <!-- 默认拦截器 -->
+        <default-interceptor-ref name="memberAuthDefaultStack" />
+        <!-- 登录地址 -->
+        <global-results>
+            <result name="login" type="redirect">
+                <param name="location">/member/login</param>
+            </result>
+        </global-results>
+
+        <!-- payDelivery json -->
+        <action name="payDelivery" class="cn.zeroall.cow.web.order.action.PayDeliveryAction" method="list">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="json" />
+        </action>
+        <!-- address json -->
+        <action name="addressInfo" class="cn.zeroall.cow.web.order.action.AddressInfoAction" method="list">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="json" />
+        </action>
+
+        <!-- cart -->
+        <action name="cart" class="cn.zeroall.cow.web.order.action.CartAction" method="list">
+            <result name="success" type="velocity">/templates/order/cart.vm</result>
+        </action>
+        <!-- do add cart -->
+        <action name="doAddCart" class="cn.zeroall.cow.web.order.action.CartAction" method="add">
+            <result name="success" type="redirectAction">
+                <param name="actionName">cart</param>
+            </result>
+        </action>
+        <!-- do remove cart -->
+        <action name="doRemoveCart" class="cn.zeroall.cow.web.order.action.CartAction" method="remove">
+            <result name="success" type="redirectAction">
+                <param name="actionName">cart</param>
+            </result>
+        </action>
+
+        <!-- add order -->
+        <action name="addOrder" class="cn.zeroall.cow.web.order.action.OrderAction" method="addOrder">
+            <result name="success" type="velocity">/templates/order/addOrder.vm</result>
+        </action>
+        <!-- do add order -->
+        <action name="doAddOrder" class="cn.zeroall.cow.web.order.action.OrderAction" method="doAddOrder">
+            <result name="input" type="velocity">/templates/order/addOrder.vm</result>
+            <result name="success" type="velocity">/templates/order/addSuccess.vm</result>
+            <result name="error" type="velocity">/templates/common/error.vm</result>
+        </action>
+        <!-- cancel order -->
+        <action name="doCancelOrder" class="cn.zeroall.cow.web.order.action.OrderAction" method="doCancelOrder">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/member</param>
+                <param name="actionName">orderList</param>
+                <param name="page">${page}</param>
+            </result>
+        </action>
+        <!-- do cart order -->
+        <action name="doAddCartOrder" class="cn.zeroall.cow.web.order.action.CartAction" method="add">
+            <result name="success" type="chain">
+                <param name="namespace">/order</param>
+                <param name="actionName">addOrder</param>
+            </result>
+        </action>
+
+        <!-- payment -->
+        <action name="pay" class="cn.zeroall.cow.web.order.action.payment.PayAction" method="doPay">
+            <result name="1" type="redirect">chinabankPay?orderId=${orderId}</result>
+            <result name="2" type="velocity">/templates/order/payment/post.vm</result>
+            <result name="3" type="redirect">alipayPay?orderId=${orderId}</result>
+            <result name="error" type="velocity">/templates/common/error.vm</result>
+        </action>
+
+        <!-- chinabank -->
+        <action name="chinabankPay" class="cn.zeroall.cow.web.order.action.payment.ChinabankAction" method="doPay">
+            <param name="v_url">${cow_http_server}/${cow_app_name}/order/chinabankReceive</param>
+            <param name="v_moneytype">CNY</param>
+            <result name="success" type="velocity">/templates/order/payment/chinabank.vm</result>
+            <result name="error" type="velocity">/templates/common/error.vm</result>
+        </action>
+        <action name="chinabankReceive" class="cn.zeroall.cow.web.order.action.payment.ChinabankAction" method="doReceive">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="velocity">/templates/order/paySuccess.vm</result>
+            <result name="error" type="velocity">/templates/common/error.vm</result>
+        </action>
+        <!-- alipay -->
+        <action name="alipayPay" class="cn.zeroall.cow.web.order.action.payment.AlipayAction" method="doPay">
+            <param name="return_url">${cow_http_server}/${cow_app_name}/order/alipayReceive</param>
+            <param name="show_url">${cow_http_server}/${cow_app_name}/member/orderDetail</param>
+            <result name="success" type="velocity">/templates/order/payment/alipay.vm</result>
+            <result name="error" type="velocity">/templates/common/error.vm</result>
+        </action>
+        <action name="alipayReceive" class="cn.zeroall.cow.web.order.action.payment.AlipayAction" method="doReceive">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="velocity">/templates/order/paySuccess.vm</result>
+            <result name="error" type="velocity">/templates/common/error.vm</result>
+        </action>
+    </package>
+</struts>

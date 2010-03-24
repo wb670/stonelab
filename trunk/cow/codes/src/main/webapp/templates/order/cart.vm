@@ -1,0 +1,60 @@
+#set($cartProducts = $cartProductsVO.cartProducts)
+#set($total = $cartProductsVO.total)
+<div id="style02">
+    <div class="bgstyle01_hd"></div>
+    <div class="bgstyle01_mid">
+        <h2 class="mycart_h2">我的购物车</h2>
+        <h3 class="mycart_h3">购物车帮您一次性完成批量购买与付款，下单更便捷，付款更简单！</h3>
+        #foreach($cart in $cartProducts)
+        #set($lastProductId = $cart.getOrderProduct().getProductId())
+        <div class="style03">
+            <h4>已选商品</h4>
+            <table>
+                <tr class="style05">
+                    <td></td>
+                    <td>商品名称</td>
+                    <td>颜色</td>
+                    <td>尺寸</td>
+                    <td>单价</td>
+                    <td>数量</td>
+                    <td>合计</td>
+                    <td>操作</td>
+                </tr>
+                <tr class="style06">
+                    <td class="style04">
+                        <a href="#cowApp("product/productDetail?id=$cart.getProduct().getId()")" target="_blank">
+                            <img src="#productImageServer("$cart.getProduct().getCoverImgName()")" alt="$cart.getProduct().getName()"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#cowApp("product/productDetail?id=$cart.getProduct().getId()")" target="_blank" class="a_style01">$cart.getProduct().getName()</a>
+                    </td>
+                    <td>$cart.getOrderProduct().getColor()</td>
+                    <td>$cart.getOrderProduct().getDescription()</td>
+                    <td>$cart.getProduct().getMyPrice()</td>
+                    <td>$cart.getOrderProduct().getAmount()</td>
+                    <td>$cart.getTotal()</td>
+                    <td onclick="removeCart('$cart.getOrderProduct().getProductId()','$cart.getOrderProduct().getColor()','$cart.getOrderProduct().getSize()')">删除</td>
+                </tr>
+            </table>
+        </div>
+        #end
+        <h5>总价(不包含运费)：<span class="a_style09">$!{total}元</span>
+        </h5>
+        #if($cartProducts && $cartProducts.size() > 0)<button class="do_shopping2" type="button" onclick="redirect('#cowApp("product/productDetail?id=${lastProductId}")')";></button>#end
+        #if($cartProducts && $cartProducts.size() > 0)<button class="do_shopping" type="submit" onclick="redirect('#cowApp("order/addOrder")');"></button>#end
+    </div>
+    <div class="bgstyle01_ft"></div>
+</div>
+<script type="text/javascript">
+function redirect(url) {
+    this.location = url;
+}
+function removeCart(productId, productColor, productSize) {
+  var removeAction = "#cowApp("order/doRemoveCart")";
+  removeAction += ("?productId=" + productId);
+  removeAction += ("&productColor=" + productColor);
+  removeAction += ("&productSize=" + productSize);
+  redirect(removeAction);
+}
+</script>

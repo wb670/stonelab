@@ -1,0 +1,36 @@
+<div id="logoin">
+	<form  method="post" name="alliedLoginForm">
+		<h1>联盟会员从这里登录</h1>
+		<label><span class="red">#actionErrors()</span></label>
+		<label>
+			用户名：<input  type="text" name="loginId" class="username"/>
+		</label>
+		<label>
+			密&nbsp;&nbsp;&nbsp;&nbsp;码：<input   type="password" name="password" class="userpassword"/>
+		</label>
+		<div align="center">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<img src="#imageServer('exhk/gif-0083.gif')" width="75" style="cursor:hand;" height="25" align="absbottom" 
+			onclick="return submitForm()"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#cowApp('alliance/AlliedMember/register')" class="exhk_nav04">
+				<img src="#imageServer('exhk/gif-0084.gif')" width="74" height="25" align="absbottom" /></a></div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+document.onkeydown = function()
+{
+    
+    if (event.keyCode == 13)
+    {
+		submitForm();
+	   
+    }
+}
+function submitForm() 
+{ 
+	 document.alliedLoginForm.action="#cowApp('alliance/AlliedLogin/doLogin')";
+     document.alliedLoginForm.submit();
+}
+</script>
