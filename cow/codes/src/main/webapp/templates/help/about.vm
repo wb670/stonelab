@@ -1,0 +1,13 @@
+<div id="style02">
+	<div class="bgstyle01_hd"></div>
+	<div class="bgstyle01_mid">
+		<h2 class="mycart_h2">关于爱可</h2>
+			<ul class="style_02">
+			
+			    <li><img src="#imageServer('exhk/about-1.jpg')" height="335" /></li>
+				
+				<li><img src="#imageServer('exhk/about-2.jpg')" /></li>
+	  </ul>
+	</div>
+	<div class="bgstyle01_ft"></div>
+</div>

@@ -1,0 +1,37 @@
+<div class="exhk_navleft_01_top"></div>
+<div class="exhk_navleft_01_mid">
+    <h1 class="ct_mod_title01">产品分类</h1>
+    <ul>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=2")"class="a_style05">衣物系列</a></h2>
+            ##<ul class="ct_mod01_classification ">
+                ##<li><a href="#cowApp("product/productList?categoryId=9")" class="a_style01">连 体 衣</a></li>
+                ##<li><a href="#cowApp("product/productList?categoryId=10")" class="a_style01">爬衣系列</a></li>
+                ##<li><a href="#cowApp("product/productList?categoryId=11")" class="a_style01">浴袍系列</a></li>
+                ##<li><a href="#cowApp("product/productList?categoryId=12")" class="a_style01">套服系列</a></li>
+                ##<li><a href="#cowApp("product/productList?categoryId=13")" class="a_style01">T恤系列</a></li>
+                ##<li><a href="#cowApp("product/productList?categoryId=14")" class="a_style01">上衣系列</a></li>
+                ##<li><a href="#cowApp("product/productList?categoryId=15")" class="a_style01">裤子系列</a></li>
+            ##</ul>
+        </li>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=3")"class="a_style05">鞋帽系列</a></h2>
+        </li>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=4")"class="a_style05">盖毯系列</a></h2>
+        </li>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=5")"class="a_style05">围嘴系列</a></h2>
+        </li>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=6")"class="a_style05">尿裤尿布</a></h2>
+        </li>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=7")"class="a_style05">孕妇系列</a></h2>
+        </li>
+        <li class="ct_mod01_style01">
+            <h2><a href="#cowApp("product/productList?categoryId=8")"class="a_style05">礼 品 装</a></h2>
+        </li>
+    </ul>
+</div>
+<div class="exhk_navleft_01_fot"></div>

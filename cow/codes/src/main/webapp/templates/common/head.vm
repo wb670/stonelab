@@ -1,0 +1,54 @@
+#set($cartSession = $session.getAttribute("__CART__SESSION__"))
+#set($cartCount = 0)
+#if($cartSession && $cartSession.size() > 0) 
+  #foreach($cart in $cartSession)
+      #set($cartCount = $cartCount + $cart.getAmount())
+  #end
+#end
+#set($memberSession = $session.getAttribute("__MEMBER__SESSION__"))
+
+<div class="exhk_hd_logo">
+    <a href="#cowApp('index')"><img src="#imageServer('exhk/exhk_logo.jpg')" alt="爱可幼品"/></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<img src="#imageServer('exhk/Tel.jpg')" width="449" height="45" align="absbottom"  />
+</div>
+<ul class="exkh_nav">
+    <li class="exhk_nav05"><h1><a href="#cowApp('index')" class="#navStyle('/index','exhk_current','a_style02')" title="首页">首页</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('product/babySeries')" class="#navStyle('/product/babySeries','exhk_current','a_style02')" title="宝宝服饰">宝宝服饰</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('product/mamaSeries')" class="#navStyle('/product/mamaSeries','exhk_current','a_style02')" title="妈妈服饰">妈妈服饰</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('help/about')" class="#navStyle('/help/about','exhk_current','a_style02')" title="关于爱可">关于爱可</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('alliance/joinIndex')" class="#navStyle('/help/joinIn','exhk_current','a_style02')" title="网店加盟">网店加盟</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('help/spaceBuild')" class="#navStyle('/help/spaceBuild','exhk_current','a_style02')" title="爱可空间">爱可空间</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('help/cardBuild')" class="#navStyle('/help/cardBuild','exhk_current','a_style02')" title="充值卡">充值卡</a></h1></li>
+    <li class="exhk_nav01"><h1><a href="#cowApp('help/bbsBuild')" class="#navStyle('/help/bbsBuild','exhk_current','a_style02')" title="育婴论坛">育婴论坛</a></h1></li>
+    #if(!$memberSession)
+    <li class="exhk_nav03"><a id="memberLoginLink" href="#cowApp('member/login')"><img id="memberLoginImg" src="#imageServer('exhk/exhk_logoin2.jpg')" alt="会员登录"/></a></li>
+    <li class="exhk_nav04"><a id="newMemberLink" href="#cowApp('member/register')"><img id="newMemberImg" src="#imageServer('exhk/my_register.jpg')" alt="新用户注册"/></a></li>
+    #else
+    <li class="exhk_nav03"><a href="#cowApp('member/modify')"><img src="#imageServer('exhk/my_exhk.jpg')" alt="我的帐户"/></a></li>
+    <li class="exhk_nav04"><a href="#cowApp('member/doLogout')"><img src="#imageServer('exhk/exhk_logout.jpg')" alt="退出"/></a></li>
+    #end
+    <li class="exhk_nav02">
+        <ul>
+            <li>
+                <form action="" method="post">
+                    <input type="text"  size="50" maxlength="100" value="" class="my_search"/>
+                    <button type="submit" class="my_search_btn"></button>
+                </form>
+            </li>
+            <li>
+                <div class="exhk_shopping">
+                    #if(!$memberSession)<a href="#cowApp('order/cart')" class="a_style13">
+                    <em><span id="welcomeText">您好，欢迎光临爱可幼品！</span></em>购物车中有<span>$!cartCount</span>件商品</a>#end
+                    #if($memberSession)<a href="#cowApp('order/cart')" class="a_style13"><em>${memberSession.loginId}，</em>购物车中有<span>$!cartCount</span>件商品</a>#end
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+<div>
+    <img  src="#imageServer('exhk/exhk_motto.jpg')"/>
+</div>

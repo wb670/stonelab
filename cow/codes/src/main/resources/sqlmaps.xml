@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <!-- settings -->
+    <settings useStatementNamespaces="true" />
+    
+    <!-- sqlmaps -->
+    
+    <!-- test -->
+    <sqlMap resource="sqlmaps/Test.xml" />
+    
+    <!-- product -->
+    <sqlMap resource="sqlmaps/ProductInfo.xml" />
+    <sqlMap resource="sqlmaps/ProductColor.xml" />
+    <sqlMap resource="sqlmaps/ProductWashing.xml" />
+    <sqlMap resource="sqlmaps/ProductOperator.xml" />
+    <sqlMap resource="sqlmaps/Category.xml" />
+    
+    <!-- image -->
+    <sqlMap resource="sqlmaps/ImgGroup.xml" />
+    <sqlMap resource="sqlmaps/Img.xml" />
+    
+    <!-- member -->
+    <sqlMap resource="sqlmaps/Member.xml" />
+</sqlMapConfig>

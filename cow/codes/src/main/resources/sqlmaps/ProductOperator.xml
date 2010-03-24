@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ProductOperator">
+    <!-- type alias -->
+    <typeAlias alias="productOperatorPO" type="cn.zeroall.cow.dal.product.po.ProductOperatorPO" />
+    
+    <!-- result map -->
+    <resultMap id="productOperator" class="productOperatorPO">
+        <result property="id" column="id" />
+        <result property="productId" column="product_id" />
+        <result property="type" column="type" />
+        <result property="gmtCreated" column="gmt_created" />
+        <result property="gmtModified" column="gmt_modified" />
+    </resultMap>
+
+    <!-- find by type -->
+    <select id="find-by-type" parameterClass="java.lang.String" resultMap="productOperator">
+        <![CDATA[select * from product_operator where type = #type#]]>
+    </select>
+</sqlMap>

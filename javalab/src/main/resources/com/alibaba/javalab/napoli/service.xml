@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312"?>
+<configuration>
+    <services>
+        <service name="BeanFactoryService" class="com.alibaba.service.spring.DefaultBeanFactoryService">
+            <property name="bean.descriptors">
+                <value>/classpath/com/alibaba/javalab/napoli/biz-napoli.xml</value>
+            </property>
+        </service>
+    </services>
+</configuration>

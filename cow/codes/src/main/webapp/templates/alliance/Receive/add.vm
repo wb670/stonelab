@@ -1,0 +1,101 @@
+	 <h2 class="big">#actionMessages()#actionErrors()</h2>
+	<div class="bgstyle01_hd"></div>
+    <div class="bgstyle01_mid">
+    <h1>添加收款帐户</h1>
+    <p>帮助我们完善您的收款帐户信息，有助于我们未来根据您的情况提供更加个性化的服务。</p>
+    <form action="#cowApp('alliance/Receive/doAdd')" method="post" name="shouKuanForm">
+    	<span class="exhk_info02">
+    		帐户类别：
+    		个人<input name="receivePO.accountType" type="radio" value="个人"  #if($!receivePO.accountType=='个人' || $!receivePO.accountType!='公司') checked="checked" #end  onclick="changeLable('close');" /> 
+    		公司<input type="radio" name="receivePO.accountType"  #if($!receivePO.accountType=='公司') checked="checked" #end  value="公司"  onclick="changeLable('extend');" />
+    	</span>
+    	<label class="exhk_info03" id="ifDisplayTextBox" #if($!receivePO.accountType=='个人' || $!receivePO.accountType!='公司') style="display:none;" #end>
+    		<label class="exhk_info08">
+    			公司名称：
+    			<input type="text" name="receivePO.companyName" id="receivePO.companyName"  value="$!receivePO.companyName"/>
+				<span class="red">#fieldError("receivePO.companyName")</span>
+    		</label>
+    		<label class="exhk_info08">
+    			法人代表：
+    			<input type="text" name="receivePO.represent" id="receivePO.represent"  value="$!receivePO.represent"/>
+				<span class="red">#fieldError("receivePO.represent")</span>
+    		</label>
+    		<label class="exhk_info08">
+    			营业执照：
+    			<input type="text" name="receivePO.permit" id="receivePO.permit"  value="$!receivePO.permit"/>
+				<span class="red">#fieldError("receivePO.permit")</span>
+    		</label>
+    	</label>
+    	<br />
+    	<label class="exhk_info03">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开户银行：
+			<select name="receivePO.bank" id="receivePO.bank">
+				<option value="">-请选择-</option>
+				<option value="中国农业银行">中国农业银行</option>
+				<option value="中国建设银行">中国建设银行</option>
+				<option value="中国工商银行">中国工商银行</option>
+				<option value="中国银行">中国银行</option>
+			</select>
+			<span class="red">** #fieldError("receivePO.bank")</span>
+    	</label>
+    	
+    	<label class="exhk_info06">
+    		开户银行：
+    		<input type="text" class="address_text" name="receivePO.bankDetail"  value="$!receivePO.bankDetail"/>
+			<span class="red">** #fieldError("receivePO.bankDetail")</span>
+    		<span class="red">
+				<br /><br />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（如“中国农业银行浙江省分行绍兴支行”）
+			</span>
+    	</label>
+    	<label class="exhk_info07">
+    		开户帐号：
+    		<input type="text" name="receivePO.account"  value="$!receivePO.account"/>
+			<span class="red">** #fieldError("receivePO.account")</span>
+    	</label>
+    	<label class="exhk_info08">
+    		开户名称：
+    		<input type="text" name="receivePO.name"  value="$!receivePO.name"/>
+			<span class="red">** #fieldError("receivePO.name")</span>
+      </label>
+        <br />
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="button01" type="submit"></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </form>
+    </div>
+    <div class="bgstyle01_ft"></div>
+
+<script language="javascript">
+	function changeLable(str)
+	{
+		if(str=="close")
+		{
+			document.getElementById('ifDisplayTextBox').style.display='none';
+		}
+		else
+		{
+			document.getElementById('ifDisplayTextBox').style.display='block';	
+		}
+		
+	}
+	function init(eId,value) {
+		//下拉菜单	
+        var select = document.getElementById(eId);
+        var options = select.options;
+        for(i = 0; i <= options.length; i++) {
+            if(options[i].value == value) {
+                options[i].selected = true;
+                break;
+            }
+        }
+    }
+    init("receivePO.bank","$!receivePO.bank");
+</script>
+
+
+
+
+

@@ -1,0 +1,97 @@
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+     <field name="alliedMember.email">
+		<field-validator type="requiredstring">
+			<message>请填写真实的邮件地址，用来接收帐户</message>
+		</field-validator>
+		<field-validator type="email">
+			<message>电子邮件格式不能对，请认真填写</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.name">
+		<field-validator type="requiredstring">
+			<message>请填写真实的姓名</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">16</param>
+			<message>姓名最大为16个字符</message>
+		</field-validator>
+
+	</field>
+	<field name="alliedMember.telphone">
+		<field-validator type="requiredstring">
+			<message>请填写真实的联系电话</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">16</param>
+			<message>电话号码最多为16个字符</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.mobile">
+		<field-validator type="requiredstring">
+			<message>请填写真实的联系手机</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="trim">false</param>
+			<param name="expression">[0-9]{11}</param>
+			<message>手机号码位数不对</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.qq">
+		<field-validator type="requiredstring">
+			<message>请填写QQ</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="trim">false</param>
+			<param name="expression">[0-9]{5,10}</param>
+			<message>QQ号码长度在5-10位之间</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.msn">
+		<field-validator type="requiredstring">
+			<message>请填写MSN</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.address">
+		<field-validator type="requiredstring">
+			<message>请填写通信地址</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.zip">
+		<field-validator type="requiredstring">
+			<message>请填写邮政编码</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="trim">false</param>
+			<param name="expression">[0-9]{6}</param>
+			<message>请填写6位邮政编码</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.identityCard">
+		<field-validator type="requiredstring">
+			<message>请填写身份证号码</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">15</param>
+			<param name="maxLength">18</param>
+			<message>身份证号码在15-18位之间</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.siteAddress">
+		<field-validator type="requiredstring">
+			<message>请填写网站/店地址</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.siteName">
+		<field-validator type="requiredstring">
+			<message>请填写网站/店名称</message>
+		</field-validator>
+	</field>
+	<field name="alliedMember.enterpriseName">
+		<field-validator type="requiredstring">
+			<message>请填写网站所属单位名称</message>
+		</field-validator>
+	</field>
+</validators>

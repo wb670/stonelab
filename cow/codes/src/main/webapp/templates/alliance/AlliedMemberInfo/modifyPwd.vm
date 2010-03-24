@@ -1,0 +1,23 @@
+<div class="bgstyle01_hd"></div>
+<div class="bgstyle01_mid">
+    <h1>密码修改</h1>
+    <p>请您记住您修改后的密码</p>
+    <h2 class="big">#actionMessages()#actionErrors()</h2>
+    <form action="#cowApp('alliance/AlliedMemberInfo/doModifyPwd')" method="post">
+        <label class="exhk_info14">我的旧密码：
+            <input type="password" name="password" value="$!password" />
+            <span class="red">#fieldError("password")</span>
+        </label>
+        <label class="exhk_info15">请输入新的密码：
+            <input type="password" name="newpassword" value="$!newpassword" />
+            <span class="red">#fieldError("newpassword")</span>
+        </label>
+        <label>请再一次输入新的密码：
+            <input type="password" name="renewpassword" value="$!renewpassword" />
+            <span class="red">#fieldError("renewpassword")</span>
+        </label>
+        <button type="submit" class="ok"></button>
+    </form>
+</div>
+<div class="bgstyle01_ft"></div>
+

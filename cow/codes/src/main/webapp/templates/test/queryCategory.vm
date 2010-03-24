@@ -1,0 +1,25 @@
+<title>类目信息</title>
+
+$category.getRoot().toJson()
+<hr />
+<script type="text/javascript">
+  var count = 0;
+  shows($category.getRoot().toJson());
+  function shows(vtree) {
+    line(count);
+    count++;
+    document.write(vtree.id+":"+vtree.name+"<br/>");
+    if(vtree.children && vtree.children.length > 0) {
+        for(var i=0;i<vtree.children.length;i++) {
+            shows(vtree.children[i]);
+        }
+    }
+    count--;
+  }
+  
+  function line(num) {
+    for(var i = 0; i < num; i++) {
+        document.write("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+    }
+  }
+</script>

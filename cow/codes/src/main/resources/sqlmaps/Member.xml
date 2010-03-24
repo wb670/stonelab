@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Member">
+    <!-- type alias -->
+    <typeAlias alias="memberPO" type="cn.zeroall.cow.dal.member.po.MemberPO" />
+    
+    <!-- result map -->
+    <resultMap id="member" class="memberPO">
+        <result property="id" column="id" />
+        <result property="loginId" column="login_id" />
+        <result property="password" column="password" />
+        <result property="seed" column="seed" />
+        <result property="name" column="name" />
+        <result property="sex" column="sex" />
+        <result property="country" column="country" />
+        <result property="province" column="province" />
+        <result property="city" column="city" />
+        <result property="area" column="area" />
+        <result property="address" column="address" />
+        <result property="telphone" column="telphone" />
+        <result property="mobile" column="mobile" />
+        <result property="gmtCreated" column="gmt_created" />
+        <result property="gmtModified" column="gmt_modified" />
+    </resultMap>
+    
+    <!-- insert -->
+    <insert id="insert" parameterClass="memberPO">
+        insert into member
+        (login_id,password,seed,name,sex,country,province,city,area,address,telphone,mobile,gmt_created,gmt_modified)
+        values
+        (#loginId#,#password#,#seed#,#name#,#sex#,#country#,#province#,#city#,#area#,#address#,#telphone#,#mobile#,now(),now())
+        <selectKey resultClass="java.lang.Integer" keyProperty="id">   
+             <![CDATA[select @@identity as id]]>
+        </selectKey>
+    </insert>
+    
+    <!-- find by login id -->
+    <select id="find-by-id" parameterClass="java.util.HashMap" resultMap="member">
+        <![CDATA[select * from member where id = #id#]]>
+    </select>
+    
+    <!-- find by login id -->
+    <select id="find-by-login-id" parameterClass="java.util.HashMap" resultMap="member">
+        <![CDATA[select * from member where login_id = #loginId#]]>
+    </select>
+    
+    <!-- update by id -->
+    <update id="update-by-id" parameterClass="memberPO">
+    <![CDATA[
+        update member 
+            set gmt_modified = now(), 
+            name = #name#, 
+            sex = #sex#,
+            country = #country#,
+            province = #province#, 
+            city = #city#, 
+            area = #area#, 
+            address = #address#, 
+            telphone = #telphone#, 
+            mobile = #mobile# 
+        where id = #id#
+    ]]>
+    </update>
+    
+    <!-- update password by id -->
+    <update id="update-password-by-id" parameterClass="java.util.HashMap">
+    <![CDATA[ 
+        update member 
+            set gmt_modified = now(), 
+            password = #password# 
+        where id = #id#
+    ]]>
+    </update>
+</sqlMap>

@@ -1,0 +1,9 @@
+<div id="logoin">
+    <form action="#cowApp('member/doLogin')" method="post">
+        <h1>会员从这里登录</h1>
+        <label><span class="red">#actionErrors()</span></label>
+        <label>用户名：<input  type="text" name="loginId" class="username"/></label>
+        <label>密&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="password" name="password" class="userpassword"/></label>
+        <button type="submit"></button>
+    </form>
+</div>

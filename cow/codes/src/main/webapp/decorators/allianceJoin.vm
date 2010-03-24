@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>爱可幼品: 在线销售全棉0-3岁衣物 鞋帽 盖毯 围嘴 尿裤尿布 孕妇系列 礼品装</title>
+        <link type="text/css" href="#styleServer('exhk_style.css')" rel="stylesheet"/>
+        <script type="text/javascript" src="#jsServer('jquery-1.3.2.js')"></script>
+         <script type="text/javascript" src="#jsServer('ZeroClipboard.js')"></script>
+        <meta content="爱可幼品 0-3岁宝宝 衣物 连体衣 爬衣 浴泡 套服 T恤 线衫 裤子 鞋帽  鞋子 帽子 手脚套 盖毯 斗篷 睡袋 裹被 毯子 围嘴 尿裤尿布 孕妇系列 礼品装" name="keywords"/>
+        <meta name="description" content="爱可幼品: 在线销售全棉0-3岁衣物 鞋帽 盖毯 围嘴 尿裤尿布 孕妇系列 礼品装"/>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="header">#parse("templates/common/head.vm")</div>
+            <div id="content">
+                #parse("templates/alliance/join/nav.vm")
+                <div id="screen">
+                    ${body}
+                </div>
+            </div>
+            <div id="footer">#parse("templates/common/foot.vm")</div>
+        </div>
+    </body>
+</html>

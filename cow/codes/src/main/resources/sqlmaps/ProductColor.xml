@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ProductColor">
+    <!-- type alias -->
+    <typeAlias alias="productColorPO" type="cn.zeroall.cow.dal.product.po.ProductColorPO" />
+    
+    <!-- result map -->
+    <resultMap id="productColor" class="productColorPO">
+        <result property="id" column="id" />
+        <result property="productId" column="product_id" />
+        <result property="colorName" column="color_name" />
+        <result property="imgName" column="img_name" />
+        <result property="imgGroupId" column="img_group_id" />
+        <result property="gmtCreated" column="gmt_created" />
+        <result property="gmtModified" column="gmt_modified" />
+    </resultMap>
+    
+    <!-- find by id -->
+    <select id="find-by-id" parameterClass="java.lang.Integer" resultMap="productColor">
+        <![CDATA[select * from product_color where id = #id#]]>
+    </select>
+    
+    <!-- find by product id -->
+    <select id="find-by-product-id" parameterClass="java.lang.Integer" resultMap="productColor">
+        <![CDATA[select * from product_color where product_id = #productId#]]>
+    </select>
+</sqlMap>

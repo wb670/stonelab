@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+                		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName">
+	<!-- common -->
+	<bean id="regionService"
+		class="cn.zeroall.cow.service.common.impl.DefaultRegionService" />
+
+	<!-- product -->
+	<bean id="productCategoryService"
+		class="cn.zeroall.cow.service.product.impl.DefaultProductCategoryService"
+		init-method="init" />
+	<bean id="washingService"
+		class="cn.zeroall.cow.service.product.impl.DefaultWashingService"
+		init-method="init" />
+	<bean id="productService"
+		class="cn.zeroall.cow.service.product.impl.DefaultProductService" />
+	<bean id="productOperatorService"
+		class="cn.zeroall.cow.service.product.impl.DefaultProductOperatorService" />
+
+	<!-- image -->
+	<bean id="imageGroupService"
+		class="cn.zeroall.cow.service.image.impl.DefaultImageGroupService" />
+	<bean id="imageService"
+		class="cn.zeroall.cow.service.image.impl.DefaultImageService" />
+	<bean id="codeImageService"
+		class="cn.zeroall.cow.service.image.impl.SimpleCodeImageService" />
+
+	<!-- member -->
+	<bean id="memberService"
+		class="cn.zeroall.cow.service.member.impl.DefaultMemberService" />
+		
+	<!-- velocityTemplate -->
+	<bean id="templateService"
+		class="cn.zeroall.cow.service.template.impl.VelocityTemplateService"/>
+	<!--
+	<bean id="defaultMailService"
+		class="cn.zeroall.cow.service.mail.impl.DefaultMailService" lazy-init="true"/>
+	-->
+	
+	<!-- order -->
+	<bean id="deliveryService"
+		class="cn.zeroall.cow.service.order.impl.DefaultDeliveryService" />
+	<bean id="paymentService"
+		class="cn.zeroall.cow.service.order.impl.DefaultPaymentService" />
+	<bean id="tradeOrderService"
+		class="cn.zeroall.cow.service.order.impl.DefaultTradeOrderService" />
+	<bean id="orderProductService"
+		class="cn.zeroall.cow.service.order.impl.DefaultOrderProductService" />
+</beans>

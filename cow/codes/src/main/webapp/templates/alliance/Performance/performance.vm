@@ -1,0 +1,119 @@
+	<div class="bgstyle01_hd"></div>
+	<div class="bgstyle01_mid">
+		<h1>
+			查询业绩
+		</h1>
+		<p>
+			查询业绩，提供实时订单查询功能，你可在此查询最近150天的数据；此页数据包含无效订单，佣金结算以月底报表为准。
+			<br />
+			为了保护用户隐私，不提供订单的 名/址 信息。如果因此给你带来不便，请谅解。
+		</p>
+		<form action="" method="post" name="performanceForm">
+			<label class="exhk_info07">
+				查询订单列表：
+				<br />
+				<br />
+				<br />
+				下单时间：
+				<input type="text" name="startTime" value="$!strStartTime"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择日期&nbsp;&nbsp;至&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="text"  name="endTime" value="$!strEndTime"/>
+				&nbsp;&nbsp;选择日期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img  src="#imageServer('exhk/gif-0973.gif')" width="54" height="21"
+					align="absbottom" onclick="submitPerformanceForm();"  style="cursor:hand;"/>	
+			</label>
+			<label class="exhk_info07">
+				查询订单详情：
+				<br />
+				<br />
+				<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;订单号：
+				<input type="text" name="orderNum" value="$!orderNum"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名（可选）
+				<input type="text" readonly="readonly"/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img  src="#imageServer('exhk/gif-0973.gif')" width="54" height="21"
+					align="absbottom" onclick="submitPerformanceFormByOrderNum();"  style="cursor:hand;"/>	
+			</label>
+			<br />
+			<p>
+				提示：只能查询属于您的业绩的订单。用户名可选，如果输入正确的用户名，则可以显示商品信息
+			</p>
+			<table width="720" border="1" bgcolor="#EBEBEB">
+				<tr>
+					<td align="center">
+						<strong>下单时间</strong>
+					</td>
+					<td align="center">
+						<strong>订单号</strong>
+					</td>
+					<td align="center">
+						<strong>订单金额</strong>
+					</td>
+					<td align="center">
+						<strong>订单状态</strong>
+					</td>
+					<td align="center">
+						<strong>礼金卡金额</strong>
+					</td>
+					<td align="center">
+						<strong>礼品卡是否<br /> 允许订单提成</strong>
+					</td>
+					<td align="center">
+						<strong>预期可提成<br /> 金额</strong>
+					</td>
+					<td align="center">
+						<strong>预期收益</strong>
+					</td>
+				</tr>
+				#foreach($performanceVO in $performanceVOList)
+    				<tr>
+    					<td align="center">
+    						$performanceVO.tradeOrderPO.gmtCreated
+    					</td>
+    					<td align="center">
+    						$performanceVO.tradeOrderPO.id
+    					</td>
+    					<td align="center">
+    						$performanceVO.tradeOrderPO.totalPrice
+    					</td>
+    					<td align="center">
+    						$performanceVO.tradeOrderPO.status
+    					</td>
+    					<td align="center">
+    						performanceVO.tradeOrderPO.gmtCreated
+    					</td>
+    					<td align="center">
+    					
+    					</td>
+    					<td align="center">
+    						#set($price1=$performanceVO.tradeOrderPO.totalPrice*0.15)
+							$price1
+						</td>
+    					<td align="center">
+    						#set($price2=$performanceVO.tradeOrderPO.totalPrice*0.15*0.83)
+							$price2
+    					</td>
+    				</tr>
+				#end
+				
+			</table>
+
+		</form>
+	</div>
+	<div class="bgstyle01_ft"></div>
+
+<script type="text/javascript">
+function submitPerformanceForm() 
+{ 
+	 document.performanceForm.action="#cowApp('alliance/Performance/doPerformance')";
+     document.performanceForm.submit();
+}
+
+function submitPerformanceFormByOrderNum() 
+{ 
+	 document.performanceForm.action="#cowApp('alliance/Performance/doOrderNum')";
+     document.performanceForm.submit();
+}
+</script>

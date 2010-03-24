@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ProductInfo">
+    <!-- type alias -->
+    <typeAlias alias="productInfoPO" type="cn.zeroall.cow.dal.product.po.ProductInfoPO" />
+    
+    <!-- result map -->
+    <resultMap id="productInfo" class="productInfoPO">
+        <result property="id" column="id" />
+        <result property="typeId" column="type_id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="marketPrice" column="market_price" />
+        <result property="myPrice" column="my_price" />
+        <result property="attributes" column="attributes" />
+        <result property="sizes" column="sizes" />
+        <result property="view" column="view" />
+        <result property="coverImgName" column="cover_img_name" />
+        <result property="gmtCreated" column="gmt_created" />
+        <result property="gmtModified" column="gmt_modified" />
+    </resultMap>
+
+    <!-- result map -->
+    <resultMap id="miniProductInfo" class="productInfoPO">
+        <result property="id" column="id" />
+        <result property="typeId" column="type_id" />
+        <result property="name" column="name" />
+        <result property="marketPrice" column="market_price" />
+        <result property="myPrice" column="my_price" />
+        <result property="coverImgName" column="cover_img_name" />
+        <result property="gmtCreated" column="gmt_created" />
+        <result property="gmtModified" column="gmt_modified" />
+    </resultMap>
+        
+    
+    <!-- find by id -->
+    <select id="find-by-id" parameterClass="java.lang.Integer" resultMap="productInfo">
+    <![CDATA[
+        select * from product_info where id = #id#
+    ]]>
+    </select>
+    
+    <!-- find by ids -->
+    <select id="find-by-ids" parameterClass="java.util.HashMap" resultMap="productInfo">
+        select * from product_info where id in
+        <iterate property="ids" open="(" close=")" conjunction=",">#ids[]#</iterate>
+    </select>
+    
+    <!-- count by category id -->
+    <select id="count-by-category-ids" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+        select count(*) from product_info where type_id in
+        <iterate property="categoryIds" open="(" close=")" conjunction=",">#categoryIds[]#</iterate>
+    </select>
+    
+    <!-- find by categoryId id -->
+    <select id="find-mini-by-category-ids" parameterClass="java.util.HashMap" resultMap="miniProductInfo">
+        select id,type_id,name,market_price,my_price,cover_img_name,gmt_created,gmt_modified from product_info where
+        type_id in
+        <iterate property="categoryIds" open="(" close=")" conjunction=",">#categoryIds[]#</iterate>
+        order by gmt_modified desc
+        limit #start#,#limit#
+    </select>
+    
+    <!-- add new product -->
+    <insert id="addProduct" parameterClass="productInfoPO">
+        insert into product_info (id,type_id, name, description, market_price, my_price, attributes, sizes, view,
+        cover_img_name, gmt_created, gmt_modified ) values (#id#,#typeId#, #name#, #description#, #marketPrice#,
+        #myPrice#, #attributes#, #sizes#, #view#, #coverImgName#, #gmtCreated#, #gmtModified#)
+        <selectKey resultClass="Integer" keyProperty="id"> SELECT @@IDENTITY AS id </selectKey>
+    </insert>
+    
+    <!-- count by price range -->
+    <select id="count-by-price-range" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+    <![CDATA[
+        select count(*) from product_info 
+        where my_price >= #min#
+        and my_price < #max#
+    ]]>
+    </select>
+    
+    <!-- find by price range -->
+    <select id="find-mini-by-price-range" parameterClass="java.util.HashMap" resultMap="miniProductInfo">
+    <![CDATA[
+        select id,type_id,name,market_price,my_price,cover_img_name,gmt_created,gmt_modified from product_info
+        where my_price >= #min#
+        and my_price < #max#
+        order by gmt_modified desc
+        limit #start#,#limit#
+    ]]>
+    </select>
+</sqlMap>

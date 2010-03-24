@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+                		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+    default-autowire="byName"
+>
+
+    <!-- test -->
+    <bean id="testAO" class="cn.zeroall.cow.biz.test.ao.TestAO" scope="singleton" />
+
+    <!-- home -->
+    <bean id="homeAO" class="cn.zeroall.cow.biz.home.ao.HomeAO" scope="singleton" />
+
+    <!-- product -->
+    <bean id="productAO" class="cn.zeroall.cow.biz.product.ao.ProductAO" scope="singleton" />
+    <bean id="seriesAO" class="cn.zeroall.cow.biz.product.ao.SeriesAO" scope="singleton" />
+    <bean id="priceAO" class="cn.zeroall.cow.biz.product.ao.PriceAO" scope="singleton" />
+
+    <!-- member -->
+    <bean id="memberAO" class="cn.zeroall.cow.biz.member.ao.MemberAO" scope="singleton" />
+    <bean id="loginAO" class="cn.zeroall.cow.biz.member.ao.LoginAO" scope="singleton" />
+     <bean id="inviteAO" class="cn.zeroall.cow.biz.member.ao.InviteAO" scope="singleton" />
+
+    <!-- order -->
+    <bean id="cartAO" class="cn.zeroall.cow.biz.order.ao.CartAO" scope="singleton" />
+    <bean id="tradeOrderAO" class="cn.zeroall.cow.biz.order.ao.TradeOrderAO" scope="singleton" />
+    <bean id="payDeliveryAO" class="cn.zeroall.cow.biz.order.ao.PayDeliveryAO" scope="singleton" />
+    <bean id="addressInfoAO" class="cn.zeroall.cow.biz.order.ao.AddressInfoAO" scope="singleton" />
+    <bean id="orderPayAO" class="cn.zeroall.cow.biz.order.ao.OrderPayAO" scope="singleton" />
+    
+    <!-- account -->
+    <bean id="accountDetailAO" class="cn.zeroall.cow.biz.account.ao.AccountDetailAO" scope="singleton" />
+    <bean id="accountTradeDetailAO" class="cn.zeroall.cow.biz.account.ao.AccountTradeDetailAO" scope="singleton" />
+     <bean id="accountAO" class="cn.zeroall.cow.biz.account.ao.AccountAO" scope="singleton" />
+
+    <!-- alliance -->
+    <bean id="alliedMemberAO" class="cn.zeroall.cow.biz.alliance.ao.AlliedMemberAO" />
+    <bean id="linkAO" class="cn.zeroall.cow.biz.alliance.ao.LinkAO" />
+    <bean id="proxyAO" class="cn.zeroall.cow.biz.alliance.ao.ProxyAO">
+        <property name="baseImagePath" value="${cow_upload}" />
+    </bean>
+    <bean id="alliedLoginAO" class="cn.zeroall.cow.biz.alliance.ao.AlliedMemberLoginAO" />
+    <bean id="performanceAO" class="cn.zeroall.cow.biz.alliance.ao.PerformanceAO" />
+    <bean id="alliedReceiveAO" class="cn.zeroall.cow.biz.alliance.ao.AlliedReceiveAO" />
+    <bean id="incomeAO" class="cn.zeroall.cow.biz.alliance.ao.IncomeAO" />
+
+    <!-- misc -->
+    <bean id="codeImageAO" class="cn.zeroall.cow.biz.misc.ao.CodeImageAO" scope="prototype" />
+    <bean id="regionQueryAO" class="cn.zeroall.cow.biz.misc.ao.RegionQueryAO" scope="prototype" />
+    
+    <!-- comment -->
+    <bean id="commentAO" class="cn.zeroall.cow.biz.comment.ao.CommentAO" init-method="init" />
+    
+</beans>

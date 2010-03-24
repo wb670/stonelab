@@ -1,0 +1,12 @@
+	<div class="bgstyle01_hd"></div>
+	<div class="bgstyle01_mid">
+		<h1>加盟流程</h1>
+		<ul>
+			 <li><img src="#imageServer('exhk/jiamen__03.jpg')" /></li>
+			 <li><img src="#imageServer('exhk/jiamen__05.jpg')" /></li>
+			 <li>&nbsp;&nbsp;<img src="#imageServer('exhk/jiamen_4.jpg')" /></li>
+		</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="bgstyle01_ft"></div>

@@ -1,0 +1,45 @@
+
+<div class="bgstyle01_hd"></div>
+	<div class="bgstyle01_mid">
+		<h1>
+			邀请朋友加入爱可
+		</h1>
+		<br />
+		<br />
+		<div>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<img src="#imageServer('exhk/back.gif')" align="absbottom" />
+			<a href="#cowApp('member/invite')" class="a_style01">返回邀请首页</a>
+		</div>
+		<div>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="STYLE4">你的邀请历史 </span>
+			<br />
+			<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			你发出的以下邀请，对方并没有来注册(历史邀请数据不包括通过QQ、MSN发送邀请连接的方式)
+		</div>
+		<table width="742" class="order_style">
+			#foreach($po in $invitePOList)
+			<tr class="order_style02">
+				<td height="20" class="bgstyle_02">
+					$!po.email
+				</td>
+				<td>
+					<a href="#" onclick="reSend($po.id)" class="a_style01">再次邀请</a>
+				</td>
+				<td>
+					<a href="#cowApp('member/invite')" class="a_style01">其它方式再邀请</a>
+				</td>
+            </tr>
+			#end
+		</table>
+	</div>
+	<div class="bgstyle01_ft"></div>
+	<script>
+		function reSend(id)
+		{
+			window.location.href="#cowApp('member/reSendEmail?inviteId="+id+"')";
+		}		
+    </script>
+		

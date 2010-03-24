@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="alliance" namespace="/alliance" extends="struts-default">
+        <!-- 权限拦截器 -->
+        <interceptors>
+            <interceptor name="allianceAuthInterceptor" class="cn.zeroall.cow.web.common.interceptors.AllianceAuthInterceptor" />
+            <interceptor-stack name="allianceAuthDefaultStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="allianceAuthInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+        <!-- 默认拦截器 -->
+        <default-interceptor-ref name="allianceAuthDefaultStack" />
+        <!-- 登录地址 -->
+        <global-results>
+            <result name="login" type="redirect">
+                <param name="location">/alliance/AlliedLogin/login</param>
+            </result>
+        </global-results>
+
+        <!-- 登录功能 -->
+        <action name="AlliedLogin/*" class="cn.zeroall.cow.web.alliance.action.AlliedLoginAction" method="{1}">
+            <interceptor-ref name="defaultStack" />
+            <result name="target" type="velocity">/templates/alliance/AlliedLogin/${target}.vm</result>
+            <result name="success" type="velocity">/templates/alliance/AlliedLogin/{1}.vm</result>
+            <result name="input" type="velocity">/templates/alliance/AlliedLogin/{1}.vm</result>
+            <result name="fail" type="velocity">/templates/common/error.vm</result>
+            <result name="home" type="redirect">
+                <param name="location">/alliance/AlliedMemberInfo/modify</param>
+            </result>
+            <result name="url" type="redirect">
+                <param name="location">${redirectUrl}</param>
+            </result>
+            <result name="outurl" type="velocity">/templates/alliance/AlliedLogin/login.vm</result>
+        </action>
+
+        <!-- 注册功能 -->
+        <action name="AlliedMember/*" class="cn.zeroall.cow.web.alliance.action.AlliedMemberAction" method="{1}">
+            <interceptor-ref name="defaultStack" />
+            <result name="target" type="velocity">/templates/alliance/AlliedMember/${target}.vm</result>
+            <result name="success" type="velocity">/templates/alliance/AlliedMember/{1}.vm</result>
+            <result name="input" type="velocity">/templates/alliance/AlliedMember/{1}.vm</result>
+            <result name="fail" type="velocity">/templates/common/error.vm</result>
+            <result name="registerSuccess" type="velocity">/templates/alliance/AlliedLogin/login.vm</result>
+        </action>
+
+
+        <!-- 代理功能 -->
+        <action name="Proxy/proxyImage" class="cn.zeroall.cow.web.alliance.action.ProxyAction" method="imageProxy">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">imageStream</param>
+            </result>
+        </action>
+
+        <action name="Proxy/proxy" class="cn.zeroall.cow.web.alliance.action.ProxyAction" method="proxy">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="redirect">
+                <param name="location">${url}</param>
+            </result>
+            <result name="index" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">index</param>
+            </result>
+        </action>
+        
+        <!-- 联盟会员收款 -->
+        <action name="Receive/*" class="cn.zeroall.cow.web.alliance.action.ReceiveAction" method="{1}">
+            <interceptor-ref name="defaultStack" />
+            <result name="target" type="velocity">/templates/alliance/Receive/${target}.vm</result>
+            <result name="success" type="velocity">/templates/alliance/Receive/{1}.vm</result>
+            <result name="input" type="velocity">/templates/alliance/Receive/{1}.vm</result>
+            <result name="modify" type="velocity">/templates/alliance/Receive/modify.vm</result>
+            <result name="fail" type="velocity">/templates/common/error.vm</result>
+        </action>
+        
+        <action name="*" class="cn.zeroall.cow.web.alliance.action.JoinAction">
+            <interceptor-ref name="defaultStack" />
+            <result name="success" type="velocity">/templates/alliance/join/{1}.vm</result>
+        </action>
+
+        <!-- 通用部分 -->
+        <action name="*/*" class="cn.zeroall.cow.web.alliance.action.{1}Action" method="{2}">
+            <result name="target" type="velocity">/templates/alliance/{1}/${target}.vm</result>
+            <result name="success" type="velocity">/templates/alliance/{1}/{2}.vm</result>
+            <result name="input" type="velocity">/templates/alliance/{1}/{2}.vm</result>
+            <result name="fail" type="velocity">/templates/common/error.vm</result>
+        </action>
+
+    </package>
+</struts>

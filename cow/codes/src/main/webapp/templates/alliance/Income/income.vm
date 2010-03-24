@@ -1,0 +1,100 @@
+	<div class="bgstyle01_hd"></div>
+	<div class="bgstyle01_mid">
+		<h1>收益报表</h1>
+	    <form action="" method="post" name="incomeForm">
+			<label class="exhk_info03">
+				年份：
+				<select name="year" id="year">
+					<option value="2009">2009</option>
+					<option value="2010">2010</option>
+					<option value="2011">2011</option>
+					<option value="2012">2012</option>
+					<option value="2013">2013</option>
+					<option value="2014">2014</option>
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+			    </select>
+				月份：
+				<select name="month" id="month">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					
+			    </select>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img  src="#imageServer('exhk/gif-0973.gif')" width="54" height="21"
+					align="absbottom" onclick="submitIncomeForm();"  style="cursor:hand;"/>	
+			</label>
+			<br />
+	        <table width="720" border="1" bgcolor="#EBEBEB">
+               <tr>
+                    <td align="center"><strong>报表月份</strong></td>
+                    <td align="center"><strong>用户名</strong></td>
+                    <td align="center"><strong>不可提成<br />订单数</strong></td>
+                    <td align="center"><strong>可提成<br />订单数</strong></td>
+                    <td align="center"><strong>出库<br />金额合计</strong></td>
+                    <td align="center"><strong>入库<br />金额合计</strong></td>
+                    <td align="center">
+    					<strong>可提成订单<br />金额合计<br/></strong>
+    				</td>
+                    <td align="center"><strong>提成<br />比例</strong></td>
+                    <td align="center"><strong>税前<br />佣金</strong></td>
+                    <td align="center"><strong>代扣<br />税金</strong></td>
+                    <td align="center"><strong>佣金</strong></td>
+                    <td align="center"><strong>状态</strong></td>
+                </tr>
+				<tr height="20">
+                    <td align="center">$!incomeVO.month</td>
+                    <td align="center">$!incomeVO.loginId</td>
+                    <td align="center">$!incomeVO.no_deduct_count</td>
+                    <td align="center">$!incomeVO.deduct_count</td>
+                    <td align="center">$!incomeVO.totalPriceOut</td>
+                    <td align="center">暂时空缺</td>
+                    <td align="center">
+    					暂时空缺
+    				</td>
+                    <td align="center">15%</td>
+                    <td align="center">$!incomeVO.shuiQianyongJin</td>
+                    <td align="center">$!incomeVO.shuiJin</td>
+                    <td align="center">暂时空缺</td>
+                    <td align="center">暂时空缺</td>
+                </tr>
+            </table>
+		</form>
+	</div>
+	<div class="bgstyle01_ft"></div>
+
+<script type="text/javascript">
+function submitIncomeForm() 
+{ 
+	 document.incomeForm.action="#cowApp('alliance/Income/doIncome')";
+     document.incomeForm.submit();
+}
+
+function init(eId,value) {
+    var select = document.getElementById(eId);
+    var options = select.options;
+	if(value!="0"){
+		for(i = 0; i <= options.length; i++) {
+            if(options[i].value == value) {
+                options[i].selected = true;
+                break;
+            }
+    	}
+	}
+    
+}
+init("year","$!year");
+init("month","$!month");
+
+</script>

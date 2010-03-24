@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Img">
+    <!-- type alias -->
+    <typeAlias alias="imgPO" type="cn.zeroall.cow.dal.image.po.ImgPO" />
+    
+    <!-- result map -->
+    <resultMap id="img" class="imgPO">
+        <result property="id" column="id" />
+        <result property="groupId" column="group_id" />
+        <result property="title" column="title" />
+        <result property="imgName" column="img_name" />
+        <result property="orderId" column="order_id" />
+        <result property="gmtCreated" column="gmt_created" />
+        <result property="gmtModified" column="gmt_modified" />
+    </resultMap>
+    
+    <!-- find by id -->
+    <select id="find-by-id" parameterClass="java.lang.Integer" resultMap="img">
+        <![CDATA[select * from img where id = #id#]]>
+    </select>
+    
+    <!-- find by ids -->
+    <select id="find-by-ids" parameterClass="java.util.HashMap" resultMap="img">
+        <![CDATA[
+            select * from img
+            where id in 
+        ]]>
+        <iterate property="ids" open="(" close=")" conjunction=","> #ids[]# </iterate>
+    </select>
+    
+     <!-- find by group ids -->
+    <select id="find-by-group-ids" parameterClass="java.util.HashMap" resultMap="img">
+        <![CDATA[
+            select * from img
+            where group_id in 
+        ]]>
+        <iterate property="ids" open="(" close=")" conjunction=","> #ids[]# </iterate>
+    </select>
+</sqlMap>

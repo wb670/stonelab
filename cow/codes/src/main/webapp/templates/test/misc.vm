@@ -1,0 +1,19 @@
+<title>测试</title>
+<form name="upload" action="upload" method="post" enctype="multipart/form-data">
+    <input name="image" type="file" />
+    <input name="image" type="file" />
+    <input name="image" type="file" />
+    <input type="submit" />
+</form>
+    
+<form name="upload" action="#cowApp('test/multiQuery')" method="post" enctype="multipart/form-data">
+    <input name="test.name" type="text" />
+    <input name="test.password" type="text" />
+    <input type="submit" />
+</form>
+    
+<form name="upload" action="#cowApp('test/multiUpdate')" method="post" enctype="multipart/form-data">
+    <input name="test.name" type="text" />
+    <input name="test.password" type="text" />
+    <input type="submit" />
+</form>

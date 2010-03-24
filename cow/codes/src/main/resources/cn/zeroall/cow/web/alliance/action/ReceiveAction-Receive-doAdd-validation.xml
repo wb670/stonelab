@@ -1,0 +1,30 @@
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="receivePO.bank">
+		<field-validator type="requiredstring">
+			<message>请选择开户银行</message>
+		</field-validator>
+	</field>
+	<field name="receivePO.bankDetail">
+		<field-validator type="requiredstring">
+			<message>请填写开户银行详细信息</message>
+		</field-validator>
+	</field>
+	<field name="receivePO.account">
+		<field-validator type="requiredstring">
+			<message>请填写开户帐号</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="trim">false</param>
+			<param name="expression">[0-9a-zA-Z]{16,19}</param>
+			<message>请填写16或19位开户帐号</message>
+		</field-validator>
+	</field>
+	<field name="receivePO.name">
+		<field-validator type="requiredstring">
+			<message>请填写开户名称</message>
+		</field-validator>
+	</field>
+</validators>

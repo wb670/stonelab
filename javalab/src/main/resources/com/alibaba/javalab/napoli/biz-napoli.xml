@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" default-autowire="byName">
+
+    <!-- jms connector -->
+    <bean id="napoliConnector" class="com.alibaba.napoli.client.connector.NapoliConnector" init-method="init" destroy-method="close">
+        <property name="address" value="10.20.132.18:8080" />
+        <property name="jmsUserName" value="napoli" />
+        <property name="jmsPassword" value="napoli" />
+        <property name="storePath" value="/home/alibaba/tmp/napoli/failstore" />
+        <property name="interval" value="10000" />
+    </bean>
+
+    <!-- transfer -->
+    <bean id="napoliJmsTransfer" class="com.alibaba.china.biz.messagequeue.napoli.NapoliMessageQueueTransport">
+        <property name="config">
+            <map>
+                <entry key="VasInvoice">
+                    <map>
+                        <entry key="connector">
+                            <ref bean="napoliConnector" />
+                        </entry>
+                        <entry key="name" value="VasInvoice" /><!-- Queue名 -->
+                        <entry key="instances" value="1" /><!-- 实例数量 -->
+                    </map>
+                </entry>
+                <entry key="VasAgreement">
+                    <map>
+                        <entry key="connector">
+                            <ref bean="napoliConnector" />
+                        </entry>
+                        <entry key="name" value="VasAgreement" /><!-- Queue名 -->
+                        <entry key="instances" value="1" /><!-- 实例数量 -->
+                    </map>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- sender -->
+    <bean id="vasMessageQueue" class="com.alibaba.javalab.napoli.VasMessageQueueImpl">
+        <property name="transfer" ref="napoliJmsTransfer" />
+    </bean>
+
+    <!-- consumer -->
+
+    <!-- receiver -->
+    <bean id="vasInvoiceReceiver" class="com.alibaba.napoli.client.async.impl.DefaultAsyncReceiver" init-method="init" destroy-method="close">
+        <property name="connector">
+            <ref bean="napoliConnector" />
+        </property>
+        <property name="name" value="VasInvoice" />
+        <property name="instances" value="1" />
+        <property name="worker" ref="vasWorker" />
+    </bean>
+    <bean id="vasAgreementReceiver" class="com.alibaba.napoli.client.async.impl.DefaultAsyncReceiver" init-method="init" destroy-method="close">
+        <property name="connector">
+            <ref bean="napoliConnector" />
+        </property>
+        <property name="name" value="VasAgreement" />
+        <property name="instances" value="1" />
+        <property name="worker" ref="vasWorker" />
+    </bean>
+
+
+    <!-- worker -->
+    <bean id="vasWorker" class="com.alibaba.javalab.napoli.VasWorker" />
+
+    <!-- listener -->
+    <bean id="vasMessageListener" class="com.alibaba.china.rialto.component.jms.napoli.NapoliJMSListener">
+        <property name="inbounds">
+            <map>
+                <entry key="VasInvoice">
+                    <map>
+                        <entry key="connector">
+                            <ref bean="napoliConnector" />
+                        </entry>
+                        <entry key="name" value="VasInvoice" />
+                        <entry key="instance" value="1" />
+                    </map>
+                </entry>
+                <entry key="VasAgreement">
+                    <map>
+                        <entry key="connector">
+                            <ref bean="napoliConnector" />
+                        </entry>
+                        <entry key="name" value="VasAgreement" />
+                        <entry key="instance" value="1" />
+                    </map>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <!-- vas action -->
+    <bean id="vasAction" class="com.alibaba.javalab.napoli.VasAction" />
+</beans>

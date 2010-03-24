@@ -1,0 +1,4 @@
+<img src="#imageServer('exhk/error.jpg')" alt="出错了" class="error_img"/>
+<h1 class="error_title">
+    非常抱歉，出错了！
+</h1>

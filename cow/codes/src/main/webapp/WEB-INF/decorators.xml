@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- decorators -->
+<decorators defaultdir="/decorators">
+	<decorator name="home" page="home.vm">
+		<pattern>/index</pattern>
+	</decorator>
+
+	<!-- product -->
+	<decorator name="product" page="product.vm">
+		<pattern>/product/*</pattern>
+	</decorator>
+
+	<!-- member -->
+	<decorator name="memberAnonymous" page="memberAnonymous.vm">
+		<pattern>/member/login</pattern>
+		<pattern>/member/doLogin</pattern>
+		<pattern>/member/register</pattern>
+		<pattern>/member/doRegister</pattern>
+	</decorator>
+	
+	<decorator name="activeInvite" page="activeInvite.vm">
+		<pattern>/member/activeInvite</pattern>
+	</decorator>
+	
+	<decorator name="member" page="member.vm">
+		<pattern>/member/*</pattern>
+	</decorator>
+
+	<!-- order -->
+	<decorator name="orderPay" page="plain.vm">
+		<pattern>/order/chinabankPay</pattern>
+		<pattern>/order/alipayPay</pattern>
+	</decorator>
+	<decorator name="order" page="order.vm">
+		<pattern>/order/*</pattern>
+	</decorator>
+
+
+	<!-- alliance -->
+	<decorator name="allianceJoin" page="allianceJoin.vm">
+		<pattern>/alliance/join*</pattern>
+		<pattern>/alliance/AlliedMember/*egister</pattern>
+		<pattern>/alliance/AlliedLogin/*ogin</pattern>
+	</decorator>
+	<decorator name="alliance" page="alliance.vm">
+		<pattern>/alliance/*</pattern>
+	</decorator>
+
+	<!-- help -->
+	<decorator name="help" page="help.vm">
+		<pattern>/help/*</pattern>
+	</decorator>
+
+	<!-- test -->
+	<decorator name="test" page="test.vm">
+		<pattern>/test/*</pattern>
+	</decorator>
+</decorators>

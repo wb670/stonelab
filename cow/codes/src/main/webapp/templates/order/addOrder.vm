@@ -1,0 +1,131 @@
+<div id="style02">
+    <div class="bgstyle01_hd"></div>
+    <div class="bgstyle01_mid">
+        <form action="#cowApp('order/doAddOrder')" method="post">
+            <h2 class="order_h2">第一步：填写收货人信息</h2>
+            <h3 class="order_h3">请选择正确的收货人信息，帮助我们能准确将货物送到。</h3>
+            
+            <div id="addresses" class="address_database"></div>
+            
+            <div class="address_form">
+                <h3 class="order_h3">新收货人信息，请填写以下表单。</h3>
+                <label><input type="hidden" name="tradeOrderVO.country" value="CN" /></label>
+                <label class="exhk_info01">姓名：<input type="text" id="name" name="tradeOrderVO.name" value="$!tradeOrderVO.name" /><span>#fieldError("tradeOrderVO.name")</span></label>
+                <label>省份/直辖市：
+                    <select id="province" name="tradeOrderVO.province" onchange="regionQuery('city',this.value);regionQuery('area','-1');"><option value="">请选择</option></select><span>#fieldError("tradeOrderVO.province")</span>
+                </label>
+                <label class="exhk_info01">城市：
+                    <select id="city" name="tradeOrderVO.city" onchange="regionQuery('area',this.value);"><option value="">请选择</option></select><span>#fieldError("tradeOrderVO.city")</span>
+                </label>
+                <label class="exhk_info01">地区：
+                    <select id="area" name="tradeOrderVO.area"><option value="">请选择</option></select><span>#fieldError("tradeOrderVO.area")</span>
+                </label>
+                <label class="exhk_info06">详细地址：<input type="text" id="address" name="tradeOrderVO.address" class="address_text" value="$!tradeOrderVO.address" /><span>#fieldError("tradeOrderVO.address")</span></label>
+                <label class="exhk_info06">邮政编码：<input type="text" id="zipcode" name="tradeOrderVO.zipcode" value="$!tradeOrderVO.zipcode" /><span>#fieldError("tradeOrderVO.zipcode")</span></label>
+                <label class="exhk_info06">固定电话：<input type="text" id="telphone" name="tradeOrderVO.telphone" value="$!tradeOrderVO.telphone" /><span></span><span>#fieldError("tradeOrderVO.telphone")</span></label>
+                <label class="exhk_info01">手机：<input type="text" id="mobile" name="tradeOrderVO.mobile" value="$!tradeOrderVO.mobile" /><span>#fieldError("tradeOrderVO.mobile")</span></label>
+            </div>
+            <h2 class="order_h2">第二步：选择支付方式</h2>
+            <h3 class="order_h3">请选择您可用的支付方式，有疑问请与客服联系。</h3>
+            <div id="payment">
+            </div>
+            <h2 class="order_h2">第三步：选择配送方式</h2>
+            <h3 class="order_h3">请选择您可用的支付方式，有疑问请与客服联系。</h3>
+            <div id="delivery">
+            </div>
+            <h2 class="order_h2">第四步：备注信息</h2>
+            <h3 class="order_h3">如有附加信息或留言，可填入备注信息。此项可不填。</h3>
+            <div>
+                <textarea name="tradeOrderVO.memo">$!tradeOrderVO.memo</textarea><span>#fieldError("tradeOrderVO.memo")</span>
+            </div>
+            <button type="submit" class="button01"></button>
+        </form>
+    </div>
+    <div class="bgstyle01_ft"></div>
+</div>
+#parse("templates/common/region.vm")
+<script type="text/javascript">
+//初始化省份
+initRegions("province","1","$!tradeOrderVO.province");
+//初始化城市
+#if($!tradeOrderVO.city)initRegions("city","$!tradeOrderVO.province","$!tradeOrderVO.city");#end
+//初始化地区
+#if($!tradeOrderVO.area)initRegions("area","$!tradeOrderVO.city","$!tradeOrderVO.area");#end
+
+//初始化支付方式和配送方式
+payDelivery();
+function payDelivery() {
+    jQuery.get(
+        "#cowApp('order/payDelivery')",
+        function(resp) {
+            var data = eval("(" + resp + ")");
+            //payment
+            var payments = data.payDeliveryVO.payments;
+           // var paymentHTML = "";
+			var paymentHTML = "&nbsp;&nbsp;是否使用爱可礼金支付：是<input type='radio' name='aike' value='t' />否<input type='radio' name='aike' value='f' /> ";
+            var value = "$tradeOrderVO.payId";
+            for(i = 0; i < payments.length; i++) {
+                var pay = payments[i];
+                paymentHTML += "<label>&nbsp;&nbsp;" + (i+1) + "." + pay.name + "：<input type='radio' name='tradeOrderVO.payId' value='" + pay.id + "' /><span>"  + pay.description + "</span></label>";   
+            }
+            document.getElementById("payment").innerHTML = paymentHTML;
+            
+            var pays = document.getElementsByName("tradeOrderVO.payId");
+            for(i = 0; i < pays.length; i++) {
+                if(pays[i].value == value) {
+                    pays[i].checked = true;
+                }
+            }
+            
+            //delivery
+            var deliverys = data.payDeliveryVO.deliverys;
+            var deliveryHTML = "";
+            var value = "$tradeOrderVO.deliveryId";
+            for(i = 0; i < deliverys.length; i++) {
+                var delivery = deliverys[i];
+                deliveryHTML += "<label>&nbsp;&nbsp;" + (i+1) + "." + delivery.name + delivery.description + "：<input type='radio' name='tradeOrderVO.deliveryId' value='" + delivery.id + "' /><span></label>";   
+            }
+            document.getElementById("delivery").innerHTML = deliveryHTML;
+            
+            var deliverys = document.getElementsByName("tradeOrderVO.deliveryId");
+            for(i = 0; i < deliverys.length; i++) {
+                if(deliverys[i].value == value) {
+                    deliverys[i].checked = true;
+                }
+            }
+        }
+    );
+}
+
+
+var addresses;
+//初始化地址库信息
+addressInfo()
+function addressInfo() {
+    var timestamp = Date.parse(new Date());
+    jQuery.get(
+        "#cowApp('order/addressInfo')" + "?timestamp=" + timestamp,
+        function(resp) {
+            var data = eval("(" + resp + ")");
+            addresses = data.addresses;
+            var addressHTML = "";
+            for(i = 0; i < addresses.length; i++) {
+                each = addresses[i];
+                addressHTML += "<label><input onclick=\"pickAddress(" + i + ")\" id=\"addressInfo" + i +"\" type=\"radio\" value=\"\" name=\"address_info\"/><span class=\"address_name\">" + each.name + "</span>，<span class=\"address_province\">" + each.provinceName + "</span>，<span class=\"address_city\">" + each.cityName + "</span>，<span class=\"address_district\">" + each.areaName + "</span>，<span class=\"address_add\">" + each.address + "</span>，<br/><span class=\"address_pc\">" + each.zipcode + "</span>，<span class=\"address_tel\">" + each.telphone + "</span>，<span class=\"address_mp\">" + each.mobile + "</span></label>";
+            }
+            document.getElementById("addresses").innerHTML = addressHTML;
+        }
+    );
+}
+//选择地址
+function pickAddress(count) {
+    document.getElementById("name").value = addresses[count].name;
+    initRegions("province","1",addresses[count].province);
+    initRegions("city",addresses[count].province,addresses[count].city);
+    initRegions("area",addresses[count].city,addresses[count].area);
+    document.getElementById("address").value = addresses[count].address;
+    document.getElementById("zipcode").value = addresses[count].zipcode;
+    document.getElementById("telphone").value = addresses[count].telphone;
+    document.getElementById("mobile").value = addresses[count].mobile;
+}
+</script>

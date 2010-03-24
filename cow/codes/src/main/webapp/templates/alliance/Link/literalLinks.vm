@@ -1,0 +1,60 @@
+#macro(linkCode $loginId $link)<a href="#cowApp('alliance/Proxy/proxy')?source=$loginId&linkId=$link.id" target="_blank">{value}</a>#end
+#set($loginId = $alliedSession.loginId)
+
+<div class="bgstyle01_hd"></div>
+<div class="bgstyle01_mid">
+    <h1>文字链</h1>
+    <p>定义文字链接到您喜欢的爱可幼品产品搜索页面或搜索结果页面。
+        温馨提示：请经常性的检查广告链接，以确保链接的正确性。 
+    </p>
+    <form action="" method="post">
+        <strong>链接到频道页面</strong><br /><br />
+        请选择适合您网站的产品分类。
+        <label class="exhk_info03">
+            <div align="left">请选择产品线：
+                <select id="links">
+                    <option value="">-请选择-</option>
+                    #foreach($link in $links)
+                        #set($code = "#linkCode($loginId,$link)")
+                        <option value="$escapeUtil.escapeHtml($code)">$link.name</option>
+                    #end
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命名链接：
+                <input id="linkName" type="text" value="" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如：防螨抗菌开裆裤&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" onclick="copyLink();">
+                    <img src="#imageServer('exhk/adlink_text1.jpg')" width="79" height="25" border="0" align="absbottom" id="Image10" />
+                </a>
+            </div>
+        </label>
+    </form>
+</div>
+<script type="text/javascript">
+function genCode() {
+    var link = document.getElementById("links").value;
+    var name = document.getElementById("linkName").value;
+    if(link == "") {
+        alert("请选择产品线！");
+        return "";
+    }
+    if(name == "") {
+        alert("请输入链接名！");
+        return "";
+    }
+    var code = link.replace("{value}",name);
+    return code;
+}
+function copyLink(value) {
+    var code = genCode();
+    if(code == "") {
+        return;    
+    }
+    var isIE = ("\v"=="v");
+    if(isIE) {
+       clipboardData.setData("Text",code);
+       alert("复制成功！");
+    } else {
+       alert("浏览器不支持复制功能，请手工复制代码。\n" + code);
+    }
+}
+</script>
