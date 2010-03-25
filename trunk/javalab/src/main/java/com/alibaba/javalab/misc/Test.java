@@ -9,59 +9,40 @@
  */
 package com.alibaba.javalab.misc;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.text.MessageFormat;
+import java.util.List;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.methods.PostMethod;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.IOUtils;
 
 /**
  * @author li.jinl
  */
-public class Test implements Callable<Boolean> {
+public class Test {
 
-    private static final String URL        = "http://localhost:8080/weblab/statistics/party.htm";
-    private static final int    GROUP      = 200;
-    private static final int    COUNT      = 100;
-    private static int          total      = 0;
-    private static int          errorTotal = 0;
-
-    private HttpClient          httpClient = new HttpClient(new MultiThreadedHttpConnectionManager());
+    private static final String TEMPLATE = "<p>\"session.{0}\" <%=session.{0}()%></p>";
 
     public static void main(String[] args) throws Exception {
-        Test t = new Test();
-        ExecutorService threadPool = Executors.newFixedThreadPool(GROUP);
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < GROUP; i++) {
-            threadPool.submit(t).get();
-        }
-        long end = System.currentTimeMillis();
-        threadPool.shutdown();
-        System.out.println(total + ":" + errorTotal + ":" + (end - start));
+        session();
+        print();
     }
 
-    public void request(String jobNumber, String name) throws Exception {
-        PostMethod post = new PostMethod(URL);
-        post.addParameter("jobNumber", jobNumber);
-        post.addParameter("name", name);
-        post.addParameter("form_name", "form");
-        post.addParameter("submit", "确认");
-        post.addRequestHeader("Referer", URL);
-        httpClient.executeMethod(post);
-        post.releaseConnection();
+    public static void print() throws Exception {
+        InputStream in = new FileInputStream("d:/tmp/无.txt");
+        List<String> lines = IOUtils.readLines(in);
+        for (String l : lines) {
+            System.out.println(MessageFormat.format(TEMPLATE, l));
+        }
     }
 
-    public Boolean call() throws Exception {
-        for (int i = 0; i < COUNT; i++) {
-            try {
-                request(String.valueOf(total), String.valueOf(total));
-            } catch (Exception e) {
-                errorTotal++;
-            }
-            total++;
+    public static void session() {
+        Method[] methods = HttpSession.class.getMethods();
+        for (Method method : methods) {
+            System.out.println(method.getName());
         }
-        return true;
     }
 }

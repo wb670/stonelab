@@ -32,7 +32,7 @@ public class ParserHelper {
     public static final String       ENCODING   = "UTF8";
     public static final String       URL        = "http://b2b-doc.alibaba-inc.com/pages/viewpage.action?pageId=40950165";
     public static final String       FILE       = "d:/tmp/tmp.txt";
-    public static final String       COOKIE     = "seraph.confluence=fSAWFiOQrXbWouTiIhdRnCRbOc1Pn31h3jaYadfHTgjgxWxy; JSESSIONID=4235859BCFBB64337A4DCC13664D4B62";
+    public static final String       COOKIE     = "seraph.confluence=fVdUaKNrJjOmFrJLUqedKFIMOc1Pn31hNpjKpXT4rrGsnBMw";
 
     private HttpClient               httpClient = new HttpClient();
 
@@ -55,7 +55,7 @@ public class ParserHelper {
             String time = columns[3].getStringText().trim().replaceAll("(<.*>|&nbsp;)*", "");
             String person = columns[4].getStringText().trim().replaceAll("(<.*>|&nbsp;)*", "");
 
-            if (!("完成".equals(flag)) && time.contains("23")) {
+            if (!("完成".equals(flag)) && time.contains("24")) {
                 System.out.println(task + ":" + person + ":" + time);
             }
 
