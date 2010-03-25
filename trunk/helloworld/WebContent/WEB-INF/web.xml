@@ -24,8 +24,7 @@
 		<url-pattern>/example/*</url-pattern>
 	</filter-mapping>
 	<listener>
-		<listener-class>
-			com.alibaba.helloworld.example.listener.VersionListener</listener-class>
+		<listener-class>com.alibaba.helloworld.example.listener.VersionListener</listener-class>
 	</listener>
 	<servlet>
 		<servlet-name>HelloWorldServlet</servlet-name>
