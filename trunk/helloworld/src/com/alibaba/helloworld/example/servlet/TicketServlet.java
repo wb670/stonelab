@@ -18,8 +18,8 @@ public class TicketServlet extends HttpServlet {
 
     private static final long        serialVersionUID   = 1L;
 
-    private static final String      VIEW               = "车票:{0};找零:{1};共计购买数量:{2}";
-    private static final String      SESSION_TICKET_KEY = "__TICKET__";
+    private static final String      VIEW               = "车票:{0};找零:{1};共计购买数量:{2}"; //输出模板
+    private static final String      SESSION_TICKET_KEY = "__TICKET__";              //车票Session Key
 
     private static final TicketStore store              = new TicketStore();
 
@@ -65,6 +65,7 @@ public class TicketServlet extends HttpServlet {
         if (price == null) {
             throw new IllegalArgumentException("价钱错误");
         }
+        //FIXME:可以使用commons-lang下StringUtils判断数字的方法--考虑到需要引用其他lib,暂时使用Inter.valueOf判断
         try {
             Integer.valueOf(price);
         } catch (NumberFormatException e) {

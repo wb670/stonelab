@@ -9,8 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * Servlet Filter implementation class HtmlLayoutFilter
- * Sitemesh
+ * Servlet Filter implementation class HtmlLayoutFilter Sitemesh
  */
 public class HtmlLayoutFilter implements Filter {
 
