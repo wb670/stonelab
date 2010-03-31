@@ -36,7 +36,7 @@ public class Demo {
                 DEMO.greet();
 
                 LIST.add(String.valueOf(RANDOM.nextInt(MAX_RANGE)));
-                Thread.sleep(200);
+                Thread.sleep(1000);
             } catch (Exception e) {
             }
         }

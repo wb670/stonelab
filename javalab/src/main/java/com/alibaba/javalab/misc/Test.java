@@ -13,7 +13,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,13 +26,63 @@ import org.apache.commons.io.IOUtils;
 /**
  * @author li.jinl
  */
-public class Test {
+public class Test implements Callable<Boolean> {
 
     private static final String TEMPLATE = "<p>\"session.{0}\" <%=session.{0}()%></p>";
 
     public static void main(String[] args) throws Exception {
-        session();
-        print();
+        Test t = new Test();
+        ExecutorService pool = Executors.newFixedThreadPool(100);
+        List<Callable<Boolean>> list = new ArrayList<Callable<Boolean>>(100);
+        for (int i = 0; i < 20; i++) {
+            list.add(t);
+        }
+        pool.invokeAll(list);
+        pool.shutdown();
+    }
+
+    @Override
+    public Boolean call() throws Exception {
+        newObject();
+        return Boolean.TRUE;
+    }
+
+    public static void newInteger() {
+        long s = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            new Integer(100);
+        }
+        long e = System.currentTimeMillis();
+        System.out.println(e - s);
+    }
+
+    public static void throwException() {
+        long s = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            try {
+                throw new NumberFormatException("");
+            } catch (Exception e1) {
+            }
+        }
+        long e = System.currentTimeMillis();
+        System.out.println(e - s);
+    }
+
+    public static void newObject() {
+        long s = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            try {
+                new Integer("");
+            } catch (NumberFormatException e1) {
+                try {
+                    new Integer("");
+                } catch (NumberFormatException e2) {
+                    new Integer(1000);
+                }
+            }
+        }
+        long e = System.currentTimeMillis();
+        System.out.println(e - s);
     }
 
     public static void print() throws Exception {
