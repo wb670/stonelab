@@ -160,6 +160,11 @@
 			<artifactId>headquarters.jdbc.proxy</artifactId>
 			<version>1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba.china.shared</groupId>
+			<artifactId>sourceforge.ibatis</artifactId>
+			<version>2.3.0</version>
+		</dependency>
 
 		<!-- for learning -->
 		<dependency>

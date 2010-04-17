@@ -1,5 +1,6 @@
 package com.alibaba.javalab.staff;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -9,15 +10,23 @@ import org.apache.commons.io.IOUtils;
 
 public class AppMain {
 
-    private static final String JOBNUMBER_FILE = "/home/alibaba/tmp/name.txt";
-    private static final String EMAIL_FILE     = "/home/alibaba/tmp/email.txt";
+    private static final String JOBNUMBER_FILE = "ids.txt";
+    private static final String EMAIL_FILE     = "emails.txt";
 
     private static StaffService staffService   = new StaffService();
 
-    public static void main(String[] args) throws Exception {
-        List<Staff> list = staffService.listStaffByDepartment("b2b-技术部-中国网站技术部-收费开发部");
-        for (Staff staff : list) {
-            System.out.println(staff);
+    public static void main(String[] args) {
+        try {
+            AppMain.validate();
+            AppMain.emails();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void validate() throws Exception {
+        if (!new File(JOBNUMBER_FILE).exists()) {
+            throw new Exception("当前目录不存在ids.txt文件!");
         }
     }
 
