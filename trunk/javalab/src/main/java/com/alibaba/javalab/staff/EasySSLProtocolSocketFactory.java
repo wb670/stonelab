@@ -1,7 +1,7 @@
 package com.alibaba.javalab.staff;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -18,6 +18,7 @@ import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.HttpClientError;
 import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
+import org.apache.commons.io.IOUtils;
 
 public class EasySSLProtocolSocketFactory implements ProtocolSocketFactory {
 
@@ -28,7 +29,7 @@ public class EasySSLProtocolSocketFactory implements ProtocolSocketFactory {
     private String     kspwd;
     private String     tkspwd;
 
-    public EasySSLProtocolSocketFactory(String ks, String kspwd, String tks, String tkspwd){
+    public EasySSLProtocolSocketFactory(String ks, String kspwd, String tks, String tkspwd) {
         this.ksfile = ks;
         this.kspwd = kspwd;
         this.tksfile = tks;
@@ -36,13 +37,13 @@ public class EasySSLProtocolSocketFactory implements ProtocolSocketFactory {
     }
 
     public Socket createSocket(String host, int port, InetAddress clientHost, int clientPort) throws IOException,
-                                                                                             UnknownHostException {
+            UnknownHostException {
         return getSSLContext().getSocketFactory().createSocket(host, port, clientHost, clientPort);
     }
 
     public Socket createSocket(final String host, final int port, final InetAddress localAddress, final int localPort,
                                final HttpConnectionParams params) throws IOException, UnknownHostException,
-                                                                 ConnectTimeoutException {
+            ConnectTimeoutException {
         if (params == null) {
             throw new IllegalArgumentException("Parameters may not be null");
         }
@@ -65,7 +66,7 @@ public class EasySSLProtocolSocketFactory implements ProtocolSocketFactory {
     }
 
     public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException,
-                                                                                       UnknownHostException {
+            UnknownHostException {
         return getSSLContext().getSocketFactory().createSocket(socket, host, port, autoClose);
     }
 
@@ -79,8 +80,14 @@ public class EasySSLProtocolSocketFactory implements ProtocolSocketFactory {
             KeyStore ks = KeyStore.getInstance("JKS");
             KeyStore tks = KeyStore.getInstance("JKS");
 
-            ks.load(new FileInputStream(ksfile), kspwd.toCharArray());
-            tks.load(new FileInputStream(tksfile), tkspwd.toCharArray());
+            InputStream ksinput = getClassLoader().getResourceAsStream(ksfile);
+            InputStream tksinput = getClassLoader().getResourceAsStream(tksfile);
+
+            ks.load(ksinput, kspwd.toCharArray());
+            tks.load(tksinput, tkspwd.toCharArray());
+
+            IOUtils.closeQuietly(ksinput);
+            IOUtils.closeQuietly(tksinput);
 
             kmf.init(ks, kspwd.toCharArray());
             tmf.init(tks);
@@ -97,6 +104,10 @@ public class EasySSLProtocolSocketFactory implements ProtocolSocketFactory {
             this.sslcontext = createEasySSLContext();
         }
         return this.sslcontext;
+    }
+
+    private ClassLoader getClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
     }
 
 }

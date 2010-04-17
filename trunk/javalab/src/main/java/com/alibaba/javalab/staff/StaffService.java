@@ -119,9 +119,9 @@ public class StaffService {
                 }
                 Staff staff = new Staff();
                 staff.setName(getText(columns[1]));
-                staff.setJobNumber(getText(columns[3]));
-                staff.setJoinDate(getText(columns[5]));
-                staff.setDepartment(getText(columns[7]));
+                staff.setDepartment(getText(columns[3]));
+                staff.setJobNumber(getText(columns[5]));
+                staff.setJoinDate(getText(columns[7]));
                 staff.setExtension(getText(columns[9]));
                 staff.setMobile(getText(columns[11]));
                 staff.setEmail(getText(columns[13]));
