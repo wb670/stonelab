@@ -24,11 +24,11 @@ public class PartyService {
         Assert.hasText(party.getJobNumber());
         Assert.hasText(party.getName());
 
-        //        String query = "select count(*) from party where job_number = ? and name = ?";
-        //        int count = jdbcTemplate.queryForInt(query, new Object[] { party.getJobNumber(), party.getName() });
-        //        if (count > 0) {
-        //            return;
-        //        }
+        String query = "select count(*) from party where job_number = ? and name = ?";
+        int count = jdbcTemplate.queryForInt(query, new Object[] { party.getJobNumber(), party.getName() });
+        if (count > 0) {
+            return;
+        }
 
         String create = "insert into party (job_number,name) values (?,?)";
         jdbcTemplate.update(create, new Object[] { party.getJobNumber(), party.getName() });
