@@ -16,13 +16,12 @@ import java.text.MessageFormat;
  */
 public class Main {
 
-    private static final String TEMPLATE = "PER={0}::NEW={1}";
-    private static final Model  m        = new Model();
+    private static final String TEMPLATE = "Model ID:{0}";
 
     public static void main(String[] args) throws Exception {
         while (true) {
-            print(MessageFormat.format(TEMPLATE, m.getId(), new Model().getId()));
-            sleep(1);
+            print(MessageFormat.format(TEMPLATE, new Model().getId()));
+            sleep(5);
         }
     }
 

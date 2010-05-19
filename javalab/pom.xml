@@ -125,45 +125,45 @@
 
 		<!-- alibaba -->
 		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
-			<artifactId>share.ali_pt.napoli</artifactId>
+			<groupId>com.alibaba.shared</groupId>
+			<artifactId>alibaba.platform.napoli</artifactId>
+			<version>1.1.x</version>
 			<type>libd</type>
-			<version>1.1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
+			<groupId>com.alibaba.shared</groupId>
 			<artifactId>pivot.commons.tools</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
+			<groupId>com.alibaba.shared</groupId>
 			<artifactId>headquarters.biz.messagequeue</artifactId>
 			<version>1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
-			<artifactId>china.rialto.core</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
-			<artifactId>china.rialto.jms</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
-			<artifactId>china.rialto.timer</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
+			<groupId>com.alibaba.shared</groupId>
 			<artifactId>headquarters.jdbc.proxy</artifactId>
 			<version>1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba.china.shared</groupId>
+			<groupId>com.alibaba.external</groupId>
 			<artifactId>sourceforge.ibatis</artifactId>
 			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.shared</groupId>
+			<artifactId>china.rialto.core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.shared</groupId>
+			<artifactId>china.rialto.jms</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.shared</groupId>
+			<artifactId>china.rialto.timer</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- for learning -->
@@ -177,7 +177,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.3</version>
+			<version>4.4</version>
 		</dependency>
 	</dependencies>
 </project>

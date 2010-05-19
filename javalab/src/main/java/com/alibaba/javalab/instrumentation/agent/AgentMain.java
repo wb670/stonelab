@@ -17,12 +17,13 @@ import com.alibaba.javalab.instrumentation.Model;
 /**
  * @author li.jinl
  */
-public class AgentMain {
+public class Agentmain {
 
     public static void agentmain(String agent, Instrumentation inst) throws ClassNotFoundException,
             UnmodifiableClassException, InterruptedException {
-        inst.addTransformer(new ModelTransformer(agent));
+        ModelTransformer transformer = new ModelTransformer(agent);
+        inst.addTransformer(transformer, true);
         inst.retransformClasses(Model.class);
+        inst.removeTransformer(transformer);
     }
-
 }
