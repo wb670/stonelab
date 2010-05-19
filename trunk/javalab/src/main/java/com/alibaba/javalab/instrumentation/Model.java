@@ -14,7 +14,7 @@ package com.alibaba.javalab.instrumentation;
  */
 public class Model {
 
-    private static final int DEFAULT_ID = 100;
+    private static final int DEFAULT_ID = 1;
 
     public int getId() {
         return DEFAULT_ID;
