@@ -34,7 +34,7 @@ public class StaffService {
         }
         String url = MessageFormat.format(REQ_URL, jobNumber);
         String body = accessor.request(url);
-
+        
         List<Staff> list = parser(body);
         if (list == null || list.isEmpty()) {
             return null;
@@ -100,8 +100,7 @@ public class StaffService {
             NodeFilter cellspacing = new HasAttributeFilter("cellspacing", "0");
             NodeFilter cellpadding = new HasAttributeFilter("cellpadding", "2");
             NodeFilter border = new HasAttributeFilter("border", "0");
-            NodeFilter filter = new AndFilter(new NodeFilter[] { tableFilter, cellspacing,
-                    cellpadding, border });
+            NodeFilter filter = new AndFilter(new NodeFilter[] { tableFilter, cellspacing, cellpadding, border });
             NodeList nodes = parser.extractAllNodesThatMatch(filter);
             if (nodes.size() <= 0) {
                 return null;
@@ -120,11 +119,11 @@ public class StaffService {
                 Staff staff = new Staff();
                 staff.setName(getText(columns[1]));
                 staff.setDepartment(getText(columns[3]));
-                staff.setJobNumber(getText(columns[5]));
+                staff.setJobNumber(getText(columns[1]));
                 staff.setJoinDate(getText(columns[7]));
                 staff.setExtension(getText(columns[9]));
                 staff.setMobile(getText(columns[11]));
-                staff.setEmail(getText(columns[13]));
+                staff.setEmail(getText(columns[11]));
 
                 list.add(staff);
             }

@@ -57,7 +57,8 @@ public class JdbcTemplateFactory {
 
         ORACLE_OCN_TEST(DriverOption.ORACLE, "jdbc:oracle:thin:@10.20.36.19:1521:ocntest", "alibaba", "ccbutest",
                 getAlibabaProperties()),
-        MYSQL_210(DriverOption.MYSQL, "jdbc:mysql://10.20.131.210/javalab", "root", "123");
+        MYSQL_210(DriverOption.MYSQL, "jdbc:mysql://10.20.131.210/javalab", "root", "123"),
+        PARTY_PRODUCT(DriverOption.MYSQL, "jdbc:mysql://10.20.131.207:3306/alibaba_party", "party", "hello1234");
 
         public DriverOption driverOption;
         public String       url;

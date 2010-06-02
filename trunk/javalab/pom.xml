@@ -8,6 +8,12 @@
 	<name>javalab</name>
 	<url>http://maven.apache.org</url>
 
+	<parent>
+		<groupId>com.alibaba</groupId>
+		<artifactId>a2m.china</artifactId>
+		<version>1</version>
+	</parent>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.test.skip>true</maven.test.skip>
@@ -65,6 +71,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>pc2 snapshot repository</id>
+			<name>pc2 snapshot repository</name>
+			<url>http://repo.alibaba-inc.com/mvn/private/pt/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -165,7 +185,22 @@
 			<artifactId>china.rialto.timer</artifactId>
 			<version>1.0</version>
 		</dependency>
-
+		<!-- pcc依赖 -->
+		<dependency>
+			<groupId>com.alibaba.pc2</groupId>
+			<artifactId>pc2.common</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.pc2</groupId>
+			<artifactId>pc2.client.agent</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.pc2</groupId>
+			<artifactId>pc2.client.adapter.webx</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
 		<!-- for learning -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

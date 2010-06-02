@@ -1,7 +1,7 @@
 /**
  * Function: 
  * 
- * File Created at 2010-3-5
+ * File Created at 2010-5-19
  * $Id$
  * 
  * Copyright 2009 Alibaba.com Croporation Limited.
@@ -9,9 +9,11 @@
  */
 package com.alibaba.javalab.misc;
 
+/**
+ * @author li.jinl
+ */
+public interface DemoService {
 
-public class Test {
+    public String hello(String name);
 
-    public static void main(String[] args) {
-    }
 }
