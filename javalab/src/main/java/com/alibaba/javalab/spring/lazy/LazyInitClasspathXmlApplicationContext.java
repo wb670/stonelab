@@ -34,6 +34,8 @@ public class LazyInitClasspathXmlApplicationContext extends ClassPathXmlApplicat
         // resource loading environment.
         beanDefinitionReader.setResourceLoader(this);
         beanDefinitionReader.setEntityResolver(new ResourceEntityResolver(this));
+
+        // 添加的代码,设置LazyInitListener
         beanDefinitionReader.setEventListener(new LazyInitListener());
 
         // Allow a subclass to provide custom initialization of the reader,
