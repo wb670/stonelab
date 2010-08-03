@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<click-app charset="UTF-8" locale="zh_CN">
-
-	<mode value="production" />
-
-	<pages package="com.alibaba.weblab.statistics.web.page" />
-
-</click-app>
