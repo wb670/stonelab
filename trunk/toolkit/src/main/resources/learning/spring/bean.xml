@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+    default-autowire="byName">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK" />
+        <property name="locations">
+            <list>
+                <value>classpath*:spring/env.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="javaBean" class="com.alibaba.javalab.spring.JavaBean">
+        <property name="id" value="1" />
+        <property name="name" value="${key}/${node}" />
+    </bean>
+
+    <bean id="testBean" class="com.alibaba.javalab.spring.lazy.TestBean" init-method="init" />
+
+    <bean id="constructorBean" class="com.alibaba.javalab.spring.ConstructorBean">
+        <constructor-arg value="1" />
+        <constructor-arg value="stone" />
+    </bean>
+
+</beans>
