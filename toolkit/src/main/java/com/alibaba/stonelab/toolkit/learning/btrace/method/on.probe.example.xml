@@ -1,0 +1,20 @@
+<btrace-probes namespace="on.probe.example">
+	<probe name="hello">
+		<map>
+			<clazz>com.alibaba.javalab.btrace.Demo</clazz>
+			<method>hello</method>
+			<type>java.lang.String(java.lang.String)</type>
+		</map>
+		<map>
+			<clazz>com.alibaba.javalab.btrace.Demo</clazz>
+			<method>hello</method>
+			<type>int()</type>
+		</map>
+	</probe>
+	<probe name="greet">
+		<map>
+			<clazz>com.alibaba.javalab.btrace.Demo</clazz>
+			<method>greet</method>
+		</map>
+	</probe>
+</btrace-probes>
