@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="GB18030"?>
-<bean-mapping>
-	<bean>
-		<mapping property="id" key="id" />
-		<mapping property="name" key="name" />
-		<mapping property="version" key="version" keyType="java.util.HashMap" mapping="true" />
-	</bean>
-</bean-mapping>

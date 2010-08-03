@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="GB18030"?>
-<bean-mapping>
-	<bean>
-		<mapping property="id" key="id" />
-		<mapping property="date" key="date" />
-	</bean>
-</bean-mapping>
