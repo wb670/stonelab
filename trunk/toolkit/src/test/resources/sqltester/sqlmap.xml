@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sqlMapSample">
+
+    <select id="findWithoutParam">
+        select * from sample
+    </select>
+
+    <select id="findWithParam" resultClass="map" parameterClass="map">
+        select * from sample where id = #id#
+        <dynamic>
+            <isNotNull property="name" prepend="and">
+                name = #name#
+            </isNotNull>
+            <isNotEmpty property="types" prepend="and">
+                type in
+                <iterate property="types" open="(" close=")" conjunction=",">
+                    #types[]#
+                </iterate>
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+</sqlMap>
