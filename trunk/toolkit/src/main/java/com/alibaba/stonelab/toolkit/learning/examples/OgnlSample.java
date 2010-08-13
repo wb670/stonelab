@@ -5,7 +5,7 @@
  * use it only in accordance with the terms of the license agreement you entered
  * into with Alibaba.com.
  */
-package com.alibaba.stonelab.toolkit.learning.ognl;
+package com.alibaba.stonelab.toolkit.learning.examples;
 
 import java.util.HashMap;
 import java.util.Map;
