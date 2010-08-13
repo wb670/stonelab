@@ -162,5 +162,11 @@
             <artifactId>misc.ognl</artifactId>
             <version>2.6.9</version>
         </dependency>
+        <!-- mvel -->
+        <dependency>
+            <groupId>com.alibaba.external</groupId>
+            <artifactId>codehaus.mvel</artifactId>
+            <version>2.0.6</version>
+        </dependency>
     </dependencies>
 </project>
