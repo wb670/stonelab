@@ -126,6 +126,14 @@
             <groupId>com.alibaba.external</groupId>
             <artifactId>java.servlet</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.external</groupId>
+            <artifactId>ajax.jsonlib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.external</groupId>
+            <artifactId>sourceforge.ezmorph</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -177,6 +185,16 @@
                 <artifactId>java.servlet</artifactId>
                 <version>2.5</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.external</groupId>
+                <artifactId>ajax.jsonlib</artifactId>
+                <version>0.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.external</groupId>
+                <artifactId>sourceforge.ezmorph</artifactId>
+                <version>0.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
