@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:services="http://www.alibaba.com/schema/services"
-    xmlns:pl-conditions="http://www.alibaba.com/schema/services/pipeline/conditions"
-    xmlns:pl-valves="http://www.alibaba.com/schema/services/pipeline/valves"
-    xmlns:beans="http://www.springframework.org/schema/beans"
-    xmlns:p="http://www.springframework.org/schema/p"
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:services="http://www.alibaba.com/schema/services"
+    xmlns:pl-conditions="http://www.alibaba.com/schema/services/pipeline/conditions" xmlns:pl-valves="http://www.alibaba.com/schema/services/pipeline/valves"
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="
         http://www.alibaba.com/schema/services http://localhost:8080/schema/services.xsd
         http://www.alibaba.com/schema/services/pipeline/conditions http://localhost:8080/schema/services-pipeline-conditions.xsd
@@ -25,6 +22,8 @@
 
         <!-- 检查csrf token，防止csrf攻击和重复提交。假如request和session中的token不匹配，则出错，或显示expired页面。 -->
         <checkCsrfToken />
+
+        <pl-valves:valve name="info" class="com.alibaba.stonelab.webxsample.sample.web.common.valve.InfoValve" />
 
         <loop>
             <choose>
