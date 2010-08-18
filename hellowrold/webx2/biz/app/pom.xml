@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.alibaba.helloworld</groupId>
+		<artifactId>webx2</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>webx2.biz.app</artifactId>
+	<packaging>jar</packaging>
+	<groupId>com.alibaba.helloworld</groupId>
+	<name>biz.app</name>
+        <version>1.0-SNAPSHOT</version>
+	<description>webx2.biz.app</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.alibaba.toolkit</groupId>
+			<artifactId>toolkit-webx-all-in-one</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.external</groupId>
+			<artifactId>test.junit</artifactId>
+			<scope>test</scope>
+		</dependency>		
+	</dependencies>
+</project>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="GB2312"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- ===================================================================== -->
+    <!--  以下是appender的定义                                                 -->
+    <!-- ===================================================================== -->
+    <appender name="STD-OUT" class="com.alibaba.common.logging.spi.log4j.DailyRollingFileAppender">
+        <param name="file" value="${loggingRoot}/sys.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="GB2312"/>
+        <param name="threshold" value="info"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%X{requestURIWithQueryString}] %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="STD-DEBUG" class="com.alibaba.common.logging.spi.log4j.DailyRollingFileAppender">
+        <param name="file" value="${loggingRoot}/sys-debug.log"/>
+        <param name="append" value="false"/>
+        <param name="encoding" value="GB2312"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%X{requestURIWithQueryString}] %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="STD-ERROR" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.err"/>        
+        <param name="encoding" value="GB2312"/>
+        <param name="threshold" value="warn"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%X{requestURIWithQueryString}] %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="APACHE" class="com.alibaba.common.logging.spi.log4j.DailyRollingFileAppender">
+        <param name="file" value="${loggingRoot}/apache.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="GB2312"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%X{requestURIWithQueryString}] %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="VELOCITY" class="com.alibaba.common.logging.spi.log4j.DailyRollingFileAppender">
+        <param name="file" value="${loggingRoot}/velocity.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="GBK"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %c{2} - %m%n"/>
+        </layout>
+	</appender>
+    <!-- ===================================================================== -->
+    <!--  以下是logger的定义                                                   -->
+    <!-- ===================================================================== -->
+    <logger name="com.alibaba.service.VelocityService" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="VELOCITY"/>
+    </logger>
+    <logger name="org.apache.commons.beanutils">
+        <level value="error"/>
+    </logger>
+    <logger name="org.apache.commons.digester">
+        <level value="error"/>
+    </logger>
+    <logger name="org.apache" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="APACHE"/>
+    </logger>
+    <!-- ===================================================================== -->
+    <!--  Root logger的定义                                                    -->
+    <!-- ===================================================================== -->
+    <root>
+        <level value="DEBUG"/>
+        <appender-ref ref="STD-OUT"/>
+        <appender-ref ref="STD-DEBUG"/>
+        <appender-ref ref="STD-ERROR"/>
+    </root>
+</log4j:configuration>

@@ -1,0 +1,1 @@
+$exceptionUtil.getStackTrace($exception)

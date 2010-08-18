@@ -1,0 +1,13 @@
+$alibabaSite.getClass()
+<p/>
+$webx2QuickStartServer
+<p/>
+$appModule
+<p/>
+$appModule.setTarget("hello.vm")
+<p/>
+$appModule.setTarget("hello.vm").addQueryData("name","stone")
+<p/>
+$helloLink
+<p/>
+$rundata.getSession().getAttribute("cookie")
