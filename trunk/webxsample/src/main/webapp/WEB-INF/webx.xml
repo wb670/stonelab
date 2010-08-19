@@ -63,4 +63,7 @@
         <page-tool />
     </services:pull>
 
+    <!-- 业务服务 -->
+    <beans:import resource="bizServices.xml"/>
+
 </beans:beans>
