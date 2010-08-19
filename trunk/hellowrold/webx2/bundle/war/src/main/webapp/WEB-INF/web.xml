@@ -2,10 +2,6 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
-    <!-- ====================================================== -->
-    <!-- Filters。                                              -->
-    <!-- ====================================================== -->
-    <!-- 计算页面响应提时间，并记录在log中。 -->
     <filter>
         <filter-name>timer</filter-name>
         <filter-class>com.alibaba.webx.filter.timer.TimerFilter</filter-class>
@@ -14,9 +10,6 @@
             <param-value>30000</param-value>
         </init-param>
     </filter>
-    <!-- ====================================================== -->
-    <!-- Filter Mappings。                                      -->
-    <!-- ====================================================== -->
     <filter-mapping>
         <filter-name>timer</filter-name>
         <url-pattern>*.htm</url-pattern>
@@ -25,10 +18,6 @@
         <filter-name>timer</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
-    <!-- ====================================================== -->
-    <!-- Servlets。                                             -->
-    <!-- ====================================================== -->
-    <!-- Webx主控制器。 -->
     <servlet>
         <servlet-name>WebxController</servlet-name>
         <servlet-class>com.alibaba.webx.WebxControllerServlet</servlet-class>
@@ -36,7 +25,7 @@
             <param-name>loggingRoot</param-name>
             <param-value></param-value>
         </init-param>
-		<init-param>
+        <init-param>
             <param-name>initAllServices</param-name>
             <param-value>true</param-value>
         </init-param>
@@ -49,9 +38,7 @@
             <param-value>app</param-value>
         </init-param>
     </servlet>
-    <!-- ====================================================== -->
-    <!-- Servlet Mappings。                                     -->
-    <!-- ====================================================== -->
+
     <servlet-mapping>
         <servlet-name>WebxController</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -61,16 +48,11 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
-    <!-- ====================================================== -->
-    <!-- 初始页面。                                             -->
-    <!-- ====================================================== -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    <!-- ====================================================== -->
-    <!-- 错误页面。                                             -->
-    <!-- ====================================================== -->
+
     <error-page>
         <error-code>400</error-code>
         <location>/error.html</location>
