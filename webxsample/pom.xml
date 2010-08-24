@@ -16,7 +16,7 @@
         <java.version>1.6</java.version>
         <java.encoding>GBK</java.encoding>
         <webx2-version>2.0</webx2-version>
-        <webx3-version>3.0.0-RC1</webx3-version>
+        <webx3-version>3.0.0-RC1-fix12</webx3-version>
         <springext-plugin-version>1.0</springext-plugin-version>
         <jetty-version>6.1.22</jetty-version>
     </properties>
