@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:services="http://www.alibaba.com/schema/services"
-    xmlns:mapping-rules="http://www.alibaba.com/schema/services/mapping-rules"
-    xmlns:beans="http://www.springframework.org/schema/beans"
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:services="http://www.alibaba.com/schema/services"
+    xmlns:mapping-rules="http://www.alibaba.com/schema/services/mapping-rules" xmlns:beans="http://www.springframework.org/schema/beans"
     xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="
         http://www.alibaba.com/schema/services http://localhost:8080/schema/services.xsd
@@ -12,7 +10,6 @@
 
     <!-- 支持${xxx}替换。 -->
     <services:property-placeholder />
-
 
     <!-- 名称查找规则。 -->
     <services:mapping-rules xmlns="http://www.alibaba.com/schema/services/mapping-rules">
