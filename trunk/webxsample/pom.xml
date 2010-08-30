@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <!-- Maven Project Configuration.  -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.alibaba</groupId>
         <artifactId>b2b</artifactId>
@@ -134,6 +135,10 @@
             <groupId>com.alibaba.external</groupId>
             <artifactId>sourceforge.ezmorph</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.external</groupId>
+            <artifactId>jakarta.poi</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -195,6 +200,11 @@
                 <groupId>com.alibaba.external</groupId>
                 <artifactId>sourceforge.ezmorph</artifactId>
                 <version>0.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.external</groupId>
+                <artifactId>jakarta.poi</artifactId>
+                <version>3.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
