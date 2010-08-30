@@ -23,18 +23,6 @@
         </layout>
     </appender>
 
-    <logger name="org.apache">
-        <level value="INFO" />
-    </logger>
-
-    <logger name="org.springframework">
-        <level value="INFO" />
-    </logger>
-
-    <logger name="com.alibaba.citrus.springext.support.context">
-        <level value="INFO" />
-    </logger>
-
     <root>
         <level value="${loggingLevel}" />
         <appender-ref ref="STDERR" />
