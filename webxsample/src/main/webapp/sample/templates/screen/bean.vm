@@ -1,0 +1,14 @@
+<h3>Root Beans</h3>
+<ul>
+#foreach($bean in $root)
+<li>$bean</li>
+#end
+</ul>
+
+<h3>Component Beans</h3>
+<ul>
+#foreach($bean in $component)
+<li>$bean</li>
+#end
+</ul>
+$stringUtil
