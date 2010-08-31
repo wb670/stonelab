@@ -2,9 +2,9 @@
 <beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:services="http://www.alibaba.com/schema/services"
     xmlns:mapping-rules="http://www.alibaba.com/schema/services/mapping-rules" xmlns:pull-factories="http://www.alibaba.com/schema/services/pull/factories"
     xmlns:request-contexts="http://www.alibaba.com/schema/services/request-contexts" xmlns:session-encoders="http://www.alibaba.com/schema/services/request-contexts/session/encoders"
-    xmlns:model-encoders="http://www.alibaba.com/schema/services/request-contexts/session/model-encoders" xmlns:session-idgens="http://www.alibaba.com/schema/services/request-contexts/session/idgens"
-    xmlns:session-stores="http://www.alibaba.com/schema/services/request-contexts/session/stores" xmlns:beans="http://www.springframework.org/schema/beans"
-    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:model-encoders="http://www.alibaba.com/schema/services/request-contexts/session/model-encoders"
+    xmlns:session-idgens="http://www.alibaba.com/schema/services/request-contexts/session/idgens" xmlns:session-stores="http://www.alibaba.com/schema/services/request-contexts/session/stores"
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="
         http://www.alibaba.com/schema/services http://localhost:8080/schema/services.xsd
         http://www.alibaba.com/schema/services/mapping-rules http://localhost:8080/schema/services-mapping-rules.xsd
@@ -29,7 +29,7 @@
     <!-- 综合设置。 -->
     <services:webx-configuration>
         <!-- 默认将productionMode设为true，建议在jetty插件中设置-DproductionMode=false。 -->
-        <services:productionMode>${productionMode:true}</services:productionMode>
+        <services:productionMode>${productionMode:false}</services:productionMode>
         <services:components defaultComponent="sample" />
     </services:webx-configuration>
 
@@ -64,6 +64,6 @@
     </services:pull>
 
     <!-- 业务服务 -->
-    <beans:import resource="bizServices.xml"/>
+    <beans:import resource="bizServices.xml" />
 
 </beans:beans>
