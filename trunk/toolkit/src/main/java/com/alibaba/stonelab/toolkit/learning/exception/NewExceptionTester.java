@@ -115,7 +115,7 @@ public class NewExceptionTester {
      * 
      * @author li.jinl 2010-7-9 上午11:28:27
      */
-    public static class CustomObject extends HashMap {
+    public static class CustomObject extends HashMap<String, String> {
 
         private static final long serialVersionUID = 5176739397156548105L;
 

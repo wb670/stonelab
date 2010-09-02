@@ -1,9 +1,7 @@
 /*
- * Copyright 1999-2010 Alibaba.com All right reserved. This software is the
- * confidential and proprietary information of Alibaba.com ("Confidential
- * Information"). You shall not disclose such Confidential Information and shall
- * use it only in accordance with the terms of the license agreement you entered
- * into with Alibaba.com.
+ * Copyright 1999-2010 Alibaba.com All right reserved. This software is the confidential and proprietary information of
+ * Alibaba.com ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only
+ * in accordance with the terms of the license agreement you entered into with Alibaba.com.
  */
 package com.alibaba.stonelab.toolkit.sqltester;
 
@@ -37,21 +35,21 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 public class BeanInitBuilder<T> {
 
-    private static final String               DEFAULT_DATE_PATTERN   = "yyyy-MM-dd HH:mm:ss";
-    private static final String               DEFAULT_VALUE_DATE_STR = "2000-01-01 01:01:01";
+    private static final String                  DEFAULT_DATE_PATTERN   = "yyyy-MM-dd HH:mm:ss";
+    private static final String                  DEFAULT_VALUE_DATE_STR = "2000-01-01 01:01:01";
 
-    private static Map<Class, ? super Number> DEFAULT_VALUE_NUMBER   = new HashMap<Class, Number>();
-    private static Date                       DEFAULT_VALUE_DATE;
+    private static Map<Class<?>, ? super Number> DEFAULT_VALUE_NUMBER   = new HashMap<Class<?>, Number>();
+    private static Date                          DEFAULT_VALUE_DATE;
 
     static {
-        //初始化数值
+        // 初始化数值
         DEFAULT_VALUE_NUMBER.put(Byte.class, (byte) 0);
         DEFAULT_VALUE_NUMBER.put(Short.class, (short) 0);
         DEFAULT_VALUE_NUMBER.put(Integer.class, (int) 0);
         DEFAULT_VALUE_NUMBER.put(Long.class, (long) 0);
         DEFAULT_VALUE_NUMBER.put(Float.class, (float) 0.0);
         DEFAULT_VALUE_NUMBER.put(Double.class, (double) 0.0);
-        //初始化日期
+        // 初始化日期
         try {
             DEFAULT_VALUE_DATE = new SimpleDateFormat(DEFAULT_DATE_PATTERN).parse(DEFAULT_VALUE_DATE_STR);
         } catch (ParseException e) {
@@ -59,10 +57,10 @@ public class BeanInitBuilder<T> {
         }
     }
 
-    //初始化Bean的class
-    private Class<T>                          clz;
+    // 初始化Bean的class
+    private Class<T>                             clz;
 
-    public BeanInitBuilder(Class<T> clz) {
+    public BeanInitBuilder(Class<T> clz){
         this.clz = clz;
     }
 
@@ -112,11 +110,11 @@ public class BeanInitBuilder<T> {
             PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clz);
             for (PropertyDescriptor des : descriptors) {
                 try {
-                    //数值的处理
+                    // 数值的处理
                     if (Number.class.isAssignableFrom(des.getPropertyType())) {
                         PropertyUtils.setProperty(t, des.getName(), DEFAULT_VALUE_NUMBER.get(des.getPropertyType()));
                     }
-                    //String处理
+                    // String处理
                     if (String.class.isAssignableFrom(des.getPropertyType())) {
                         if (count == 1) {
                             PropertyUtils.setProperty(t, des.getName(), des.getName());
@@ -124,11 +122,11 @@ public class BeanInitBuilder<T> {
                             PropertyUtils.setProperty(t, des.getName(), des.getName() + i);
                         }
                     }
-                    //date处理
+                    // date处理
                     if (Date.class.isAssignableFrom(des.getPropertyType())) {
                         PropertyUtils.setProperty(t, des.getName(), DEFAULT_VALUE_DATE);
                     }
-                    //JDK枚举处理
+                    // JDK枚举处理
                     if (Enum.class.isAssignableFrom(des.getPropertyType())) {
                         if (des.getPropertyType().getEnumConstants().length >= 1) {
                             PropertyUtils.setProperty(t, des.getName(), des.getPropertyType().getEnumConstants()[0]);
@@ -138,7 +136,7 @@ public class BeanInitBuilder<T> {
                     throw new BuildException("build error.", e);
                 }
             }
-            //赋值数组
+            // 赋值数组
             ret.add(t);
         }
         return ret;
@@ -153,7 +151,7 @@ public class BeanInitBuilder<T> {
 
         private static final long serialVersionUID = -126401263254987600L;
 
-        public BuildException(String msg, Throwable e) {
+        public BuildException(String msg, Throwable e){
             super(msg, e);
         }
     }

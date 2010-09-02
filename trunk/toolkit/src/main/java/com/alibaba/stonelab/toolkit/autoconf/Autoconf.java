@@ -59,6 +59,7 @@ public class Autoconf {
 
     }
 
+    @SuppressWarnings("unchecked")
     private void parser(String base, String file) throws Exception {
         SAXReader reader = new SAXReader();
         Document doc = reader.read(new File(file));
