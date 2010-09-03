@@ -1,11 +1,5 @@
 /**
- * Function: 
- * 
- * File Created at 2010-2-21
- * $Id$
- * 
- * Copyright 2009 Alibaba.com Croporation Limited.
- * All rights reserved.
+ * Function: File Created at 2010-2-21 $Id$ Copyright 2009 Alibaba.com Croporation Limited. All rights reserved.
  */
 package com.alibaba.stonelab.toolkit.learning.asm;
 
@@ -13,8 +7,7 @@ import java.lang.reflect.Method;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
-
-import com.sun.xml.internal.ws.org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Opcodes;
 
 /**
  * @author li.jinl
@@ -27,7 +20,7 @@ public class MWriter {
     private static final MyClassLoader cl             = new MyClassLoader();
 
     public static void main(String[] args) throws Exception {
-        //example1();
+        // example1();
         example2();
     }
 
@@ -58,7 +51,7 @@ public class MWriter {
         cw.visit(Opcodes.V1_6, Opcodes.ACC_PUBLIC, ASM_CLASS_NAME, null, "java/lang/Object", null);
 
         MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "greet", "(Ljava/lang/String;)V",
-                null, null);
+                                          null, null);
         mv.visitCode();
 
         mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
@@ -68,7 +61,7 @@ public class MWriter {
         mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "(Ljava/lang/String;)V");
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append",
-                "(Ljava/lang/String;)Ljava/lang/StringBuilder;");
+                           "(Ljava/lang/String;)Ljava/lang/StringBuilder;");
         mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;");
         mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V");
 
