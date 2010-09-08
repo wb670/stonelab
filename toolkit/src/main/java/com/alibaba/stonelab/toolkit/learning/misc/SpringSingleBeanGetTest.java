@@ -33,7 +33,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 
  * @author Stone.J 2010-8-3 下午06:11:31
  */
-public class Misc {
+public class SpringSingleBeanGetTest {
 
     private static final String              LOCATION  = "classpath:learning/spring/bean.xml";
     private static final ApplicationContext  CTX       = new ClassPathXmlApplicationContext(LOCATION);
