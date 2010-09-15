@@ -3,7 +3,7 @@
  * Alibaba.com ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only
  * in accordance with the terms of the license agreement you entered into with Alibaba.com.
  */
-package com.alibaba.stonelab.toolkit.learning.exception;
+package com.alibaba.stonelab.toolkit.learning.perf.exception;
 
 import java.util.ArrayList;
 import java.util.List;

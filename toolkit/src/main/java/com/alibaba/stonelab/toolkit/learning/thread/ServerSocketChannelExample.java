@@ -57,7 +57,7 @@ public class ServerSocketChannelExample {
         while (true) {
             try {
                 // rest
-                Thread.sleep(10000);
+                Thread.sleep(100);
                 // do select
                 int num = selector.select();
                 if (num < 0) {
