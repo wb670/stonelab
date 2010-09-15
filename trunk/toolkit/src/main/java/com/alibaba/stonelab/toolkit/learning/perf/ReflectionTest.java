@@ -12,10 +12,17 @@ import net.sf.cglib.reflect.FastMethod;
 
 /**
  * <pre>
+ * 本机测试结果(XP,双核,2G):
  * 直接调用(LOOP=1亿):       235MS 
  * 反射调用(LOOP=1亿):       29188MS
  * 反射调用(优化)(LOOP=1亿):  5672MS
  * 放射调用(CGLIB)(LOOP=1亿):5390MS
+ * 
+ * 服务器测试结果(linux xen虚拟机,5.5G内存;8核CPU):
+ * 直接调用(LOOP=1亿):       190MS
+ * 反射调用(LOOP=1亿):       4633MS
+ * 反射调用(优化)(LOOP=1亿):  4262MS
+ * 放射调用(CGLIB)(LOOP=1亿):2787MS
  * </pre>
  * 
  * @author Stone.J 2010-9-15 上午10:07:27
@@ -35,8 +42,9 @@ public class ReflectionTest {
     private static final OptimizationCachedMethod OPTIMIZATION_CACHED_METHOD = new OptimizationCachedMethod();
     private static final CglibCachedMethod        CGLIB_CACHED_METHOD        = new CglibCachedMethod();
 
-    private static final int                      LOOP                       = 1 * 10000 * 10000;
+    private static final long                     LOOP                       = 1 * 10000 * 10000;
 
+    // 测试main
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("args error.");
@@ -45,7 +53,7 @@ public class ReflectionTest {
         int tc = Integer.valueOf(args[0]);
 
         long start = System.currentTimeMillis();
-        for (int i = 0; i < LOOP; i++) {
+        for (long i = 0; i < LOOP; i++) {
             switch (tc) {
                 case 1:
                     // 直接调用
@@ -82,9 +90,9 @@ public class ReflectionTest {
     // 反射调用测试
     public static void testReflection() {
         try {
-            CACHED_METHOD.SET_ID.invoke(BEAN, DEFAULT_INTS);
-            CACHED_METHOD.SET_CODE.invoke(BEAN, DEFAULT_INTEGERS);
-            CACHED_METHOD.SET_NAME.invoke(BEAN, DEFAULT_STRINGS);
+            CACHED_METHOD.setId.invoke(BEAN, DEFAULT_INTS);
+            CACHED_METHOD.setCode.invoke(BEAN, DEFAULT_INTEGERS);
+            CACHED_METHOD.setName.invoke(BEAN, DEFAULT_STRINGS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,9 +101,9 @@ public class ReflectionTest {
     // 优化后反射调用测试
     public static void testOptimizationReflection() {
         try {
-            OPTIMIZATION_CACHED_METHOD.SET_ID.invoke(BEAN, DEFAULT_INTS);
-            OPTIMIZATION_CACHED_METHOD.SET_CODE.invoke(BEAN, DEFAULT_INTEGERS);
-            OPTIMIZATION_CACHED_METHOD.SET_NAME.invoke(BEAN, DEFAULT_STRINGS);
+            OPTIMIZATION_CACHED_METHOD.setId.invoke(BEAN, DEFAULT_INTS);
+            OPTIMIZATION_CACHED_METHOD.setCode.invoke(BEAN, DEFAULT_INTEGERS);
+            OPTIMIZATION_CACHED_METHOD.setName.invoke(BEAN, DEFAULT_STRINGS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,15 +167,15 @@ public class ReflectionTest {
      */
     public static class CachedMethod {
 
-        public Method SET_ID;
-        public Method SET_CODE;
-        public Method SET_NAME;
+        public Method setId;
+        public Method setCode;
+        public Method setName;
 
         {
             try {
-                SET_ID = Bean.class.getDeclaredMethod("setId", int.class);
-                SET_CODE = Bean.class.getDeclaredMethod("setCode", Integer.class);
-                SET_NAME = Bean.class.getDeclaredMethod("setName", String.class);
+                setId = Bean.class.getDeclaredMethod("setId", int.class);
+                setCode = Bean.class.getDeclaredMethod("setCode", Integer.class);
+                setName = Bean.class.getDeclaredMethod("setName", String.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -184,9 +192,9 @@ public class ReflectionTest {
 
         {
             /** 所谓的优化 */
-            SET_ID.setAccessible(true);
-            SET_CODE.setAccessible(true);
-            SET_NAME.setAccessible(true);
+            setId.setAccessible(true);
+            setCode.setAccessible(true);
+            setName.setAccessible(true);
         }
 
     }
@@ -205,9 +213,9 @@ public class ReflectionTest {
         private FastClass cglibBeanClass = FastClass.create(Bean.class);
 
         {
-            cglibSetId = cglibBeanClass.getMethod(SET_ID);
-            cglibSetCode = cglibBeanClass.getMethod(SET_CODE);
-            cglibSetName = cglibBeanClass.getMethod(SET_NAME);
+            cglibSetId = cglibBeanClass.getMethod(setId);
+            cglibSetCode = cglibBeanClass.getMethod(setCode);
+            cglibSetName = cglibBeanClass.getMethod(setName);
         }
 
     }
