@@ -1,11 +1,9 @@
 /*
- * Copyright 1999-2010 Alibaba.com All right reserved. This software is the
- * confidential and proprietary information of Alibaba.com ("Confidential
- * Information"). You shall not disclose such Confidential Information and shall
- * use it only in accordance with the terms of the license agreement you entered
- * into with Alibaba.com.
+ * Copyright 1999-2010 Alibaba.com All right reserved. This software is the confidential and proprietary information of
+ * Alibaba.com ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only
+ * in accordance with the terms of the license agreement you entered into with Alibaba.com.
  */
-package com.alibaba.stonelab.toolkit.learning.misc;
+package com.alibaba.stonelab.toolkit.learning.perf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,15 +46,15 @@ public class SpringSingleBeanGetTest {
 
     public static void main(String[] args) throws Exception {
         testNewObject();
-        //        Runner s = new Runner(true);
-        //        Runner c = new Runner(false);
+        // Runner s = new Runner(true);
+        // Runner c = new Runner(false);
         //
-        //        for (int i = 0; i < 5; i++) {
-        //            new Thread(s).start();
-        //        }
-        //        for (int i = 0; i < 5; i++) {
-        //            new Thread(c).start();
-        //        }
+        // for (int i = 0; i < 5; i++) {
+        // new Thread(s).start();
+        // }
+        // for (int i = 0; i < 5; i++) {
+        // new Thread(c).start();
+        // }
 
     }
 
@@ -64,7 +62,7 @@ public class SpringSingleBeanGetTest {
 
         private boolean flag;
 
-        public Runner(boolean flag) {
+        public Runner(boolean flag){
             this.flag = flag;
         }
 
