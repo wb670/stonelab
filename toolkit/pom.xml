@@ -173,6 +173,22 @@
 			<artifactId>codehaus.mvel</artifactId>
 			<version>2.0.6</version>
 		</dependency>
+		<!-- netty -->
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.1.5.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.external</groupId>
+			<artifactId>ajax.jsonlib</artifactId>
+			<version>0.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.external</groupId>
+			<artifactId>sourceforge.ezmorph</artifactId>
+			<version>0.0.0</version>
+		</dependency>
 		<!-- java tools -->
 		<dependency>
 			<groupId>com.sun</groupId>

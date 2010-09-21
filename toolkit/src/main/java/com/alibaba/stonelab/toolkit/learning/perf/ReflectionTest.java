@@ -42,10 +42,11 @@ public class ReflectionTest {
     private static final OptimizationCachedMethod OPTIMIZATION_CACHED_METHOD = new OptimizationCachedMethod();
     private static final CglibCachedMethod        CGLIB_CACHED_METHOD        = new CglibCachedMethod();
 
-    private static final long                     LOOP                       = 1 * 10000 * 10000;
+    protected static final long                   LOOP                       = 1 * 10000 * 10000;
 
     // 测试main
     public static void main(String[] args) {
+        args = new String[] { "4" };
         if (args.length != 1) {
             System.out.println("args error.");
             System.exit(1);
@@ -156,6 +157,11 @@ public class ReflectionTest {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "Bean [id=" + id + ", code=" + code + ", name=" + name + "]";
         }
 
     }
