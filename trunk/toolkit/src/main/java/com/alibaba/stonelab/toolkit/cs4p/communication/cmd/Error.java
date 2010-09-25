@@ -17,7 +17,7 @@ public class Error extends BaseCmd implements Cmd {
 
     @Override
     public String response() {
-        return "usage:[binfo][pinfo][padd name x y][pmove x y][pfire x y]";
+        return "usage:\n[binfo]\n[pinfo]\n[pstat]\n[padd name x y]\n[pmove x y]\n[pfire x y]\n";
     }
 
 }
