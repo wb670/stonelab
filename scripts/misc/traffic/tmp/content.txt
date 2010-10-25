@@ -55,7 +55,7 @@
     <td width="15%"height="32" class="xxcxsspoptd">验证码</td>
     <td width="35%"align="left" valign="bottom" class="xxcxsspoptdy" colspan=3>
         
-      <input name="ctl00$ContentPlaceHolder1$checkcode" type="text" value="5799" maxlength="4" id="ctl00_ContentPlaceHolder1_checkcode" onkeydown="javascript:if(window.event.keyCode==13) {document.getElementById(&quot;ctl00_ContentPlaceHolder1_Button1&quot;).click();return false;}" style="width:80px;" /><img id="Img2" src="../../government/CreateCheckCode.aspx" alt="验证码" onclick="this.src=this.src+'?'+Math.random();"/>
+      <input name="ctl00$ContentPlaceHolder1$checkcode" type="text" value="1358" maxlength="4" id="ctl00_ContentPlaceHolder1_checkcode" onkeydown="javascript:if(window.event.keyCode==13) {document.getElementById(&quot;ctl00_ContentPlaceHolder1_Button1&quot;).click();return false;}" style="width:80px;" /><img id="Img2" src="../../government/CreateCheckCode.aspx" alt="验证码" onclick="this.src=this.src+'?'+Math.random();"/>
     <a href="#" onclick="javascript:document.getElementById('Img2').src='../../government/CreateCheckCode.aspx'+'?'+Math.random();">换一张</a>&nbsp;
         
     </td>
