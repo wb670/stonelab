@@ -13,7 +13,7 @@ idcode="239837"
 no="浙AE856D"
 
 curl -s -b "ASP.NET_SessionId=$SESSION_ID" "$IMAGE_CODE_URL" -o $TMP_CODE_BASE
-code=`java -cp lib/traffic.jar TrafficImgCracker $TMP_CODE_BASE`
+code=`python lib/img_cracker.py $TMP_CODE_BASE`
 
 . conf/config.sh
 
