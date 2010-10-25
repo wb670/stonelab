@@ -5,7 +5,7 @@ import sys,web
 from urls import urls
 
 # web config
-# web.config.debug = True
+# web.config.debug = False
 
 # app config
 app = web.application(urls,globals())
@@ -18,10 +18,15 @@ db = web.database(
         pw='123456',
         db='sample')
 
+# form config
+form = web.form
+
 # session config
-session = web.session.Session(
-        app,
-        web.session.DiskStore('session'))
+if web.config.get('_session') is None:
+    session = web.session.Session(app, web.session.DiskStore('session'))
+    web.config._session = session
+else:
+    session = web.config._session
 
 # render config
 # render = web.template.render('templates/')
