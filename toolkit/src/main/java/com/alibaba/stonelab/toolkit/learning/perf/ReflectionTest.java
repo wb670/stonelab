@@ -46,7 +46,7 @@ public class ReflectionTest {
 
     // 测试main
     public static void main(String[] args) {
-        args = new String[] { "4" };
+        args = new String[] { "1" };
         if (args.length != 1) {
             System.out.println("args error.");
             System.exit(1);
