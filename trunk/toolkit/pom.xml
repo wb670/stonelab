@@ -227,6 +227,12 @@
             <artifactId>pivot.biz.ice</artifactId>
             <version>1.0</version>
         </dependency>
+        <!-- tomcat -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>7.0.2</version>
+        </dependency>
         <!-- java tools -->
         <dependency>
             <groupId>com.sun</groupId>

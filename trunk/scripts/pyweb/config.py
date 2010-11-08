@@ -1,22 +1,23 @@
 #!/usr/bin/python
 # encoding: utf-8
 
-import sys,web
-from urls import urls
+import web
 
 # web config
-# web.config.debug = False
+# web.config.debug = True
 
 # app config
-app = web.application(urls,globals())
+from urls import urls
+app = web.application(urls, autoreload=True)
 
 # db config
 db = web.database(
-        dbn='mysql',
-        host='127.0.0.1',
-        user='root',
-        pw='123456',
-        db='sample')
+    dbn='mysql',
+    host='127.0.0.1',
+    user='root',
+    pw='123456',
+    db='sample'
+)
 
 # form config
 form = web.form
@@ -28,5 +29,6 @@ if web.config.get('_session') is None:
 else:
     session = web.config._session
 
-# render config
-# render = web.template.render('templates/')
+# run app
+if __name__ == "__main__":
+    app.run()
