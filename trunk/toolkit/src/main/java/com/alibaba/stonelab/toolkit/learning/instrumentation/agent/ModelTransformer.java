@@ -1,11 +1,5 @@
 /**
- * Function: 
- * 
- * File Created at 2010-3-14
- * $Id$
- * 
- * Copyright 2009 Alibaba.com Croporation Limited.
- * All rights reserved.
+ * Function: File Created at 2010-3-14 $Id$ Copyright 2009 Alibaba.com Croporation Limited. All rights reserved.
  */
 package com.alibaba.stonelab.toolkit.learning.instrumentation.agent;
 
@@ -20,18 +14,18 @@ import java.security.ProtectionDomain;
  */
 public class ModelTransformer implements ClassFileTransformer {
 
-    private static final String MODEL_CLASS = "com/alibaba/javalab/instrumentation/Model";
+    private static final String MODEL_CLASS = "com/alibaba/stonelab/toolkit/learning/instrumentation/Model";
 
     private String              modelResource;
 
-    public ModelTransformer(String modelResource) {
+    public ModelTransformer(String modelResource){
         this.modelResource = modelResource;
     }
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                             ProtectionDomain protectionDomain, byte[] classfileBuffer)
-            throws IllegalClassFormatException {
+                                                                                      throws IllegalClassFormatException {
         if (!className.equals(MODEL_CLASS)) {
             return null;
         }

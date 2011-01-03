@@ -1,9 +1,7 @@
 /*
- * Copyright 1999-2010 Alibaba.com All right reserved. This software is the
- * confidential and proprietary information of Alibaba.com ("Confidential
- * Information"). You shall not disclose such Confidential Information and shall
- * use it only in accordance with the terms of the license agreement you entered
- * into with Alibaba.com.
+ * Copyright 1999-2010 Alibaba.com All right reserved. This software is the confidential and proprietary information of
+ * Alibaba.com ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only
+ * in accordance with the terms of the license agreement you entered into with Alibaba.com.
  */
 package com.alibaba.stonelab.webxsample.sample.web.common.valve;
 
@@ -17,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.citrus.service.pipeline.PipelineContext;
@@ -25,7 +24,6 @@ import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.citrus.turbine.TurbineRunDataInternal;
 import com.alibaba.citrus.turbine.pipeline.valve.PerformScreenValve;
 import com.alibaba.citrus.webx.WebxException;
-import com.alibaba.common.lang.StringUtil;
 
 /**
  * <pre>
@@ -79,35 +77,35 @@ import com.alibaba.common.lang.StringUtil;
  */
 public class PerformJsonValve extends PerformScreenValve {
 
-    //TODO:建议抽到一个JSON常量类中,需要被Json Screen依赖
-    public static final String  PARAM_VAR                = "var";        //参数:var
-    public static final String  PARAM_CALLBACK           = "callback";   //参数:callback
+    // TODO:建议抽到一个JSON常量类中,需要被Json Screen依赖
+    public static final String  PARAM_VAR                = "var";        // 参数:var
+    public static final String  PARAM_CALLBACK           = "callback";   // 参数:callback
     public static final String  KEY_JSON_DATA            = "__json__";   // json数据key
 
-    private static final String OUTPUT_TEMPLATE_VAR      = "var {0}={1}"; //var样式下,输出模板
-    private static final String OUTPUT_TEMPLATE_CALLBACK = "{0}({1})";   //callback样式下,输出模板
+    private static final String OUTPUT_TEMPLATE_VAR      = "var {0}={1}"; // var样式下,输出模板
+    private static final String OUTPUT_TEMPLATE_CALLBACK = "{0}({1})";   // callback样式下,输出模板
 
     @Autowired
-    private HttpServletRequest  request;                                 //注入 http servlet request对象
+    private HttpServletRequest  request;                                 // 注入 http servlet request对象
     @Autowired
-    private HttpServletResponse response;                                //注入http servlet response对象
+    private HttpServletResponse response;                                // 注入http servlet response对象
 
     @Override
     public void invoke(PipelineContext pipelineContext) throws Exception {
-        //得到rundata对象
+        // 得到rundata对象
         TurbineRunData rundata = getTurbineRunData(request);
 
         // 检查重定向标志，如果是重定向，则不需要将页面输出。
         if (!rundata.isRedirected()) {
-            //设置http response content type
+            // 设置http response content type
             setContentType(rundata);
-            //执行Json Screen Module
+            // 执行Json Screen Module
             performScreenModule(rundata);
             // json内容输出
             output(rundata);
         }
 
-        //执行下一个valve
+        // 执行下一个valve
         pipelineContext.invokeNext();
     }
 
@@ -205,9 +203,9 @@ public class PerformJsonValve extends PerformScreenValve {
     protected JsonStyle getJsonStyle(TurbineRunData rundata) {
         String var = rundata.getParameters().getString(PARAM_VAR);
         String callback = rundata.getParameters().getString(PARAM_CALLBACK);
-        if (StringUtil.isNotEmpty(var)) {
+        if (StringUtils.isNotBlank(var)) {
             return JsonStyle.JSON_VAR;
-        } else if (StringUtil.isNotEmpty(callback)) {
+        } else if (StringUtils.isNotBlank(callback)) {
             return JsonStyle.JSON_CALLBACK;
         } else {
             return JsonStyle.JSON;

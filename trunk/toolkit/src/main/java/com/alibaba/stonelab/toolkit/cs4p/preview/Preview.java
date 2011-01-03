@@ -8,8 +8,8 @@ package com.alibaba.stonelab.toolkit.cs4p.preview;
 import java.util.Collection;
 
 import com.alibaba.stonelab.toolkit.cs4p.model.Battlefield;
-import com.alibaba.stonelab.toolkit.cs4p.model.Member;
 import com.alibaba.stonelab.toolkit.cs4p.model.CsException;
+import com.alibaba.stonelab.toolkit.cs4p.model.Member;
 import com.alibaba.stonelab.toolkit.cs4p.model.Point;
 import com.alibaba.stonelab.toolkit.cs4p.model.map.SimpleBattlefield;
 import com.alibaba.stonelab.toolkit.cs4p.model.member.SimplePlayer;
