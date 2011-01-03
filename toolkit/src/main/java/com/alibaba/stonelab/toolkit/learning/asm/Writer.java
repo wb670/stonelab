@@ -9,8 +9,14 @@
  */
 package com.alibaba.stonelab.toolkit.learning.asm;
 
+import static org.objectweb.asm.Opcodes.ACC_ABSTRACT;
+import static org.objectweb.asm.Opcodes.ACC_FINAL;
+import static org.objectweb.asm.Opcodes.ACC_INTERFACE;
+import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
+import static org.objectweb.asm.Opcodes.ACC_STATIC;
+import static org.objectweb.asm.Opcodes.V1_6;
+
 import org.objectweb.asm.ClassWriter;
-import static org.objectweb.asm.Opcodes.*;
 
 /**
  * @author li.jinl

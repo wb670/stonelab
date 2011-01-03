@@ -5,7 +5,6 @@
  */
 package com.alibaba.stonelab.toolkit.learning.misc;
 
-import java.util.concurrent.Semaphore;
 
 /**
  * @author Stone.J 2010-8-31 上午09:57:39
@@ -13,13 +12,5 @@ import java.util.concurrent.Semaphore;
 public class Test extends Thread {
 
     public static void main(String[] args) throws Exception {
-        Semaphore latch = new Semaphore(0);
-        int ret;
-        ret = latch.drainPermits();
-        System.out.println(ret + ":" + latch.tryAcquire());
-        ret = latch.drainPermits();
-        System.out.println(ret + ":" + latch.tryAcquire());
-        ret = latch.drainPermits();
-        System.out.println(ret + ":" + latch.tryAcquire());
     }
 }

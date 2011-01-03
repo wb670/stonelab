@@ -7,10 +7,10 @@ package com.alibaba.stonelab.toolkit.learning.cglib;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2010-10-29

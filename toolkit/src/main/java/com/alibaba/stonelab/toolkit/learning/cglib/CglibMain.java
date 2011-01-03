@@ -23,7 +23,6 @@ public class CglibMain {
 
         TargetBean eb = (TargetBean) e.create();
         eb.hello("hello");
-
     }
 
 }
