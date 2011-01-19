@@ -47,7 +47,6 @@ class ImgCompressionFrame(object):
         #主桌面
         self.top = Tkinter.Tk()
         self.top.title('图片压缩工具')
-        self.top.iconbitmap('')
         #原图片文件选择界面
         self.src_lable = Tkinter.Label(self.top, text='要压缩的图片')
         self.src_lable.grid(row=0, column=0)
