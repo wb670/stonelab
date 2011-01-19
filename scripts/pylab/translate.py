@@ -10,6 +10,7 @@ import json
 import re
 import sys
 import urllib2
+import types
 
 res = 'http://translate.google.cn/translate_a/t?client=t&text=%s&hl=zh-CN&sl=%s&tl=%s'
 agent = 'Mozilla / 5.0 (X11; U; Linux i686; en - US) AppleWebKit / 534.7 (KHTML, like Gecko) Chrome / 7.0.517.44 Safari / 534.7'
@@ -23,14 +24,13 @@ def get_data(text, sl='en', tl='zh-CN'):
     return json.loads(content)
 
 def show(data):
-        #step1
-        print '翻译：'
-        for i, word in enumerate(data[0]):
-            print '  %s.%s' % (i + 1, word[0])
-        #step2
-        print 
-        #step3
-        print '字典：'
+    #step1
+    print '翻译：'
+    for i, word in enumerate(data[0]):
+        print '  %s.%s' % (i + 1, word[0])
+    #step2
+    if types.ListType == type(data[1]):
+        print '\n字典：'
         for word in data[1]:
             print word[0]
             if len(word) < 2:
