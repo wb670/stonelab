@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="GB2312"?>
+<resources>
+    <resource-alias pattern="/WEB-INF" name="/webroot/WEB-INF" />
+    <resource-alias pattern="/webx2" name="/webroot/WEB-INF" />
+    <resource-alias pattern="/templates" name="/webroot/templates" />
+</resources>
