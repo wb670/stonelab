@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="GB2312"?>
+<uri-config>
+    <!-- ================================================================ -->
+    <!-- Server Level： 外部server。                                      -->
+    <!--                                                                  -->
+    <!-- 使用方法： link.getURI('path')                                   -->
+    <!-- ================================================================ -->
+    <uri name="alibabaSite" expose="true">
+        <serverURI>http://china.alibaba.com/</serverURI>
+    </uri>
+
+    <!-- ================================================================ -->
+    <!-- Server Level： java server。                                     -->
+    <!--                                                                  -->
+    <!-- 使用方法： 不能直接使用，只被其它URI继承。                       -->
+    <!-- ================================================================ -->
+    <uri name="webx2QuickStartServer"/>
+    <!-- ================================================================ -->
+    <!-- Component Level： webx modules。                                 -->
+    <!--                                                                  -->
+    <!-- 使用方法： link.setTarget('target.jhtml')                        -->
+    <!--                  .addQueryData('name', 'value')                  -->
+    <!-- ================================================================ -->
+    <turbine-uri name="appModule" expose="true" extends="webx2QuickStartServer">
+        <componentPath>/</componentPath>
+    </turbine-uri>
+    <servlet-content-uri name="imageContent" expose="true" extends="webx2QuickStartServer">
+        <path>/images/app</path>
+    </servlet-content-uri>
+    <!-- ================================================================ -->
+    <!-- Link Level： 继承前述各类links。                                 -->
+    <!--                                                                  -->
+    <!-- 使用方法： link                                                  -->
+    <!-- ================================================================ -->
+    <turbine-uri name="helloLink" expose="true" extends="appModule">
+        <target>hello.vm</target>
+        <query id="name">test</query>
+    </turbine-uri>
+</uri-config>
