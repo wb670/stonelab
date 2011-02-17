@@ -4,7 +4,7 @@
 #showHead ("My Simple Webx Application")
 </head>
 
-<body #bodyAttributes ()>
+<body #bodyAttributes()>
 
 $screen_placeholder
 
