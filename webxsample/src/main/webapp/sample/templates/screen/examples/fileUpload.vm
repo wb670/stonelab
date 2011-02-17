@@ -1,0 +1,7 @@
+<form action="" method="post" enctype="multipart/form-data">
+    <label for="file">Filename:</label>
+	<input type="hidden" name="action" value="examples/fileUpload_action"/>
+    <input type="file" name="file" id="file" />
+    <br />
+    <input type="submit" name="event_submit_do_upload" />
+</form>

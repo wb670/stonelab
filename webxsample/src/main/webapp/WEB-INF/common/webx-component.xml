@@ -49,6 +49,7 @@
 		<form-tool />
 		<control-tool />
 		<uris-tool />
+        <pull-factories:bean-tool id="stringUtil" scope="global" class="java.lang.Object"/>
 	</services:pull>
 
 	<!-- 名称查找规则。 -->

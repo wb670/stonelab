@@ -18,13 +18,17 @@
             </services:field>
         </services:group>
 
-        <services:group name="sample" extends="csrfCheck">
+        <services:group name="sample">
             <services:field name="name" displayName="姓名">
                 <required-validator>
                     <message>必须填写 ${displayName}</message>
                 </required-validator>
             </services:field>
         </services:group>
+        
+        <services:group name="user">
+            <services:field name="name" displayName="name" />
+            <services:field name="password" displayName="password" />
+        </services:group>
     </services:form>
-
 </beans:beans>
