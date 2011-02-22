@@ -1,4 +1,5 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load filter %} 
 {% block body %}
 <div id="content" class="colM">
     <h1>业主信息</h1>
@@ -18,7 +19,7 @@
             <div><label for="id_area">住房面积:</label>{{ member.area }}</div>
         </div>
         <div class="form-row fee_unit_price  ">
-            <div><label for="id_fee_unit_price">物业费单价:</label>{{ member.fee_unit_price }}</div>
+            <div><label for="id_fee_unit_price">每月物业费:</label>{{ member.fee_unit_price|math_mul:member.area }}</div>
         </div>
         <div class="form-row identity_card_no  ">
         <div><label for="id_identity_card_no">身份证号:</label>{{ member.identity_card_no }}</div>

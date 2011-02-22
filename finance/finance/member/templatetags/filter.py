@@ -9,9 +9,13 @@ def row(value):
     else:
         return 'row2'
     
-def mul(value, num):
+def math_mul(value, num):
     return value * num
+
+def math_add(value, num):
+    return value + num
 
 register = template.Library()    
 register.filter('row', row)
-register.filter('mul', mul)
+register.filter('math_add', math_add)
+register.filter('math_mul', math_mul)
