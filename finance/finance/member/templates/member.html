@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{% block body %}
+<div id="content" class="colM">
+    <h1>业主信息</h1>
+    <div id="content-main">
+    {% if not member %}
+        <ul class="errorlist"><li>业主不存在！</li></ul>
+    {% else %}
+        <div>
+        <fieldset class="module aligned">
+        <div class="form-row room_no">
+            <div><label for="id_room_no">房号:</label>{{ member.room_no }}</div>
+        </div>
+        <div class="form-row name  ">
+            <div><label for="id_name">业主姓名:</label>{{ member.name }}</div>
+        </div>
+        <div class="form-row area  ">
+            <div><label for="id_area">住房面积:</label>{{ member.area }}</div>
+        </div>
+        <div class="form-row fee_unit_price  ">
+            <div><label for="id_fee_unit_price">物业费单价:</label>{{ member.fee_unit_price }}</div>
+        </div>
+        <div class="form-row identity_card_no  ">
+        <div><label for="id_identity_card_no">身份证号:</label>{{ member.identity_card_no }}</div>
+        </div>
+        <div class="form-row phone_no  ">
+        <div><label for="id_phone_no">联系电话:</label>{{ member.phone_no }}</div>
+        </div>
+        <div class="form-row kind  ">
+            <div><label for="id_kind">用房性质:</label>{{ member.get_kind_display }}</div>
+        </div>
+        <div class="form-row bicycle_garage_no  ">
+            <div><label for="id_bicycle_garage_no">自行车库号:</label>{{ member.bicycle_garage_no }}</div>
+        </div>
+        <div class="form-row garage_no  ">
+            <div><label for="id_garage_no">汽车停车位:</label>{{ member.garage_no }}</div>
+        </div>
+        <div class="form-row parking_no  ">
+            <div><label for="id_parking_no">停车卡号:</label>{{ member.parking_no }}</div>
+        </div>
+        <div class="form-row memo  ">
+            <div><label for="id_memo">备注:</label>{{ member.memo }}</div>
+        </div>
+        <div class="form-row id">
+            <div><label for="id_id"><a href="/member/update/{{ member.id }}/" class="changelink">修改业主信息</a></label></div>
+            <div><label for="id_id"><a href="/member/delete/{{ member.id }}/" class="changelink">删除业主信息</a></label></div>
+        </div>
+        </fieldset>
+        </div>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

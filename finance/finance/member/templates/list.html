@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load filter %}
+{% block body %}
+<div id="content" class="flex">
+    <h1>业主信息列表</h1>
+    <div id="content-main">
+        <div id="changelist" class="module">
+        <!-- toolbar -->
+        <div id="toolbar">
+            <form id="changelist-search" action="/member/list" method="get"> 
+            <div>
+                <label for="searchbar"><img src="/media/img/admin/icon_searchbox.png" alt="Search" /></label> 
+                <input type="text" size="40" name="q" value="{{ q|default:"" }}" id="searchbar" /> 
+                <input type="submit" value="搜索" /> 
+            </div> 
+            </form>
+        </div> 
+        <!-- members -->
+        <table cellspacing="0"> 
+            <thead><tr>
+                <th>房号</th>
+                <th>业主姓名</th>
+                <th>用房性质</th>
+                <th>联系方式</th>
+                <th>住房面积</th>
+                <th>物业费</th>
+                <th>自行车库号</th>
+                <th>汽车停车位</th>
+                <th>停车卡号</th>
+            </tr></thead>
+            <tbody>
+                {% for m in page.object_list %}
+                <tr class="{{ forloop.counter|row }}">
+                    <th><a href="/member/{{ m.id }}/">{{ m.room_no }}</a></th>
+                    <td>{{ m.name }}</td>
+                    <td>{{ m.get_kind_display }}</td>
+                    <td>{{ m.phone_no }}</td>
+                    <td>{{ m.area }}</td>
+                    <td>{{ m.fee_unit_price|mul:m.area }}</td>
+                    <td>{{ m.bicycle_garage_no }}</td>
+                    <td>{{ m.garage_no }}</td>
+                    <td>{{ m.parking_no }}</td>
+                </tr>
+                {% endfor %} 
+            </tbody> 
+        </table>
+        <p class="paginator"> 
+            业主人数：{{ page.paginator.count }}人
+            &nbsp;&nbsp;
+            {% if page.has_previous %}<a href="/member/list/{{ page.previous_page_number }}/{% if q %}?q={{ q }}{% endif %}" class="end">上一页</a>{% endif %}
+            {% if page.has_next %}<a href="/member/list/{{ page.next_page_number }}/{% if q %}?q={{ q }}{% endif %}" class="end">下一页</a>{% endif %}
+        </p> 
+        </div>
+    </div>
+</div>
+{% endblock %} 
