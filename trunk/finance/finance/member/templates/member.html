@@ -49,6 +49,31 @@
         </fieldset>
         </div>
     {% endif %}
+    
+    {% if rs %}
+    <h1>最近10次交费记录</h1>
+    <div id="content-main">
+        <div id="changelist" class="module">
+        <table cellspacing="0"> 
+            <thead><tr>
+                <th>类型</th>
+                <th>金额</th>
+                <th>日期</th>
+                <th>摘要</th>
+            </tr></thead>
+            <tbody>
+                {% for r in rs %}
+                <tr class="{{ forloop.counter|row }}">
+                    <td>{{ r.get_code_display }}</td>
+                    <td>{{ r.amount }}</td>
+                    <td>{{ r.date }}</td>
+                    <td>{{ r.subject }}</td>
+                </tr>
+                {% endfor %} 
+            </tbody> 
+        </table>
+    </div>
+    {% endif %}
     </div>
 </div>
 {% endblock %}

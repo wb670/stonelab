@@ -15,7 +15,6 @@ class AccountNode(template.Node):
 def get_account(parser, token):
     try:
         tag_name, name = token.split_contents()
-        print tag_name, name
     except ValueError:        
         raise template.TemplateSyntaxError, "%s tag requires argument" % tag_name
     return AccountNode(name)

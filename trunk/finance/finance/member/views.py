@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from finance import member
 from django.core.paginator import Paginator
+from finance.fee.models import Revenue
 
 
 class MemberForm(ModelForm):
@@ -45,9 +46,10 @@ def update(req, id):
 def get(req, id):
     try:
         member = Member.objects.get(id=id)
+        rs = Revenue.objects.filter(member=member.id).order_by('-id')[0:10]
     except Member.DoesNotExist:
         member = None
-    return render_to_response('member.html', {'member':member})
+    return render_to_response('member.html', {'member':member, 'rs':rs})
 
 def delete(req, id):
     Member.objects.filter(id=id).delete()

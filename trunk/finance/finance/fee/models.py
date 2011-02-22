@@ -43,11 +43,11 @@ class Cost(models.Model):
              ('CO0301', u'电梯年检费'),
              ('CO0302', u'电梯维护费'),
              ('CO0303', u'其他公共维修费'))
-    code = models.CharField(max_length=16, choices=codes)
-    subject = models.CharField(max_length=128)
-    amount = models.FloatField()
-    date = models.DateField()
-    member = models.OneToOneField(Member)
+    code = models.CharField(max_length=16, choices=codes, verbose_name=u'代号')
+    amount = models.FloatField(verbose_name=u'金额')
+    date = models.DateField(verbose_name=u'日期')
+    subject = models.CharField(max_length=128, verbose_name=u'摘要')
+    member = models.ForeignKey(Member,null=True,blank=True,verbose_name=u'业主')
 
 class Revenue(models.Model):
     codes = (('S001', u'物业费'),
@@ -61,8 +61,8 @@ class Revenue(models.Model):
               ('S00402', u'物业出租'),
               ('S00403', u'维修费'),
               ('S00404', u'其他'))
-    code = models.CharField(max_length=16, choices=codes)
-    subject = models.CharField(max_length=128)
-    amount = models.FloatField()
-    date = models.DateField()
-    member = models.OneToOneField(Member)
+    code = models.CharField(max_length=16, choices=codes, verbose_name=u'代号')
+    amount = models.FloatField(verbose_name=u'金额')
+    date = models.DateField(verbose_name=u'日期')
+    subject = models.CharField(max_length=128, verbose_name=u'摘要')
+    member = models.ForeignKey(Member,null=True,blank=True,verbose_name=u'业主')
