@@ -19,7 +19,7 @@ def add(req):
     else:
         form = MemberForm(req.POST)
         if not form.is_valid():
-            return render_to_response('member/add.html', {'form':form})
+            return render_to_response('add.html', {'form':form})
         member = form.save(False)
         member.save()
         return HttpResponseRedirect('/member/%d' % (member.id))

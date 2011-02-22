@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load filter tag %}
+{% block body %}
+{% get_account account %}
+<div id="content" class="flex">
+    <h1>账户情况</h1> 
+    <div id="content-main">
+        <div id="changelist" class="module">
+        <table cellspacing="0"> 
+            <thead><tr>
+                <th>总额：{{ account.cash|math_add:account.bank }}</th>
+                <th>现金：{{ account.cash }}</th>
+                <th>存款：{{ account.bank }}</th>
+            </tr></thead>
+        </table>
+        </div>
+    </div>
+    
+    <h1>    </h1>
+    <h1>存取款记录</h1>
+    <div id="content-main">
+        <div id="changelist" class="module">
+        <!-- members -->
+        <table cellspacing="0"> 
+            <thead><tr>
+                <th>类型</th>
+                <th>金额</th>
+                <th>日期</th>
+                <th>摘要</th>
+            </tr></thead>
+            <tbody>
+                {% for b in page.object_list %}
+                <tr class="{% ifequal b.type 'D' %}row1{% else %}row2{% endifequal %}">
+                    <td>{{ b.get_type_display }}</td>
+                    <td>{{ b.amount }}</td>
+                    <td>{{ b.date }}</td>
+                    <td>{{ b.subject }}</td>
+                </tr>
+                {% endfor %} 
+            </tbody> 
+        </table>
+        <p class="paginator"> 
+            存取款记录：{{ page.paginator.count }}笔
+            &nbsp;&nbsp;
+            {% if page.has_previous %}<a href="/fee/bank/list/{{ page.previous_page_number }}" class="end">上一页</a>{% endif %}
+            {% if page.has_next %}<a href="/fee/bank/list/{{ page.next_page_number }}" class="end">下一页</a>{% endif %}
+        </p> 
+        </div>
+    </div>
+</div>
+{% endblock %}
