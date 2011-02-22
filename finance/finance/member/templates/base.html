@@ -21,10 +21,21 @@
         <div id="branding"> 
             <h1 id="site-name">物业财务系统</h1> 
         </div> 
-    </div> 
+         <div id="user-tools"> 
+            欢迎，<strong>{{ user.username }}</strong>.<a href="/admin/logout/">注销</a> 
+        </div>
+    </div>
+    <!-- header end -->
+    
+    <!-- menu -->
+    <div id="menu">
+    </div>
+    <!-- menu end -->
+    
     <!-- main -->
     <div id="container">
     {% block body %}{% endblock %}
     </div>
+    <!-- main end -->
 </body>
 </html>
