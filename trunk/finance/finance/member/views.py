@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from finance import member
 from django.core.paginator import Paginator
 from finance.fee.models import Revenue
+from django.template import RequestContext
 
 
 class MemberForm(ModelForm):
@@ -16,11 +17,11 @@ class MemberForm(ModelForm):
 def add(req):
     if req.method == 'GET':
         form = MemberForm()
-        return render_to_response('add.html', {'form':form})
+        return render_to_response('add.html', {'form':form}, context_instance=RequestContext(req))
     else:
         form = MemberForm(req.POST)
         if not form.is_valid():
-            return render_to_response('add.html', {'form':form})
+            return render_to_response('add.html', {'form':form}, context_instance=RequestContext(req))
         member = form.save(False)
         member.save()
         return HttpResponseRedirect('/member/%d' % (member.id))
@@ -32,11 +33,11 @@ def update(req, id):
         except Member.DoesNotExist:
             member = None
         form = MemberForm(instance=member)
-        return render_to_response('update.html', {'form':form})
+        return render_to_response('update.html', {'form':form}, context_instance=RequestContext(req))
     else:
         form = MemberForm(req.POST)
         if not form.is_valid():
-            return render_to_response('update.html', {'form':form})
+            return render_to_response('update.html', {'form':form}, context_instance=RequestContext(req))
         else:
             member = form.save(False)
             member.id = int(id)
@@ -49,7 +50,7 @@ def get(req, id):
         rs = Revenue.objects.filter(member=member.id).order_by('-id')[0:10]
     except Member.DoesNotExist:
         member = None
-    return render_to_response('member.html', {'member':member, 'rs':rs})
+    return render_to_response('member.html', {'member':member, 'rs':rs}, context_instance=RequestContext(req))
 
 def delete(req, id):
     Member.objects.filter(id=id).delete()
@@ -64,4 +65,4 @@ def list(req, num=1):
     num = int(num)
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)    
-    return render_to_response('list.html', {'page':page, 'q':q})
+    return render_to_response('list.html', {'page':page, 'q':q}, context_instance=RequestContext(req))
