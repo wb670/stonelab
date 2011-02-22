@@ -58,7 +58,6 @@ def list(req, num=1):
     if not q:
         p = Paginator(Member.objects.all().order_by('id'), 10)
     else:
-        print Q(room_no__contains=q) | Q(name__contains=q)
         p = Paginator(Member.objects.filter((Q(room_no__contains=q) | Q(name__contains=q))), 10)
     num = int(num)
     num = num if num <= p.num_pages else p.num_pages
