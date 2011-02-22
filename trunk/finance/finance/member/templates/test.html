@@ -1,0 +1,141 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn" xml:lang="zh-cn" > 
+<head> 
+<title>选择 member 来修改 | Django 站点管理员</title> 
+<link rel="stylesheet" type="text/css" href="/media/css/base.css" /> 
+<link rel="stylesheet" type="text/css" href="/media/css/changelists.css" /> 
+<script type="text/javascript" src="/media/js/core.js"></script> 
+<script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script> 
+<script type="text/javascript" src="/media/js/getElementsBySelector.js"></script> 
+<script type="text/javascript" src="/media/js/actions.js"></script> 
+</head> 
+ 
+<body> 
+ 
+<!-- Container --> 
+<div id="container"> 
+    <!-- Header --> 
+    <div id="header"> 
+        <div id="branding"> 
+            <h1 id="site-name">Django 管理</h1> 
+        </div> 
+    </div> 
+    <!-- END Header --> 
+    
+    <!-- Content --> 
+    <div id="content" class="flex"> 
+        <h1>选择 member 来修改</h1> 
+        <div id="content-main"> 
+    <div class="module" id="changelist"> 
+      
+ 
+ 
+<div id="toolbar"><form id="changelist-search" action="" method="get"> 
+<div><!-- DIV needed for valid HTML --> 
+<label for="searchbar"><img src="/media/img/admin/icon_searchbox.png" alt="Search" /></label> 
+<input type="text" size="40" name="q" value="" id="searchbar" /> 
+<input type="submit" value="搜索" /> 
+ 
+ 
+</div> 
+</form></div> 
+<script type="text/javascript">document.getElementById("searchbar").focus();</script> 
+ 
+ 
+      
+ 
+ 
+      
+        
+      
+      
+      <form action="" method="post"> 
+      
+ 
+      
+          
+<div class="actions"> 
+    <label>Action: <select name="action"> 
+<option value="" selected="selected">---------</option> 
+<option value="delete_selected">删除了选择的members</option> 
+</select></label> 
+    <button type="submit" class="button" title="Run the selected action" name="index" value="0">执行</button> 
+</div> 
+ 
+          
+<table cellspacing="0"> 
+<thead> 
+<tr> 
+<th> 
+ 
+<input type="checkbox" id="action-toggle" /> 
+</th><th> 
+<a href="?ot=asc&amp;o=1"> 
+房号
+</a></th><th> 
+<a href="?ot=asc&amp;o=2"> 
+业主姓名
+</a></th> 
+</tr> 
+</thead> 
+<tbody> 
+ 
+<tr class="row1"><td><input type="checkbox" class="action-select" value="23" name="_selected_action" /></td><th><a href="23/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row2"><td><input type="checkbox" class="action-select" value="22" name="_selected_action" /></td><th><a href="22/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row1"><td><input type="checkbox" class="action-select" value="21" name="_selected_action" /></td><th><a href="21/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row2"><td><input type="checkbox" class="action-select" value="20" name="_selected_action" /></td><th><a href="20/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row1"><td><input type="checkbox" class="action-select" value="19" name="_selected_action" /></td><th><a href="19/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row2"><td><input type="checkbox" class="action-select" value="18" name="_selected_action" /></td><th><a href="18/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row1"><td><input type="checkbox" class="action-select" value="17" name="_selected_action" /></td><th><a href="17/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row2"><td><input type="checkbox" class="action-select" value="16" name="_selected_action" /></td><th><a href="16/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row1"><td><input type="checkbox" class="action-select" value="15" name="_selected_action" /></td><th><a href="15/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+<tr class="row2"><td><input type="checkbox" class="action-select" value="14" name="_selected_action" /></td><th><a href="14/">3-1-702</a></th><td>stone2083</td></tr> 
+ 
+</tbody> 
+</table> 
+ 
+ 
+          
+      
+      
+ 
+<p class="paginator"> 
+ 
+ 
+    <span class="this-page">1</span> 
+ 
+    <a href="?p=1">2</a> 
+ 
+    <a href="?p=2" class="end">3</a> 
+ 
+ 
+23 members
+&nbsp;&nbsp;<a href="?all=" class="showall">显示全部</a> 
+ 
+</p> 
+ 
+      </form> 
+    </div> 
+  </div> 
+ 
+        
+        <br class="clear" /> 
+    </div> 
+    <!-- END Content --> 
+ 
+    <div id="footer"></div> 
+</div> 
+<!-- END Container --> 
+ 
+</body> 
+</html> 
