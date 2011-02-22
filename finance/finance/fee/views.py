@@ -5,12 +5,22 @@ from django.core.paginator import Paginator
 from django.forms.models import ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from finance.fee.models import Account, Bank
+from finance.fee.models import Account, Bank, Cost, Revenue
 
 class BankForm(ModelForm):
     date = forms.DateField(widget=widgets.AdminDateWidget) 
     class Meta:
         model = Bank
+        
+class CostForm(ModelForm):
+    date = forms.DateField(widget=widgets.AdminDateWidget)
+    class Meta:
+        model = Cost
+        
+class RevenueForm(ModelForm):
+    date = forms.DateField(widget=widgets.AdminDateWidget)
+    class Meta:
+        model = Revenue
 
 def account_get(req):
     account = Account.objects.get()
@@ -48,3 +58,53 @@ def bank_list(req, num=1):
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)
     return render_to_response('bank/list.html', {'page':page})
+
+def cost_add(req):
+    if req.method == 'GET':
+        form = CostForm()
+        return render_to_response('cost/add.html', {'form':form})
+    else:
+        form = CostForm(req.POST)
+        if not form.is_valid():
+            return render_to_response('cost/add.html', {'form':form})
+        cost = form.save(False)
+        account = Account.objects.get()
+        if cost.amount > account.cash:
+            return render_to_response('cost/add.html', {'form':form, 'error':'账户现金不足'})
+        account.cash = account.cash - cost.amount
+        cost.save()
+        account.save()
+        return HttpResponseRedirect('/fee/cost/list')
+        
+        
+def cost_list(req, num=1):
+    p = Paginator(Cost.objects.all().order_by('-id'), 10)
+    num = int(num)
+    num = num if num <= p.num_pages else p.num_pages
+    page = p.page(num)
+    return render_to_response('cost/list.html', {'page':page})
+
+def revenue_add(req):
+    if req.method == 'GET':
+        form = RevenueForm()
+        return render_to_response('revenue/add.html', {'form':form})
+    else:
+        form = RevenueForm(req.POST)
+        if not form.is_valid():
+            return render_to_response('revenue/add.html', {'form':form})
+        revenue = form.save(False)
+        account = Account.objects.get()
+        account.cash = account.cash + revenue.amount
+        revenue.save()
+        account.save()
+        return HttpResponseRedirect('/fee/revenue/list')
+        
+def revenue_list(req, num=1):
+    p = Paginator(Revenue.objects.all().order_by('-id'), 10)
+    num = int(num)
+    num = num if num <= p.num_pages else p.num_pages
+    page = p.page(num)
+    list = p.object_list
+    for l in list:
+        print l.member
+    return render_to_response('revenue/list.html', {'page':page})

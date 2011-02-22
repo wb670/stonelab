@@ -36,7 +36,7 @@
                     <td>{{ m.get_kind_display }}</td>
                     <td>{{ m.phone_no }}</td>
                     <td>{{ m.area }}</td>
-                    <td>{{ m.fee_unit_price|mul:m.area }}</td>
+                    <td>{{ m.fee_unit_price|math_mul:m.area }}</td>
                     <td>{{ m.bicycle_garage_no }}</td>
                     <td>{{ m.garage_no }}</td>
                     <td>{{ m.parking_no }}</td>
