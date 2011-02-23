@@ -10,7 +10,7 @@ from django.template import RequestContext
 from finance.member.models import Member
 
 class BankForm(ModelForm):
-    date = forms.DateField(widget=widgets.AdminDateWidget) 
+    date = forms.DateField(widget=widgets.AdminDateWidget,label=u'日期') 
     class Meta:
         model = Bank
         

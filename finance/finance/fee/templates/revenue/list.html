@@ -2,51 +2,47 @@
 {% load filter tag %}
 {% block body %}
 {% get_account account %}
-<div id="content" class="flex">
-    <h1>账户情况</h1> 
-    <div id="content-main">
-        <div id="changelist" class="module">
-        <table cellspacing="0"> 
-            <thead><tr>
-                <th>总额：{{ account.cash|math_add:account.bank }}</th>
-                <th>现金：{{ account.cash }}</th>
-                <th>存款：{{ account.bank }}</th>
-            </tr></thead>
-        </table>
-        </div>
+<h1>账户情况</h1> 
+<div id="content-main">
+    <div id="changelist" class="module">
+    <table cellspacing="0"> 
+        <thead><tr>
+            <th>总额：{{ account.cash|math_add:account.bank }}</th>
+            <th>现金：{{ account.cash }}</th>
+            <th>存款：{{ account.bank }}</th>
+        </tr></thead>
+    </table>
     </div>
     
     <h1>收入信息列表</h1>
-    <div id="content-main">
-        <div id="changelist" class="module">
-        <!-- members -->
-        <table cellspacing="0"> 
-            <thead><tr>
-                <th>类型</th>
-                <th>金额</th>
-                <th>日期</th>
-                <th>摘要</th>
-                <th>业主</th>
-            </tr></thead>
-            <tbody>
-                {% for r in page.object_list %}
-                <tr class="{{ forloop.counter|row }}">
-                    <td>{{ r.get_code_display }}</td>
-                    <td>{{ r.amount }}</td>
-                    <td>{{ r.date }}</td>
-                    <td>{{ r.subject }}</td>
-                    <td>{% if r.member_id %} {{ r.member.room_no }} {% endif%}</td>
-                </tr>
-                {% endfor %} 
-            </tbody> 
-        </table>
-        <p class="paginator"> 
-            收入记录：{{ page.paginator.count }}笔
-            &nbsp;&nbsp;
-            {% if page.has_previous %}<a href="/fee/revenue/list/{{ page.previous_page_number }}" class="end">上一页</a>{% endif %}
-            {% if page.has_next %}<a href="/fee/revenue/list/{{ page.next_page_number }}" class="end">下一页</a>{% endif %}
-        </p> 
-        </div>
+    <div id="changelist" class="module">
+    <!-- members -->
+    <table cellspacing="0"> 
+        <thead><tr>
+            <th>类型</th>
+            <th>金额</th>
+            <th>日期</th>
+            <th>摘要</th>
+            <th>业主</th>
+        </tr></thead>
+        <tbody>
+            {% for r in page.object_list %}
+            <tr class="{{ forloop.counter|row }}">
+                <td>{{ r.get_code_display }}</td>
+                <td>{{ r.amount }}</td>
+                <td>{{ r.date }}</td>
+                <td>{{ r.subject }}</td>
+                <td>{% if r.member_id %} {{ r.member.room_no }} {% endif%}</td>
+            </tr>
+            {% endfor %} 
+        </tbody> 
+    </table>
+    <p class="paginator"> 
+        收入记录：{{ page.paginator.count }}笔
+        &nbsp;&nbsp;
+        {% if page.has_previous %}<a href="/fee/revenue/list/{{ page.previous_page_number }}" class="end">上一页</a>{% endif %}
+        {% if page.has_next %}<a href="/fee/revenue/list/{{ page.next_page_number }}" class="end">下一页</a>{% endif %}
+    </p> 
     </div>
 </div>
 {% endblock %}

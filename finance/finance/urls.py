@@ -5,6 +5,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
+    #index url
+    (r'^index/$','member.views.list'),
+    (r'^index/$','member.views.list'),
     #member urls
     (r'^member/add/$', 'member.views.add'),
     (r'^member/update/(\d+)/$', 'member.views.update'),

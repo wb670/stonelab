@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>增加 业主信息</h1>
+<div id="content-main">
+    <div>
+        <fieldset class="module aligned ">
+        <form enctype="multipart/form-data" action="" method="post" id="user_form">
+            <table>{{ form.as_table }}</table>
+            <input type="submit" value="修改业主信息">
+        </form>
+        </fieldset>
+    </div>
+</div>
+{% endblock %}
