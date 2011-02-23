@@ -14,14 +14,17 @@ class MemberForm(ModelForm):
     class Meta:
         model = Member
 
+def index(req):
+    return render_to_response('index.html', context_instance=RequestContext(req))
+
 def add(req):
     if req.method == 'GET':
         form = MemberForm()
-        return render_to_response('add.html', {'form':form}, context_instance=RequestContext(req))
+        return render_to_response('member/add.html', {'form':form}, context_instance=RequestContext(req))
     else:
         form = MemberForm(req.POST)
         if not form.is_valid():
-            return render_to_response('add.html', {'form':form}, context_instance=RequestContext(req))
+            return render_to_response('member/add.html', {'form':form}, context_instance=RequestContext(req))
         member = form.save(False)
         member.save()
         return HttpResponseRedirect('/member/%d' % (member.id))
@@ -33,11 +36,11 @@ def update(req, id):
         except Member.DoesNotExist:
             member = None
         form = MemberForm(instance=member)
-        return render_to_response('update.html', {'form':form}, context_instance=RequestContext(req))
+        return render_to_response('member/update.html', {'form':form}, context_instance=RequestContext(req))
     else:
         form = MemberForm(req.POST)
         if not form.is_valid():
-            return render_to_response('update.html', {'form':form}, context_instance=RequestContext(req))
+            return render_to_response('member/update.html', {'form':form}, context_instance=RequestContext(req))
         else:
             member = form.save(False)
             member.id = int(id)
@@ -51,7 +54,7 @@ def get(req, id):
     except Member.DoesNotExist:
         member = None
         rs = None
-    return render_to_response('member.html', {'member':member, 'rs':rs}, context_instance=RequestContext(req))
+    return render_to_response('member/member.html', {'member':member, 'rs':rs}, context_instance=RequestContext(req))
 
 def list(req, num=1):
     q = req.GET.get('q')
@@ -62,4 +65,4 @@ def list(req, num=1):
     num = int(num)
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)    
-    return render_to_response('list.html', {'page':page, 'q':q}, context_instance=RequestContext(req))
+    return render_to_response('member/list.html', {'page':page, 'q':q}, context_instance=RequestContext(req))
