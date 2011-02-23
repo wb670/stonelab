@@ -5,8 +5,9 @@ from django.core.paginator import Paginator
 from django.forms.models import ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from finance.fee.models import Account, Bank, Cost, Revenue
+from finance.fee.models import Account, Bank, Cost, Revenue, ErrorCode
 from django.template import RequestContext
+from finance.member.models import Member
 
 class BankForm(ModelForm):
     date = forms.DateField(widget=widgets.AdminDateWidget) 
@@ -17,11 +18,13 @@ class CostForm(ModelForm):
     date = forms.DateField(widget=widgets.AdminDateWidget)
     class Meta:
         model = Cost
+        exclude = ('member',)
         
 class RevenueForm(ModelForm):
     date = forms.DateField(widget=widgets.AdminDateWidget)
     class Meta:
         model = Revenue
+        exclude = ('member',)
 
 def account_get(req):
     account = Account.objects.get()
@@ -36,21 +39,10 @@ def bank_add(req):
         if not form.is_valid():
             return render_to_response('bank/add.html', {'form':form}, context_instance=RequestContext(req))
         bank = form.save(False)
-        account = Account.objects.get()
-        #存款
-        if bank.type == 'D':
-            if account.cash < bank.amount:
-                return render_to_response('bank/add.html', {'form':form, 'error':'账户现金不足'}, context_instance=RequestContext(req))
-            account.cash = account.cash - bank.amount
-            account.bank = account.bank + bank.amount
-        #取款
-        else :
-            if account.bank < bank.amount:
-                return render_to_response('bank/add.html', {'form':form, 'error':'账户存款不足'}, context_instance=RequestContext(req))
-            account.cash = account.cash + bank.amount
-            account.bank = account.bank - bank.amount
-        account.save()
-        bank.save()
+        try:
+            bank.add()
+        except ErrorCode as code:
+            return render_to_response('bank/add.html', {'form':form, 'error':code.msg}, context_instance=RequestContext(req))
         return HttpResponseRedirect('/fee/bank/list')
 
 def bank_list(req, num=1):
@@ -63,20 +55,28 @@ def bank_list(req, num=1):
 def cost_add(req):
     if req.method == 'GET':
         form = CostForm()
-        return render_to_response('cost/add.html', {'form':form}, context_instance=RequestContext(req))
+        mid = req.GET.get('mid') 
+        member = None
+        if mid:
+            members = Member.objects.filter(id=mid)
+            member = members[0] if members else None
+        return render_to_response('cost/add.html', {'form':form,
+                                                    'member':member
+                                    }, context_instance=RequestContext(req))
     else:
+        mid = req.GET.get('mid') 
+        print mid
         form = CostForm(req.POST)
         if not form.is_valid():
             return render_to_response('cost/add.html', {'form':form}, context_instance=RequestContext(req))
         cost = form.save(False)
-        account = Account.objects.get()
-        if cost.amount > account.cash:
-            return render_to_response('cost/add.html', {'form':form, 'error':'账户现金不足'}, context_instance=RequestContext(req))
-        account.cash = account.cash - cost.amount
-        cost.save()
-        account.save()
-        return HttpResponseRedirect('/fee/cost/list')
-        
+        if mid:
+            cost.member_id = mid
+        try:
+            cost.add()
+        except ErrorCode as code:
+            return render_to_response('cost/add.html', {'form':form, 'error': code.msg}, context_instance=RequestContext(req))
+        return HttpResponseRedirect('/fee/cost/list/')
         
 def cost_list(req, num=1):
     p = Paginator(Cost.objects.all().order_by('-id'), 10)
@@ -88,16 +88,23 @@ def cost_list(req, num=1):
 def revenue_add(req):
     if req.method == 'GET':
         form = RevenueForm()
-        return render_to_response('revenue/add.html', {'form':form}, context_instance=RequestContext(req))
+        mid = req.GET.get('mid') 
+        member = None
+        if mid:
+            members = Member.objects.filter(id=mid)
+            member = members[0] if members else None
+        return render_to_response('revenue/add.html', {'form':form,
+                                                       'member':member,
+                                  }, context_instance=RequestContext(req))
     else:
+        mid = req.GET.get('mid')
         form = RevenueForm(req.POST)
         if not form.is_valid():
             return render_to_response('revenue/add.html', {'form':form}, context_instance=RequestContext(req))
         revenue = form.save(False)
-        account = Account.objects.get()
-        account.cash = account.cash + revenue.amount
-        revenue.save()
-        account.save()
+        if mid:
+            revenue.member_id = mid
+        revenue.add()
         return HttpResponseRedirect('/fee/revenue/list')
         
 def revenue_list(req, num=1):

@@ -50,11 +50,8 @@ def get(req, id):
         rs = Revenue.objects.filter(member=member.id).order_by('-id')[0:10]
     except Member.DoesNotExist:
         member = None
+        rs = None
     return render_to_response('member.html', {'member':member, 'rs':rs}, context_instance=RequestContext(req))
-
-def delete(req, id):
-    Member.objects.filter(id=id).delete()
-    return HttpResponseRedirect('/member/list')
 
 def list(req, num=1):
     q = req.GET.get('q')

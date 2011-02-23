@@ -15,6 +15,9 @@
         </table>
         </div>
     </div>
+    {% if request.GET.mid and not member %}
+    <div id="content-main"><ul class="errorlist"><li>业主不存在！</li></ul></div>
+    {% else %}
     <h1>增加 收入信息</h1>
     <div id="content-main">
         {% if error %}
@@ -25,11 +28,17 @@
         <div>
             <fieldset class="module aligned ">
             <form enctype="multipart/form-data" action="" method="post" id="revenue_form">
-                <table>{{ form.as_table }}</table>
+                <table>
+                    {% if member %} 
+                    <tr><th><label for="id_member">业主:</label></th><td>{{ member.room_no }}</td></tr>
+                    {% endif %}
+                    {{ form.as_table }}
+                </table>
                 <input type="submit" value="添加收入信息">
             </form>
             </fieldset>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

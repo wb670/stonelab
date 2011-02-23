@@ -13,6 +13,23 @@ class Bank(models.Model):
     amount = models.FloatField(verbose_name=u'金额')
     date = models.DateField(verbose_name=u'日期')
     subject = models.CharField(max_length=128, verbose_name=u'摘要')
+    
+    def add(self):
+        account = Account.objects.get()
+        #存款
+        if self.type == 'D':
+            if account.cash < self.amount:
+                raise ErrorCode('账户现金不足')
+            account.cash = account.cash - self.amount
+            account.bank = account.bank + self.amount
+        #取款
+        else :
+            if account.bank < self.amount:
+                raise ErrorCode('账户存款不足')
+            account.cash = account.cash + self.amount
+            account.bank = account.bank - self.amount
+        self.save()
+        account.save()
 
 class Cost(models.Model):
     codes = (('C001', u'物业管理成本'),
@@ -47,8 +64,16 @@ class Cost(models.Model):
     amount = models.FloatField(verbose_name=u'金额')
     date = models.DateField(verbose_name=u'日期')
     subject = models.CharField(max_length=128, verbose_name=u'摘要')
-    member = models.ForeignKey(Member,null=True,blank=True,verbose_name=u'业主')
-
+    member = models.ForeignKey(Member, null=True, blank=True, verbose_name=u'业主')
+    
+    def add(self):
+        account = Account.objects.get()
+        if self.amount > account.cash:
+            raise ErrorCode('账户现金不足')
+        account.cash = account.cash - self.amount
+        self.save()
+        account.save()
+        
 class Revenue(models.Model):
     codes = (('S001', u'物业费'),
               ('S002', u'停车费'),
@@ -65,4 +90,14 @@ class Revenue(models.Model):
     amount = models.FloatField(verbose_name=u'金额')
     date = models.DateField(verbose_name=u'日期')
     subject = models.CharField(max_length=128, verbose_name=u'摘要')
-    member = models.ForeignKey(Member,null=True,blank=True,verbose_name=u'业主')
+    member = models.ForeignKey(Member, null=True, blank=True, verbose_name=u'业主')
+    
+    def add(self):
+        account = Account.objects.get()
+        account.cash = account.cash + self.amount
+        self.save()
+        account.save()
+    
+class ErrorCode(Exception):
+    def __init__(self, msg):
+        self.msg = msg
