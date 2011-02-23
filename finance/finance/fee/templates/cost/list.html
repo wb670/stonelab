@@ -27,6 +27,7 @@
                 <th>金额</th>
                 <th>日期</th>
                 <th>摘要</th>
+                <th>业主</th>
             </tr></thead>
             <tbody>
                 {% for c in page.object_list %}
@@ -35,6 +36,7 @@
                     <td>{{ c.amount }}</td>
                     <td>{{ c.date }}</td>
                     <td>{{ c.subject }}</td>
+                    <td>{% if c.member_id %} {{ c.member.room_no }} {% endif%}</td>
                 </tr>
                 {% endfor %} 
             </tbody> 

@@ -10,11 +10,8 @@ class SqlLogMiddleware(object):
         return res
 
 class Auth(object):
-    def process_response(self, req, res):
-        if res.status_code != 200:
-            return res
+    def process_request(self, req):
         if req.path == '/admin/':
-            return res
+            return
         if not req.user.is_authenticated():
             return render_to_response('admin/login.html', {'app_path':'/admin/'})
-        return res
