@@ -83,12 +83,12 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'finance.member',
+    'finance.fee',
+    'finance.report',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'finance.member',
-    'finance.fee',
-    'finance.report',
 )
