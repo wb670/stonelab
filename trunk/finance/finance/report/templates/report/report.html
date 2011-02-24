@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>报表</h1>
+<div id="content-main">
+    <div>
+        <fieldset class="module aligned ">
+        <form enctype="multipart/form-data" action="" method="post" id="user_form">
+            <table>{{ form.as_table }}</table>
+            <input type="submit" value="导出excel">
+        </form>
+        </fieldset>
+    </div>
+</div>
+{% endblock %}

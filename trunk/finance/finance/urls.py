@@ -29,4 +29,6 @@ urlpatterns = patterns('',
     (r'^fee/revenue/add/$', 'fee.views.revenue_add'),
     (r'^fee/revenue/list/$', 'fee.views.revenue_list'),
     (r'^fee/revenue/list/(\d+)/$', 'fee.views.revenue_list'),
+    #report
+    (r'^report/report/$', 'report.views.report'),
 )

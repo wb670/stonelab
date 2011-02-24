@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 
 class SqlLogMiddleware(object):
     def process_response(self, req, res):
-        for sql in connection.queries:  
+        for sql in connection.queries:
             print sql
         return res
 
