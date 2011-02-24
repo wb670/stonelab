@@ -90,4 +90,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'finance.member',
     'finance.fee',
+    'finance.report',
 )
