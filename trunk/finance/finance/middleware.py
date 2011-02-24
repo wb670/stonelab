@@ -1,7 +1,7 @@
 #coding:utf8
 
 from django.db import connection
-from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 
 class SqlLogMiddleware(object):
     def process_response(self, req, res):
@@ -14,4 +14,4 @@ class Auth(object):
         if req.path == '/admin/':
             return
         if not req.user.is_authenticated():
-            return render_to_response('admin/login.html', {'app_path':'/admin/'})
+            return HttpResponseRedirect('/admin/')
