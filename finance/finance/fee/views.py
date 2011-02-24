@@ -10,7 +10,7 @@ from django.template import RequestContext
 from finance.member.models import Member
 
 class BankForm(ModelForm):
-    date = forms.DateField(widget=widgets.AdminDateWidget,label=u'日期') 
+    date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期') 
     class Meta:
         model = Bank
         
@@ -43,7 +43,7 @@ def bank_add(req):
             bank.add()
         except ErrorCode as code:
             return render_to_response('bank/add.html', {'form':form, 'error':code.msg}, context_instance=RequestContext(req))
-        return HttpResponseRedirect('/fee/bank/list')
+        return HttpResponseRedirect('/fee/bank/list/')
 
 def bank_list(req, num=1):
     p = Paginator(Bank.objects.all().order_by('-id'), 10)
@@ -78,6 +78,7 @@ def cost_add(req):
             return render_to_response('cost/add.html', {'form':form, 'error': code.msg}, context_instance=RequestContext(req))
         return HttpResponseRedirect('/fee/cost/list/')
         
+        
 def cost_list(req, num=1):
     p = Paginator(Cost.objects.all().order_by('-id'), 10)
     num = int(num)
@@ -105,7 +106,7 @@ def revenue_add(req):
         if mid:
             revenue.member_id = mid
         revenue.add()
-        return HttpResponseRedirect('/fee/revenue/list')
+        return HttpResponseRedirect('/fee/revenue/list/')
         
 def revenue_list(req, num=1):
     p = Paginator(Revenue.objects.all().order_by('-id'), 10)
