@@ -15,7 +15,7 @@ class MemberForm(ModelForm):
         model = Member
 
 def index(req):
-    return render_to_response('index.html', context_instance=RequestContext(req))
+    return render_to_response('member/index.html', context_instance=RequestContext(req))
 
 def add(req):
     if req.method == 'GET':
