@@ -31,10 +31,7 @@ def add(req):
     
 def update(req, id):
     if req.method == 'GET':
-        try:
-            member = Member.objects.get(id=id)
-        except Member.DoesNotExist:
-            member = None
+        member = Member.get(id)
         form = MemberForm(instance=member)
         return render_to_response('member/update.html', {'form':form}, context_instance=RequestContext(req))
     else:

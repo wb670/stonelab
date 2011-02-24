@@ -56,19 +56,17 @@ def cost_add(req):
     if req.method == 'GET':
         form = CostForm()
         mid = req.GET.get('mid') 
-        member = None
-        if mid:
-            members = Member.objects.filter(id=mid)
-            member = members[0] if members else None
+        member = Member.get(mid) if mid else None
         return render_to_response('cost/add.html', {'form':form,
                                                     'member':member
                                     }, context_instance=RequestContext(req))
     else:
         mid = req.GET.get('mid') 
-        print mid
+        member = Member.get(mid) if mid else None
         form = CostForm(req.POST)
         if not form.is_valid():
-            return render_to_response('cost/add.html', {'form':form}, context_instance=RequestContext(req))
+            return render_to_response('cost/add.html', {'form':form,
+                                                        'member':member}, context_instance=RequestContext(req))
         cost = form.save(False)
         if mid:
             cost.member_id = mid
@@ -90,18 +88,17 @@ def revenue_add(req):
     if req.method == 'GET':
         form = RevenueForm()
         mid = req.GET.get('mid') 
-        member = None
-        if mid:
-            members = Member.objects.filter(id=mid)
-            member = members[0] if members else None
+        member = Member.get(mid) if mid else None
         return render_to_response('revenue/add.html', {'form':form,
                                                        'member':member,
                                   }, context_instance=RequestContext(req))
     else:
         mid = req.GET.get('mid')
         form = RevenueForm(req.POST)
+        member = Member.get(mid) if mid else None
         if not form.is_valid():
-            return render_to_response('revenue/add.html', {'form':form}, context_instance=RequestContext(req))
+            return render_to_response('revenue/add.html', {'form':form,
+                                                           'member':member}, context_instance=RequestContext(req))
         revenue = form.save(False)
         if mid:
             revenue.member_id = mid

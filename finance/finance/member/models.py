@@ -18,5 +18,12 @@ class Member(models.Model):
     parking_no = models.CharField(max_length=16, blank=True, verbose_name=u'停车卡号')
     memo = models.TextField(max_length=1024, blank=True, verbose_name=u'备注')
     
+    @classmethod
+    def get(cls, id):
+        try:
+            return cls.objects.get(id=id)
+        except:
+            return None
+    
     def __unicode__(self):
         return '%s' % (self.room_no)
