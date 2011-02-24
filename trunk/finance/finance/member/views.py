@@ -27,7 +27,7 @@ def add(req):
             return render_to_response('member/add.html', {'form':form}, context_instance=RequestContext(req))
         member = form.save(False)
         member.save()
-        return HttpResponseRedirect('/member/%d' % (member.id))
+        return HttpResponseRedirect('/member/%d/' % (member.id))
     
 def update(req, id):
     if req.method == 'GET':
@@ -45,7 +45,7 @@ def update(req, id):
             member = form.save(False)
             member.id = int(id)
             member.save()
-            return HttpResponseRedirect('/member/%d' % (member.id))
+            return HttpResponseRedirect('/member/%d/' % (member.id))
     
 def get(req, id):
     try:
