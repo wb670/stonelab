@@ -114,9 +114,10 @@ class Console:
             sys.exit(0)
         elif cmd.startswith('dump'):
             from meliae import scanner
-            scanner.dump_all_objects('/home/stone/tmp/dump.txt')
+            scanner.dump_all_objects('./dump.txt')
         else:
-            print '''Usage:
+            print '''=====================================
+Usage:
 play
 next
 previous
@@ -124,13 +125,14 @@ pause
 list
 info
 stop
-dump'''
+dump
+====================================='''
     
     def on_message(self, event, info):
         if event == AudioPlayer.EVENT_PLAY_NEW:
-            print '==============================================='
+            print '====================================='
             print 'Tracks: %s.%s' % (info[0], info[1])
-            print '==============================================='
+            print '====================================='
 
 
 if len(sys.argv) != 2:

@@ -19,24 +19,25 @@ def get_data(text, sl='en', tl='zh-CN'):
     req = urllib2.Request(res % (urllib2.quote(text), sl, tl))
     req.add_header('user-agent', agent)
     content = urllib2.urlopen(req).read()
-    content = re.sub(',{2,}', ',', content)
-    content = re.sub(',]', ']', content)
-    return json.loads(content)
+    return json.loads(to_standard_json(content))
 
 def show(data):
     #step1
-    print '翻译：'
-    for i, word in enumerate(data[0]):
-        print '  %s.%s' % (i + 1, word[0])
+    print u'翻译：\n  %s' % (data[4][0][0])
     #step2
     if types.ListType == type(data[1]):
-        print '\n字典：'
+        print u'\n字典：'
         for word in data[1]:
             print word[0]
-            if len(word) < 2:
-                return
-            for i, w in enumerate(word[1]):
-                print '  %s.%s' % (i + 1, w) 
+            if len(word) > 1:
+                for i, w in enumerate(word[1]):
+                    print '  %s.%s' % (i + 1, w) 
+
+def to_standard_json(json):
+    p = re.compile(r',([,\]])')
+    while(p.search(json)):
+        json = p.sub(lambda m:',null%s' % (m.group(1)), json)
+    return json
 
 def contains_cn(text):
     for c in text:
@@ -45,10 +46,10 @@ def contains_cn(text):
     return False
 
 if __name__ == '__main__':
-    if not len(sys.argv) == 2:
-        print 'Useage:translate.py $word'
+    if not len(sys.argv) == 2 or not sys.argv[1].strip():
+        print 'Useage:translate.py word'
         sys.exit()
-    word = sys.argv[1]
+    word = sys.argv[1].strip()
     if contains_cn(word):
         show(get_data(word, 'zh-CN', 'en'))
     else:
