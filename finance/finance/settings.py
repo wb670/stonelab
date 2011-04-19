@@ -62,6 +62,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
+    'finance.example.context_processors.name',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,6 +87,7 @@ INSTALLED_APPS = (
     'finance.member',
     'finance.fee',
     'finance.report',
+    'finance.example',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
