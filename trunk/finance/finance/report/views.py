@@ -5,12 +5,19 @@ from django.shortcuts import render_to_response
 from django import forms
 from django.contrib.admin import widgets
 from django.template.context import RequestContext
-from finance.fee.models import Account, Cost, Revenue
+from finance.fee.models import  Cost, Revenue
+
+RevenueCodes = {}
+for (k, v) in Revenue.codes:
+    RevenueCodes[k] = v
+CostCodes = {}
+for (k, v) in Cost.codes:
+    CostCodes[k] = v
 
 class ReportForm(forms.Form):
     start = forms.DateField(widget=widgets.AdminDateWidget, label=u'开始日期')
     end = forms.DateField(widget=widgets.AdminDateWidget, label=u'结束日期') 
-
+    
 def report(req):
     if req.method == 'GET':
         form = ReportForm()
@@ -21,46 +28,67 @@ def report(req):
             return render_to_response('report/report.html', {'form':form}, context_instance=RequestContext(req))
         start = form.cleaned_data['start']
         end = form.cleaned_data['end']
-        account = Account.objects.get()
-        cs = Cost.objects.filter(date__range=(start, end)).order_by('code', '-id')
-        rs = Revenue.objects.filter(date__range=(start, end)).order_by('code', '-id')
+        cs = Cost.objects.filter(date__range=(start, end)).order_by('id')
+        rs = Revenue.objects.filter(date__range=(start, end)).order_by('id')
         
         wb = xlwt.Workbook()
-        _create_account_sheet(wb.add_sheet(u'账户信息'), start, end, account, cs, rs)
-        _create_cost_sheet(wb.add_sheet(u'成本信息'), start, end, account, cs, rs)    
-        _create_revenue_sheet(wb.add_sheet(u'收入信息'), start, end, account, cs, rs)
+        _create_property_sheet(wb.add_sheet(u'物业费'), rs)
+        _create_parking_sheet(wb.add_sheet(u'停车费'), rs)
+        _create_decoration_sheet(wb.add_sheet(u'装修押金'), rs)
+        _create_other_sheet(wb.add_sheet(u'其他收入'), rs)
+        _create_costdetail_sheet(wb.add_sheet(u'支出明细'), cs)
         return xls_to_response(wb, u'download.xls')
 
 
-def _create_account_sheet(st, start, end, account, cs, rs):
-    st.write_merge(0, 0, 0, 2, u'当前账户信息')
-    for (i, h) in enumerate([u'现金', u'存款', u'总金额']):
-        st.write(1, i, h) 
-    for (i, info) in enumerate([account.cash, account.bank, account.cash + account.bank]):
-        st.write(2, i, info)
-    st.merge(3, 3, 0, 2)
-    st.write_merge(4, 4, 0, 2, u'统计情况信息')
-    for (i, h) in enumerate([u'统计阶段', u'成本总额', u'收入总额']):
-        st.write(5, i, h)
-    for (i, info) in enumerate([str(start) + '~' + str(end), sum(c.amount for c in cs), sum(r.amount for r in rs)]):
-        st.write(6, i, info)
+def _create_property_sheet(st, rs):
+    codes = ['S00101']
+    _create_revenue_sheet(st, rs, codes)
+        
+def _create_parking_sheet(st, rs):
+    codes = ['S00%d' % i for i in range(201, 205)]
+    _create_revenue_sheet(st, rs, codes)
+        
+def _create_decoration_sheet(st, rs):
+    codes = ['S00%d' % i for i in range(301, 303)]
+    _create_revenue_sheet(st, rs, codes)
 
-def _create_cost_sheet(st, start, end, account, cs, rs):
-    st.write_merge(0, 0, 0, 3, u'成本明细统计表（%s ~ %s）' % (str(start), str(end)))
-    for (i, h) in enumerate([u'日期', u'类型', u'金额', u'摘要']):
-        st.write(1, i, h)
-    for (i, c) in enumerate(cs):
-        for (j, info) in enumerate([str(c.date), c.get_code_display(), c.amount, c.subject]):
-            st.write(i + 2, j, info)
+def _create_other_sheet(st, rs):
+    codes = ['S00%d' % i for i in range(401, 406)]
+    _create_revenue_sheet(st, rs, codes)
+    
+def _create_costdetail_sheet(st, cs):
+    codes = ['C00%d' % i for i in range(101, 107)]
+    codes += ['C00%d' % i for i in range(201, 217)]
+    codes += ['C00%d' % i for i in range(301, 304)]
+    _create_cost_sheet(st, cs, codes)
 
-def _create_revenue_sheet(st, start, end, account, cs, rs):
-    st.write_merge(0, 0, 0, 3, u'收入明细统计表（%s ~ %s）' % (str(start), str(end)))
-    for (i, h) in enumerate([u'日期', u'类型', u'金额', u'摘要']):
-        st.write(1, i, h)
-    for (i, r) in enumerate(rs):
-        for (j, info) in enumerate([str(r.date), r.get_code_display(), r.amount, r.subject]):
-            st.write(i + 2, j, info)
+def _create_revenue_sheet(st, rs, codes):
+    rows = [row for row in rs if row.code in codes]
+    for (i, h) in enumerate([u'年', u'月', u'日', u'摘要'] + [RevenueCodes[k] for k in codes]):
+        st.write(0, i, h)
+    for (i, row) in enumerate(rows):
+        for (j, h) in enumerate([row.date.year, row.date.month, row.date.day, row.subject] + _get_info(row, codes)):
+            st.write(i + 1, j, h)
+    for (i, h) in enumerate([u'', u'', u'', u'合计'] + [_get_sum(rows, code) for code in codes]):
+        st.write(len(rows) + 1, i, h)
+        
+def _create_cost_sheet(st, cs, codes):
+    rows = [row for row in cs if row.code in codes]
+    for (i, h) in enumerate([u'年', u'月', u'日', u'摘要'] + [CostCodes[k] for k in codes]):
+        st.write(0, i, h)
+    for (i, row) in enumerate(rows):
+        for (j, h) in enumerate([row.date.year, row.date.month, row.date.day, row.subject] + _get_info(row, codes)):
+            st.write(i + 1, j, h)
+    for (i, h) in enumerate([u'', u'', u'', u'合计'] + [_get_sum(rows, code) for code in codes]):
+        st.write(len(rows) + 1, i, h)
 
+def _get_info(row, codes):
+    return [ row.amount if row.code == c else '' for c in codes]
+
+def _get_sum(rows, code):
+    return sum([row.amount for row in rows if row.code == code])
+    
+        
 def xls_to_response(xls, fname):
     res = HttpResponse(mimetype="application/ms-excel")
     res['Content-Disposition'] = 'attachment; filename=%s' % fname

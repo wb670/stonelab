@@ -10,17 +10,27 @@ from django.template import RequestContext
 from finance.member.models import Member
 
 class BankForm(ModelForm):
-    date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期') 
+    date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期')
     class Meta:
         model = Bank
         
 class CostForm(ModelForm):
+    code = forms.ChoiceField(choices=((k, v if k == '' else '---%s' % v) for (k, v) in Cost.codes))
     date = forms.DateField(widget=widgets.AdminDateWidget)
     class Meta:
         model = Cost
         exclude = ('member',)
         
 class RevenueForm(ModelForm):
+    choices = []
+    for (code, value) in Revenue.codes:
+        if code == '':
+            choices.append((code, value))
+        if code == 'S00302':
+            choices.append((code, u'---%s(填写负数)' % value))
+        else:
+            choices.append((code, u'---%s' % value))
+    code = forms.ChoiceField(choices=tuple(choices))
     date = forms.DateField(widget=widgets.AdminDateWidget)
     class Meta:
         model = Revenue
