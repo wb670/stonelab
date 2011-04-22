@@ -15,23 +15,23 @@ class BankForm(ModelForm):
         model = Bank
         
 class CostForm(ModelForm):
-    code = forms.ChoiceField(choices=((k, v if k == '' else '---%s' % v) for (k, v) in Cost.codes))
-    date = forms.DateField(widget=widgets.AdminDateWidget)
+    code = forms.ChoiceField(choices=((k, v if k == '' else '---%s' % v) for (k, v) in Cost.codes), label=u'代号')
+    date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期')
     class Meta:
         model = Cost
         exclude = ('member',)
-        
+       
 class RevenueForm(ModelForm):
     choices = []
     for (code, value) in Revenue.codes:
         if code == '':
             choices.append((code, value))
-        if code == 'S00302':
+        elif code == 'S00302':
             choices.append((code, u'---%s(填写负数)' % value))
         else:
             choices.append((code, u'---%s' % value))
-    code = forms.ChoiceField(choices=tuple(choices))
-    date = forms.DateField(widget=widgets.AdminDateWidget)
+    code = forms.ChoiceField(choices=tuple(choices), label=u'代号')
+    date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期')
     class Meta:
         model = Revenue
         exclude = ('member',)
