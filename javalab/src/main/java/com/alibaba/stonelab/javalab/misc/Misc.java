@@ -24,7 +24,7 @@ public class Misc {
 
         @Override
         public void configure() throws Exception {
-            from("timer:test").to("log:test");
+            from("timer:test").choice().to("log:test");
         }
 
     }
