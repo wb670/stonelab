@@ -9,27 +9,27 @@ Created on 2011-5-12
 from SocketServer import BaseRequestHandler, ThreadingUDPServer
 from StringIO import StringIO
 import socket
+import time
 
 class Dns:
     def __init__(self, server):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.sock.connect(server)
+        self.server = server
         
     def query(self, data):
-        self.sock.sendall(data)
-        return self.sock.recv(65535)
-    
-    def close(self):
-        self.sock.close()
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.connect(self.server)
+        sock.sendall(data)
+        resp = sock.recv(65535)
+        sock.close()
+        return resp
 
 class DnsProxyHandler(BaseRequestHandler):
     def handle(self):
         data, sock = self.request
-        dns = self.server.dns
-        print self.parser_domain_name(data)
-        resp = dns.query(data)
+        print time.ctime(), self.client_address, self.parser_domain_name(data)
+        resp = Dns(self.server.dns_server).query(data)
         sock.sendto(resp, self.client_address)
-        
+
     def parser_domain_name(self, data):
         data = StringIO(data)
         data.seek(12)
@@ -41,11 +41,14 @@ class DnsProxyHandler(BaseRequestHandler):
             list.append(data.read(len))
         return '.'.join(list)
     
+    def parser_response(self, domain, record):
+        pass
+    
 class DnsProxyServer(ThreadingUDPServer):
-    def __init__(self, server, dns):
-        self.dns = dns
-        ThreadingUDPServer.__init__(self, server, DnsProxyHandler)
+    def __init__(self, local_server, dns_server):
+        self.local_server = local_server
+        self.dns_server = dns_server
+        ThreadingUDPServer.__init__(self, local_server, DnsProxyHandler)
 
-dns = Dns(('10.20.0.97', 53))
-proxy = DnsProxyServer(('127.0.0.1', 53), dns)
+proxy = DnsProxyServer(('127.0.0.1', 53), ('10.20.0.97', 53))
 proxy.serve_forever()
