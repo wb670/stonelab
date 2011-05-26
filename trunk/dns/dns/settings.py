@@ -25,11 +25,11 @@ PROXY_DNS = ('127.0.0.1', 53)
 MASTER_DNS_TIMEOUT = 3
 
 # base hosts file
-BASE_HOSTS = '/home/stone/work/dev/stonelab/dns/db/hosts.base'
+BASE_HOSTS = '../db/hosts.base'
 # special hosts directory
-HOST_DIR = '/home/stone/work/dev/stonelab/dns/db/hosts/'
+HOST_DIR = '../db/hosts/'
 # ip directory
-IP_DIR = '/home/stone/work/dev/stonelab/dns/db/ips/' 
+IP_DIR = '../db/ips/' 
 
 #message entrance
 CMD_SERVER = ('127.0.0.1', 5454)
