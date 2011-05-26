@@ -6,6 +6,7 @@ from protocol import Header, Query, DnsRequest
 import socket
 import threading
 import time
+import re
 
 class CountDownLatch(object):
     '''
@@ -73,4 +74,4 @@ def test_cmd():
     print sock.recv(65535)
     sock.close()
 
-test_cmd()
+print re.match(r'^\w$', 'j')
