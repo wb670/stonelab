@@ -69,7 +69,7 @@ def test_cmd():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.connect(('127.0.0.1', 5454))
     sock.settimeout(2)
-    sock.sendall('HOSTS info test1')
+    sock.sendall('SYS close hello')
     print sock.recv(65535)
     sock.close()
 

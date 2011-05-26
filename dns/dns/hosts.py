@@ -21,12 +21,14 @@ class Hosts(object):
     
     def get_ip(self, ip, domain):
         if self.repository_ip.get(ip):
-            ret = self._get_ip(domain, self.repository_hosts.get(ip)) # load from special hosts
+            ret = self._get_ip(domain, self.repository_hosts.get(self.repository_ip.get(ip))) # load from special hosts
         if not ret:
             ret = self._get_ip(domain, self.repository_base)          # load from base hosts
         return ret
 
     def _get_ip(self, domain, hosts_list):
+        if not hosts_list:
+            return None
         for host in hosts_list:
             if host[0].startswith('*'):
                     if domain.endswith(host[0][2:]):
