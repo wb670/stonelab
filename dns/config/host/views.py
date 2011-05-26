@@ -1,11 +1,16 @@
 # Create your views here.
-from config.settings import HOST_DIR, FILE_ENCODING, IP_DIR
+from config.settings import HOST_DIR, FILE_ENCODING, IP_DIR, \
+    PROXY_DNS_CMD_SERVERS
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 import os
 import re
+import socket
 
-name_pattern = re.compile('^[0-9a-z-]{1,20}$')
+name_pattern = re.compile('^[0-9a-z-]{1,50}$')
+
+CMD_IP = 'IP load %s'
+CMD_HOST = 'HOSTS load %s'
 
 def host_list(req):
     hosts_list = [f for f in os.listdir(HOST_DIR) if not f.startswith(".")]
@@ -26,6 +31,7 @@ def host_add(req):
             error = 'Hosts named %s is already exists!' % name
             return render_to_response('host/host/add.html', {'name':name, 'content':content, 'error':error})
         open(HOST_DIR + name, 'w').write(content.encode(FILE_ENCODING))
+        cmd(CMD_HOST % name)
         return HttpResponseRedirect('/host/list')
         
 
@@ -36,11 +42,13 @@ def host_update(req, name):
     else:
         content = req.POST.get('content')
         open(HOST_DIR + name, 'w').write(content.encode(FILE_ENCODING))
+        cmd(CMD_HOST % name)
         return HttpResponseRedirect('/host/list')
 
 def host_delete(req, name):
     if os.path.exists(HOST_DIR + name):
         os.remove(HOST_DIR + name)
+        cmd(CMD_HOST % name)
     return HttpResponseRedirect('/host/list')
 
 def ip_list(req):
@@ -55,9 +63,19 @@ def ip_info(req, ip):
 def ip_delete(req, ip):
     if os.path.exists(IP_DIR + ip):
         os.remove(IP_DIR + ip)
+    cmd(CMD_IP % ip)
     return HttpResponseRedirect('/ip/list')
 
 def ip_update(req, name):
     ip = req.META.get('REMOTE_ADDR')
     open(IP_DIR + ip, 'w').write(name)
+    cmd(CMD_IP % ip)
     return HttpResponseRedirect('/ip/list')
+
+def cmd(data):
+    for cmd in PROXY_DNS_CMD_SERVERS:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.connect(cmd)
+        sock.settimeout(5)
+        sock.sendall(data)
+        sock.close()

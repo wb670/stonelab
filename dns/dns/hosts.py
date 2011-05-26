@@ -48,7 +48,11 @@ class Hosts(object):
             self.load_ip(i)
 
     def load_ip(self, ip):
-        self.repository_ip[ip] = open(self.ip_dir + ip).read()
+        if os.path.exists(self.ip_dir + ip):
+            self.repository_ip[ip] = open(self.ip_dir + ip).read()
+        else:
+            if self.repository_ip.has_key(ip):
+                del self.repository_ip[ip]
     
     def load_all_hosts(self):
         files = [f for f in os.listdir(self.host_dir) if not f.startswith(".")]
@@ -56,7 +60,11 @@ class Hosts(object):
             self.load_hosts(i)
     
     def load_hosts(self, hosts_name):
-        self.repository_hosts[hosts_name] = self._load_hosts(self.host_dir + hosts_name)
+        if os.path.exists(self.host_dir + hosts_name):
+            self.repository_hosts[hosts_name] = self._load_hosts(self.host_dir + hosts_name)
+        else:
+            if self.repository_hosts.has_key(hosts_name):
+                del self.repository_hosts[hosts_name]
 
     def _load_hosts(self, file):
         # get hosts line

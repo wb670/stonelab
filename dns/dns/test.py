@@ -6,7 +6,6 @@ from protocol import Header, Query, DnsRequest
 import socket
 import threading
 import time
-import re
 
 class CountDownLatch(object):
     '''
@@ -71,7 +70,8 @@ def test_cmd():
     sock.connect(('127.0.0.1', 5454))
     sock.settimeout(2)
     sock.sendall('SYS close hello')
+    #sock.sendall('SYS close hello')
     print sock.recv(65535)
     sock.close()
 
-print re.match(r'^\w$', 'j')
+test_cmd()
