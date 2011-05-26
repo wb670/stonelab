@@ -3,6 +3,7 @@ Created on 2011-5-26
 @author: stone
 '''
 from SocketServer import BaseRequestHandler, ThreadingUDPServer
+from settings import SYS_PASSWORD
 
 #------------------------#
 # Message Struct (type, event, body)
@@ -10,7 +11,7 @@ from SocketServer import BaseRequestHandler, ThreadingUDPServer
 #------------------------#
 
 class CmdHandler(BaseRequestHandler):
-
+    
     def handle(self):
         hosts = self.server.hosts
         data, sock = self.request
@@ -36,14 +37,25 @@ class CmdHandler(BaseRequestHandler):
                     sock.sendto('True', self.client_address)
                     return
                 if event == 'info':
-                    d = hosts.hosts.get(body)
+                    d = hosts.repository_hosts.get(body)
                     r = str(d) if d else ''
                     sock.sendto(r, self.client_address)
                     return
+            if type == 'SYS':
+                if event == 'close':
+                    if body == SYS_PASSWORD: 
+                        sock.sendto('True', self.client_address)
+                        self.server.proxy_dns.shutdown()
+                        self.server.shutdown()
+                        return
+                    else:
+                        sock.sendto('False', self.client_address)
+                        return
             sock.sendto('False', self.client_address)
 
 class CmdServer(ThreadingUDPServer):
-    def __init__(self, server, hosts):
+    def __init__(self, server, hosts, proxy_dns):
         self.hosts = hosts
+        self.proxy_dns = proxy_dns
         ThreadingUDPServer.__init__(self, server, CmdHandler)
 
