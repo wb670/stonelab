@@ -18,6 +18,7 @@ hosts = Hosts(BASE_HOSTS, HOST_DIR, IP_DIR)
 proxy = ProxyDnsServer(PROXY_DNS, master, hosts)
 #cmd server
 cmd = CmdServer(CMD_SERVER, hosts, proxy)
+cmd.daemon_threads = True
 #start cmd server
 threading.Thread(target=cmd.serve_forever, args=()).start()
 # start dns server

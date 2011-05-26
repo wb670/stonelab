@@ -86,3 +86,8 @@ HOST_DIR = '/home/stone/work/dev/stonelab/dns/db/hosts/'
 IP_DIR = '/home/stone/work/dev/stonelab/dns/db/ips/' 
 #file encoding
 FILE_ENCODING = 'utf-8'
+# cmd servers
+PROXY_DNS_CMD_SERVERS = (
+    ('127.0.0.1', 5454),
+    ('127.0.0.1', 5454),
+)

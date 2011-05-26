@@ -6,7 +6,7 @@
     {% if error %}<ul class="errorlist"><li>{{ error }}</li></ul><br/>{% endif %}
     <form enctype="multipart/form-data" action="" method="post" id="host_form">
         <div class="form-row">
-            <div><label>Name:</label><input name="name" value="{{ name }}" maxlength="20"/></div>
+            <div><label>Name:</label><input name="name" value="{{ name }}" maxlength="50"/></div>
         </div>
         <div class="form-row">
             <div><label>Content</label><textarea name="content" rows="30" cols="60">{{ content }}</textarea></div>        

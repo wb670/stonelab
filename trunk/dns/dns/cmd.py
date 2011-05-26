@@ -4,6 +4,8 @@ Created on 2011-5-26
 '''
 from SocketServer import BaseRequestHandler, ThreadingUDPServer
 from settings import SYS_PASSWORD
+from settings import DEBUG
+import time
 
 #------------------------#
 # Message Struct (type, event, body)
@@ -21,6 +23,7 @@ class CmdHandler(BaseRequestHandler):
             sock.sendto('True', self.client_address)
         else:
             type, event , body = msg
+            self.log('%s -- [%s] %s' % (self.client_address[0], time.ctime(), data))
             if type == 'IP':
                 if event == 'load':
                     hosts.load_ip(body)
@@ -52,10 +55,13 @@ class CmdHandler(BaseRequestHandler):
                         sock.sendto('False', self.client_address)
                         return
             sock.sendto('False', self.client_address)
+            
+    def log(self, message):
+        if DEBUG:
+            print message
 
 class CmdServer(ThreadingUDPServer):
     def __init__(self, server, hosts, proxy_dns):
         self.hosts = hosts
         self.proxy_dns = proxy_dns
         ThreadingUDPServer.__init__(self, server, CmdHandler)
-
