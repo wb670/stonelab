@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Hosts List</h1>
+<div id="content-main">
+<table cellspacing="0"> 
+    <thead><tr>
+        <th>no.</th>
+        <th>hosts name</th>
+    </tr></thead>
+    <tbody>
+        {% for name in list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="/host/{{ name }}/">{{ name }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

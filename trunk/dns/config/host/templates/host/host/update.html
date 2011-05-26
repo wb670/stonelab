@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Hosts Content</h1>
+<div id="content-main">
+{% if error %}
+    <ul class="errorlist"><li>{{ name }} {{ error }}</li></ul>
+{% else %}
+    <fieldset class="module aligned">
+        <form enctype="multipart/form-data" action="/dd" method="post" id="host_form">
+            <div class="form-row">
+                <div><label>name:</label><input name="name" disabled="disabled" value="{{ name }}" maxlength="20"/></div>
+            </div>
+            <div class="form-row">
+                <div><label>content</label><textarea name="content" rows="30" cols="60" disabled="disabled">{{ content }}</textarea></div>        
+            </div>
+            <div class="form-row">
+                <div>
+                    <label>Actions</label>
+                    <input type="button" id="confirm"  value="Prepare For Update" onclick="update()"/>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+    <script type="text/javascript">
+    confirm = false;
+    function update() {
+    	alert(confirm);
+        if(!confirm) {
+        	host_form.name.disabled=false;
+            host_form.content.disabled=false;
+            host_form.confirm.value = "Update";
+            confirm = true;        	
+        } else {
+        	host_form.submit();
+        }
+    }
+    </script>
+{% endif %}
+</div>
+{% endblock %}

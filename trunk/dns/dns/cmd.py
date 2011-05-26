@@ -36,7 +36,7 @@ class CmdHandler(BaseRequestHandler):
                     sock.sendto('True', self.client_address)
                     return
                 if event == 'info':
-                    d = hosts.repository_hosts.get(body)
+                    d = hosts.hosts.get(body)
                     r = str(d) if d else ''
                     sock.sendto(r, self.client_address)
                     return
