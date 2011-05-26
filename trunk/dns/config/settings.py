@@ -81,6 +81,8 @@ INSTALLED_APPS = (
 
 #custom configs
 # base hosts directory
-BASE_HOSTS_DIR = '/home/stone/work/dev/stonelab/dns/hosts/'
+HOST_DIR = '/home/stone/work/dev/stonelab/dns/db/hosts/'
 # base ip directory
-BASE_IPS_DIR = '/home/stone/work/dev/stonelab/dns/ips/' 
+IP_DIR = '/home/stone/work/dev/stonelab/dns/db/ips/' 
+#file encoding
+FILE_ENCODING = 'utf-8'

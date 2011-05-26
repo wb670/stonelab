@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% block body %}
-<h1>Hosts List</h1>
+<h1>Ip List</h1>
 <div id="content-main">
 <table cellspacing="1">
     <thead>
         <tr>
             <th>no.</th>
-            <th>hosts name</th>
+            <th>ip name</th>
             <th>action</th>
         </tr>
     </thead>
@@ -13,15 +13,10 @@
         {% for name in list %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ name }}</td>
-            <td><a href="/host/delete/{{ name }}/">delete</a> / 
-                <a href="/host/update/{{ name }}/">update</a> /
-                <a href="/ip/update/{{ name }}/">assign</a> </td>
+            <td><a href="/ip/info/{{ name }}/">{{ name }}</a></td>
+            <td><a href="/ip/delete/{{ name }}/">delete</a></td>
         </tr>
         {% endfor %}
-        <tr>
-            <td colspan="3"><a href="/host/add/">Add</a></td>
-        </tr>
     </tbody>
 </table>
 </div>
