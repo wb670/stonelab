@@ -31,41 +31,46 @@ class CountDownLatch(object):
 
 id = 0x5162
 flags = 0x0100
-ip = '127.0.0.1'
-#ip = '10.20.0.97'
+#ip = '127.0.0.1'
+ip = '10.20.0.98'
 #ip = '218.108.248.245'
 
 def test():
-    global id, flags
-    header = Header(id, flags, 1, 1, 0, 0)
+    header = Header(id, flags, 1, 0, 0, 0)
     query = Query('www.google.com', Query.TYPE_A, Query.CLASS_IN)
     req = DnsRequest(header, [query])
     data = req.serialize()
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.connect((ip, 53))
-    sock.settimeout(3)
+    sock.settimeout(2)
     sock.sendall(data)
     sock.recv(65535)
     sock.close()
-
-def test_all(latch):
-    for _ in range(10000):
+    
+def test_all(latch, exec_count):
+    for _ in range(exec_count):
         try:
             test()
         except Exception as e:
             print e
     latch.count_down()
 
-def performance():
+def performance(exec_count):
     latch = CountDownLatch(10)
     start = time.time()
     for _ in xrange(10):
-        threading.Thread(target=test_all, args=(latch,)).start()
+        threading.Thread(target=test_all, args=(latch, exec_count)).start()
     latch.await()
     print time.time() - start
 
-performance()
+#performance(1000)
 
+def test_cmd():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.connect(('127.0.0.1', 5454))
+    sock.settimeout(2)
+    sock.sendall('HOSTS info test1')
+    print sock.recv(65535)
+    sock.close()
 
-
-
+test_cmd()
