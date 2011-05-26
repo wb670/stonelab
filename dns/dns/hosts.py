@@ -20,6 +20,7 @@ class Hosts(object):
         self.load_all_ip()
     
     def get_ip(self, ip, domain):
+        ret = None
         if self.repository_ip.get(ip):
             ret = self._get_ip(domain, self.repository_hosts.get(self.repository_ip.get(ip))) # load from special hosts
         if not ret:
