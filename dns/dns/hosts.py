@@ -27,7 +27,7 @@ class Hosts(object):
         return None
         
     def load_all_ip(self):
-        files = os.listdir(self.base_ips)
+        files = [f for f in os.listdir(self.base_ips) if not f.startswith(".")]
         for i in files:
             self.load_ip(i)
 
@@ -35,7 +35,7 @@ class Hosts(object):
         self.repository_ip[ip] = open(self.base_ips + ip).read()
     
     def load_all_hosts(self):
-        files = os.listdir(self.base_hosts)
+        files = [f for f in os.listdir(self.base_hosts) if not f.startswith(".")]
         for i in files:
             self.load_hosts(i)
     
