@@ -48,17 +48,21 @@ def get(req, id):
     try:
         member = Member.objects.get(id=id)
         rs = Revenue.objects.filter(member=member.id).order_by('-id')[0:10]
+        r = Revenue.objects.filter(member=member.id).filter(code='S00101').order_by('-id')
+        if r:
+            r = r[0]
     except Member.DoesNotExist:
         member = None
         rs = None
-    return render_to_response('member/member.html', {'member':member, 'rs':rs}, context_instance=RequestContext(req))
+    return render_to_response('member/member.html', {'member':member, 'r': r, 'rs':rs}, context_instance=RequestContext(req))
 
 def list(req, num=1):
     q = req.GET.get('q')
     if not q:
         p = Paginator(Member.objects.all().order_by('id'), 10)
     else:
-        p = Paginator(Member.objects.filter((Q(room_no__contains=q) | Q(name__contains=q))), 10)
+        f = Q(room_no__contains=q) | Q(name__contains=q) | Q(motor_info__contains=q) | Q(nonmotor_info__contains=q)
+        p = Paginator(Member.objects.filter(f), 10)
     num = int(num)
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)    

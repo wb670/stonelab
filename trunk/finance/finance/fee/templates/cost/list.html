@@ -16,6 +16,16 @@
     
     <h1>成本信息列表</h1>
     <div id="changelist" class="module">
+    <!-- toolbar -->
+    <div id="toolbar">
+        <form id="changelist-search" action="" method="post"> 
+        <div>
+            <label for="searchbar"><img src="/media/img/admin/icon_searchbox.png" alt="Search" /></label>
+            {{ form.as_table }}
+            <input type="submit" value="搜索" onclick="jump(1);" /> 
+        </div> 
+        </form>
+    </div>
     <!-- members -->
     <table cellspacing="0"> 
         <thead><tr>
@@ -40,9 +50,16 @@
     <p class="paginator"> 
         成本记录：{{ page.paginator.count }}笔
         &nbsp;&nbsp;
-        {% if page.has_previous %}<a href="/fee/cost/list/{{ page.previous_page_number }}" class="end">上一页</a>{% endif %}
-        {% if page.has_next %}<a href="/fee/cost/list/{{ page.next_page_number }}" class="end">下一页</a>{% endif %}
+        {% if page.has_previous %}<a href="#" class="end" onclick="jump({{ page.previous_page_number }});">上一页</a>{% endif %}
+        {% if page.has_next %}<a href="#" class="end" onclick="jump({{ page.next_page_number }});">下一页</a>{% endif %}
     </p> 
     </div>
 </div>
+<script type="text/javascript">
+function jump(page) {
+    form = document.getElementById("changelist-search");
+    form.page.value = page;
+    form.submit();
+}
+</script>
 {% endblock %}
