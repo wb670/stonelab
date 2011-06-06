@@ -2,12 +2,14 @@
 from django import forms
 from django.contrib.admin import widgets
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.forms.models import ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from finance.fee.models import Account, Bank, Cost, Revenue, ErrorCode
 from django.template import RequestContext
+from finance.fee.models import Account, Bank, Cost, Revenue, ErrorCode
 from finance.member.models import Member
+from django.forms.widgets import HiddenInput
 
 class BankForm(ModelForm):
     date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期')
@@ -35,6 +37,23 @@ class RevenueForm(ModelForm):
     class Meta:
         model = Revenue
         exclude = ('member',)
+
+rcodes = [(k, v) for (k, v) in Revenue.codes if k]
+rcodes.insert(0, ('', '------'))
+class RSearchForm(forms.Form):
+    code = forms.ChoiceField(choices=rcodes, label=u'')
+    start = forms.DateField(widget=widgets.AdminDateWidget, label=u'开始日期', required=False)
+    end = forms.DateField(widget=widgets.AdminDateWidget, label=u'结束日期', required=False)
+    page = forms.IntegerField(widget=HiddenInput, initial=1)
+
+ccodes = [(k, v) for (k, v) in Cost.codes if k]
+ccodes.insert(0, ('', '------'))
+class CSearchForm(forms.Form):
+    code = forms.ChoiceField(choices=ccodes, label=u'')
+    start = forms.DateField(widget=widgets.AdminDateWidget, label=u'开始日期', required=False)
+    end = forms.DateField(widget=widgets.AdminDateWidget, label=u'结束日期', required=False)
+    page = forms.IntegerField(widget=HiddenInput, initial=1)
+
 
 def account_get(req):
     account = Account.objects.get()
@@ -88,11 +107,27 @@ def cost_add(req):
         
         
 def cost_list(req, num=1):
-    p = Paginator(Cost.objects.all().order_by('-id'), 10)
-    num = int(num)
+    if req.method == 'GET':
+        form = CSearchForm()
+        p = Paginator(Cost.objects.all().order_by('-id'), 10)
+        num = 1
+    else:
+        form = CSearchForm(req.POST)
+        qc = form.data['code']
+        qs = form.data['start']
+        qe = form.data['end']
+        qp = int(form.data['page'])
+        f = Q(code=qc)
+        if qs:
+            f = f & Q(date__gte=qs)
+        if qe:
+            f = f & Q(date__lte=qe)
+        p = Paginator(Cost.objects.filter(f).order_by('-id'), 10)
+        num = qp
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)
-    return render_to_response('cost/list.html', {'page':page}, context_instance=RequestContext(req))
+    return render_to_response('cost/list.html', {'form':form, 'page':page}, context_instance=RequestContext(req))
+    
 
 def revenue_add(req):
     if req.method == 'GET':
@@ -114,10 +149,25 @@ def revenue_add(req):
             revenue.member_id = mid
         revenue.add()
         return HttpResponseRedirect('/fee/revenue/list/')
-        
+
 def revenue_list(req, num=1):
-    p = Paginator(Revenue.objects.all().order_by('-id'), 10)
-    num = int(num)
+    if req.method == 'GET':
+        form = RSearchForm()
+        p = Paginator(Revenue.objects.all().order_by('-id'), 10)
+        num = 1
+    else:
+        form = RSearchForm(req.POST)
+        qc = form.data['code']
+        qs = form.data['start']
+        qe = form.data['end']
+        qp = int(form.data['page'])
+        f = Q(code=qc)
+        if qs:
+            f = f & Q(date__gte=qs)
+        if qe:
+            f = f & Q(date__lte=qe)
+        p = Paginator(Revenue.objects.filter(f).order_by('-id'), 10)
+        num = qp
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)
-    return render_to_response('revenue/list.html', {'page':page}, context_instance=RequestContext(req))
+    return render_to_response('revenue/list.html', {'form':form, 'page':page}, context_instance=RequestContext(req))

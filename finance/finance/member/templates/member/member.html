@@ -9,7 +9,9 @@
     <div>
     <fieldset class="module aligned">
     <div class="form-row room_no">
-        <div><label for="id_room_no">房号:</label>{{ member.room_no }}</div>
+        <div><label for="id_room_no">房号:</label>{{ member.room_no }}
+        {% if r %}&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">物业费缴截 {{ r.date }}</font>{% endif %}
+        </div>
     </div>
     <div class="form-row name  ">
         <div><label for="id_name">业主姓名:</label>{{ member.name }}</div>
@@ -29,17 +31,25 @@
     <div class="form-row kind  ">
         <div><label for="id_kind">用房性质:</label>{{ member.get_kind_display }}</div>
     </div>
-    <div class="form-row bicycle_garage_no  ">
-        <div><label for="id_bicycle_garage_no">自行车库号:</label>{{ member.bicycle_garage_no }}</div>
+    {% ifequal member.kind "R" %}
+    <div class="form-row rent_name  ">
+        <div><label for="id_rent_name">租户姓名:</label>{{ member.rent_name }}</div>
     </div>
-    <div class="form-row garage_no  ">
-        <div><label for="id_garage_no">汽车停车位:</label>{{ member.garage_no }}</div>
+    <div class="form-row rent_contact_no  ">
+        <div><label for="id_rent_contact_no">租户姓名:</label>{{ member.rent_contact_no }}</div>
     </div>
-    <div class="form-row parking_no  ">
-        <div><label for="id_parking_no">停车卡号:</label>{{ member.parking_no }}</div>
+    <div class="form-row rent_fee_kind  ">
+        <div><label for="id_rent_fee_kind">租户姓名:</label>{{ member.get_rent_fee_kind_display }}</div>
+    </div>
+    {% endifequal %}
+    <div class="form-row motor_info  ">
+        <div><label for="id_motor_info">机动车信息:</label><textarea disabled="disabled" rows="5" cols="30">{{ member.motor_info }}</textarea></div>
+    </div>
+    <div class="form-row nonmotor_info  ">
+        <div><label for="id_nonmotor_info">非机动车信息:</label><textarea disabled="disabled" rows="5" cols="30">{{ member.nonmotor_info }}</textarea></div>
     </div>
     <div class="form-row memo  ">
-        <div><label for="id_memo">备注:</label>{{ member.memo }}</div>
+        <div><label for="id_memo">备注:</label><textarea disabled="disabled" rows="10" cols="30">{{ member.memo }}</textarea></div>
     </div>
     <div class="form-row id">
         <div><label for="id_id"><a href="/member/update/{{ member.id }}/" class="changelink">修改业主信息</a></label></div>
