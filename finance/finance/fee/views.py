@@ -4,17 +4,23 @@ from django.contrib.admin import widgets
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.forms.models import ModelForm
+from django.forms.widgets import HiddenInput
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from finance.fee.models import Account, Bank, Cost, Revenue, ErrorCode
+from finance.fee.models import CashAccount, BankDetail, Cost, Revenue, ErrorCode, \
+    BankAccount, Account
 from finance.member.models import Member
-from django.forms.widgets import HiddenInput
 
-class BankForm(ModelForm):
+class BankAccountForm(ModelForm):
+    class Meta:
+        model = BankAccount
+        exclude = ('amount',)
+
+class BankDetailForm(ModelForm):
     date = forms.DateField(widget=widgets.AdminDateWidget, label=u'日期')
     class Meta:
-        model = Bank
+        model = BankDetail
         
 class CostForm(ModelForm):
     code = forms.ChoiceField(choices=((k, v if k == '' else '---%s' % v) for (k, v) in Cost.codes), label=u'代号')
@@ -56,15 +62,30 @@ class CSearchForm(forms.Form):
 
 
 def account_get(req):
-    account = Account.objects.get()
+    cash = CashAccount.objects.get()
+    banks = BankAccount.objects.all()
+    account = Account(cash.amount, sum([bank.amount for bank in banks]), banks)
     return render_to_response('account/account.html', {'account':account}, context_instance=RequestContext(req))
 
+def bank_account_add(req):
+    if req.method == 'GET':
+        form = BankAccountForm()
+        return render_to_response('bc/add.html', {'form': form}, context_instance=RequestContext(req))
+    else:
+        form = BankAccountForm(req.POST)
+        if not form.is_valid():
+            return render_to_response('bc/add.html', {'form': form}, context_instance=RequestContext(req))
+        bc = form.save(False)
+        bc.amount = 0
+        bc.save()
+        return HttpResponseRedirect('/fee/account/account/')
+        
 def bank_add(req):
     if req.method == 'GET':
-        form = BankForm()
+        form = BankDetailForm()
         return render_to_response('bank/add.html', {'form':form}, context_instance=RequestContext(req))
     else:
-        form = BankForm(req.POST)
+        form = BankDetailForm(req.POST)
         if not form.is_valid():
             return render_to_response('bank/add.html', {'form':form}, context_instance=RequestContext(req))
         bank = form.save(False)
@@ -75,7 +96,7 @@ def bank_add(req):
         return HttpResponseRedirect('/fee/bank/list/')
 
 def bank_list(req, num=1):
-    p = Paginator(Bank.objects.all().order_by('-id'), 10)
+    p = Paginator(BankDetail.objects.all().order_by('-id'), 10)
     num = int(num)
     num = num if num <= p.num_pages else p.num_pages
     page = p.page(num)

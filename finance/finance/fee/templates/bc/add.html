@@ -26,18 +26,4 @@
         </fieldset>
     </div>
 </div>
-<script type="text/javascript">
-function event() {
-    value = document.getElementById("id_type").value;
-    if(value == "D") {
-        document.getElementById("id_kind").parentNode.parentNode.style.display=null;
-        document.getElementById("id_info").parentNode.parentNode.style.display=null;
-    } else {
-        document.getElementById("id_kind").parentNode.parentNode.style.display="none";
-        document.getElementById("id_info").parentNode.parentNode.style.display="none";
-    }
-}
-event();
-document.getElementById("id_type").onchange=event;
-</script>
 {% endblock %}

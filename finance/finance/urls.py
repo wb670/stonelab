@@ -31,4 +31,6 @@ urlpatterns = patterns('',
     (r'^fee/revenue/list/(\d+)/$', 'fee.views.revenue_list'),
     #report
     (r'^report/report/$', 'report.views.report'),
+    #add
+    (r'^fee/bc/add/$', 'fee.views.bank_account_add'),
 )
