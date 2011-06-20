@@ -32,7 +32,7 @@ def host_add(req):
             return render_to_response('host/host/add.html', {'name':name, 'content':content, 'error':error})
         open(HOST_DIR + name, 'w').write(content.encode(FILE_ENCODING))
         cmd(CMD_HOST % name)
-        return HttpResponseRedirect('/host/list')
+        return HttpResponseRedirect('/host/list/')
         
 
 def host_update(req, name):
@@ -43,13 +43,13 @@ def host_update(req, name):
         content = req.POST.get('content')
         open(HOST_DIR + name, 'w').write(content.encode(FILE_ENCODING))
         cmd(CMD_HOST % name)
-        return HttpResponseRedirect('/host/list')
+        return HttpResponseRedirect('/host/list/')
 
 def host_delete(req, name):
     if os.path.exists(HOST_DIR + name):
         os.remove(HOST_DIR + name)
         cmd(CMD_HOST % name)
-    return HttpResponseRedirect('/host/list')
+    return HttpResponseRedirect('/host/list/')
 
 def ip_list(req):
     ip_list = [f for f in os.listdir(IP_DIR) if not f.startswith(".")]
@@ -64,13 +64,13 @@ def ip_delete(req, ip):
     if os.path.exists(IP_DIR + ip):
         os.remove(IP_DIR + ip)
     cmd(CMD_IP % ip)
-    return HttpResponseRedirect('/ip/list')
+    return HttpResponseRedirect('/ip/list/')
 
 def ip_update(req, name):
     ip = req.META.get('REMOTE_ADDR')
     open(IP_DIR + ip, 'w').write(name)
     cmd(CMD_IP % ip)
-    return HttpResponseRedirect('/ip/list')
+    return HttpResponseRedirect('/ip/list/')
 
 def cmd(data):
     for cmd in PROXY_DNS_CMD_SERVERS:
