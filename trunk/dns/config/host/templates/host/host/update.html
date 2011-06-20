@@ -4,7 +4,7 @@
 <div id="content-main">
 <fieldset class="module aligned">
     {% if error %}<ul class="errorlist"><li>{{ error }}</li></ul><br/> {% endif %}
-    <form enctype="multipart/form-data" action="" method="post" id="host_form">
+    <form enctype="multipart/form-data" action="/host/update/{{ name }}/" method="post" id="host_form">
         <div class="form-row">
             <div><label>name:</label>{{ name }}</div>
         </div>
