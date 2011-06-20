@@ -2,34 +2,53 @@
 from django.db import models
 from finance.member.models import Member
 
-class Account(models.Model):
-    cash = models.FloatField()
-    bank = models.FloatField()
+class Account(object):
+    def __init__(self, cash, bank, banks):
+        self.cash = cash
+        self.bank = bank
+        self.banks = banks
 
-class Bank(models.Model):
+class CashAccount(models.Model):
+    amount = models.FloatField()
+
+class BankAccount(models.Model):
+    card = models.CharField(max_length=32, verbose_name=u'卡号')
+    title = models.CharField(max_length=128, verbose_name=u'开户行')
+    amount = models.FloatField(verbose_name=u'金额')
+    
+    def __unicode__(self):
+        return '%s(%s)' % (self.title, self.card)
+
+class BankDetail(models.Model):
     types = (('D', u'存款'),
              ('W', u'取款'))
+    kinds = (('0', u'活期'),
+             ('1', u'定期'))
     type = models.CharField(max_length=8, choices=types, verbose_name=u'类型')
     amount = models.FloatField(verbose_name=u'金额')
+    kind = models.CharField(max_length=8, choices=kinds, verbose_name=u'存款类型', blank=True)
+    info = models.CharField(max_length=64, verbose_name=u'存款信息', blank=True)
     date = models.DateField(verbose_name=u'日期')
     subject = models.CharField(max_length=128, verbose_name=u'摘要')
+    bank = models.ForeignKey(BankAccount, verbose_name=u'开户银行')
     
     def add(self):
-        account = Account.objects.get()
+        cash = CashAccount.objects.get()
         #存款
         if self.type == 'D':
-            if account.cash < self.amount:
+            if cash.amount < self.amount:
                 raise ErrorCode('账户现金不足')
-            account.cash = account.cash - self.amount
-            account.bank = account.bank + self.amount
+            cash.amount = cash.amount - self.amount
+            self.bank.amount = self.bank.amount + self.amount
         #取款
         else :
-            if account.bank < self.amount:
+            if self.bank.amount < self.amount:
                 raise ErrorCode('账户存款不足')
-            account.cash = account.cash + self.amount
-            account.bank = account.bank - self.amount
+            cash.amount = cash.amount + self.amount
+            self.bank.amount = self.bank.amount - self.amount
         self.save()
-        account.save()
+        cash.save()
+        self.bank.save()
 
 class Cost(models.Model):
     codes = (('', u'物业管理成本'),
@@ -69,10 +88,10 @@ class Cost(models.Model):
     member = models.ForeignKey(Member, null=True, blank=True, verbose_name=u'业主')
     
     def add(self):
-        account = Account.objects.get()
-        if self.amount > account.cash:
+        account = CashAccount.objects.get()
+        if self.amount > account.amount:
             raise ErrorCode('账户现金不足')
-        account.cash = account.cash - self.amount
+        account.amount = account.amount - self.amount
         self.save()
         account.save()
         
@@ -103,8 +122,8 @@ class Revenue(models.Model):
     member = models.ForeignKey(Member, null=True, blank=True, verbose_name=u'业主')
     
     def add(self):
-        account = Account.objects.get()
-        account.cash = account.cash + self.amount
+        account = CashAccount.objects.get()
+        account.amount = account.amount + self.amount
         self.save()
         account.save()
     

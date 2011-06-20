@@ -16,5 +16,29 @@
     </div>
     </fieldset>
     </div>
+    
+    <p>银行账户信息 &nbsp;&nbsp;&nbsp;<a href="/fee/bc/add/">添加银行账户</a></p>
+    <div>
+    <fieldset class="module aligned">
+    <div class="form-row">
+    <table cellspacing="0"> 
+        <thead><tr>
+            <th>卡号</th>
+            <th>开户银行</th>
+            <th>金额</th>
+        </tr></thead>
+        <tbody>
+            {% for b in account.banks %}
+            <tr class="{{ forloop.counter|row }}">
+                <td>{{ b.card }}</td>
+                <td>{{ b.title }}</td>
+                <td>{{ b.amount }}</td>
+            </tr>
+            {% endfor %} 
+        </tbody> 
+    </table>
+    </div>
+    </fieldset>
+    </div>
 </div>
 {% endblock %}

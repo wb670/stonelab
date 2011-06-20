@@ -1,6 +1,6 @@
 #encoding:utf8
 from django import template
-from finance.fee.models import Account
+from finance.fee.models import  CashAccount, BankAccount, Account
 
 register = template.Library()
 
@@ -9,7 +9,10 @@ class AccountNode(template.Node):
         self.name = name
         
     def render(self, context):
-        context[self.name] = Account.objects.get()
+        cash = CashAccount.objects.get()
+        banks = BankAccount.objects.all()
+        account = Account(cash.amount, sum([bank.amount for bank in banks]), banks)
+        context[self.name] = account
         return ''
     
 def get_account(parser, token):
