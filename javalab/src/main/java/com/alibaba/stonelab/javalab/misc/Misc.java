@@ -5,9 +5,14 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
+import java.lang.management.ManagementFactory;
+
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+
+import com.sun.management.HotSpotDiagnosticMXBean;
 
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
@@ -15,18 +20,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 public class Misc {
 
     public static void main(String[] args) throws Exception {
-        CamelContext ctx = new DefaultCamelContext();
-        ctx.addRoutes(new MyRouteBuilder());
-        ctx.start();
+
+        
     }
-
-    public static class MyRouteBuilder extends RouteBuilder {
-
-        @Override
-        public void configure() throws Exception {
-            from("timer:test").choice().to("log:test");
-        }
-
-    }
-
 }
