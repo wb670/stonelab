@@ -72,6 +72,12 @@
     </build>
 
     <dependencies>
+        <!-- asm -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.14.0-GA</version>
+        </dependency>
         <!-- jdbc -->
         <dependency>
             <groupId>com.alibaba.external</groupId>
@@ -86,8 +92,8 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.5.6-Final</version>
         </dependency>
         <!-- camel -->
         <dependency>
