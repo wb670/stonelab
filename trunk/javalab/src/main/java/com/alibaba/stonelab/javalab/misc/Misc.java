@@ -5,14 +5,6 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import java.lang.management.ManagementFactory;
-
-import javax.management.MBeanServerConnection;
-import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
-
-import com.sun.management.HotSpotDiagnosticMXBean;
 
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
@@ -20,7 +12,6 @@ import com.sun.management.HotSpotDiagnosticMXBean;
 public class Misc {
 
     public static void main(String[] args) throws Exception {
-
-        
     }
+
 }
