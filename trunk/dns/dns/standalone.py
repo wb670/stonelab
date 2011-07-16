@@ -13,14 +13,14 @@ parser.add_option('-s', '--dns', dest='dns', metavar='SERVER', help='main dns se
 opts, args = parser.parse_args()
 
 if not opts.dns:
-    print parser.print_help()
+    parser.print_help()
     sys.exit(-1)
     
 if not opts.hosts:
     if platform.system() == 'Linux':
         opts.hosts = '/etc/hosts'
-    elif platform.system() == 'Winodws':
-        opts.hosts = 'c:/windos/system32/dirvers/etc/hosts'
+    elif platform.system() == 'Windows':
+        opts.hosts = 'c:/windows/system32/drivers/etc/hosts'
     else:
         parser.print_help()
         sys.exit(-1)
