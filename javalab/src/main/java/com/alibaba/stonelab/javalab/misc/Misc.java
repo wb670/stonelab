@@ -5,7 +5,6 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
@@ -13,5 +12,4 @@ public class Misc {
 
     public static void main(String[] args) throws Exception {
     }
-
 }
