@@ -5,14 +5,9 @@
  */
 package com.alibaba.stonelab.javalab.misc.hibernate;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import com.alibaba.stonelab.javalab.misc.hibernate.model.Notice;
 
@@ -22,20 +17,13 @@ import com.alibaba.stonelab.javalab.misc.hibernate.model.Notice;
 public class Main {
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("entity");
-        EntityManager em = emf.createEntityManager();
+        Configuration cfg = new Configuration();
+        cfg.configure("misc/cfg.xml");
 
-        CriteriaBuilder builder = emf.getCriteriaBuilder();
-        CriteriaQuery<Notice> query = builder.createQuery(Notice.class);
-        Root<Notice> root = query.from(Notice.class);
+        SessionFactory sf = cfg.buildSessionFactory();
 
-        query.select(root);
-        query.where(builder.equal(builder.currentDate(), root.get("gmt_create")));
-
-        List<Notice> list = em.createQuery(query).getResultList();
-        System.out.println(list);
-
-        em.close();
-        emf.close();
+        Session s = sf.openSession();
+        Notice n = (Notice) s.get(Notice.class, 1);
+        System.out.println(n);
     }
 }
