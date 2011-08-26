@@ -11,5 +11,9 @@ package com.alibaba.stonelab.javalab.misc;
 public class Misc {
 
     public static void main(String[] args) throws Exception {
+        System.out.println(Integer.class);
+        Integer i = 1;
+        System.out.println(i.getClass());
     }
+
 }

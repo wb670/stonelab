@@ -5,26 +5,23 @@
  */
 package com.alibaba.stonelab.javalab.misc.hibernate.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author stone 2011-6-28 上午11:03:51
  */
-@Entity
-@Table(name = "notice")
-public class Notice extends DateInfo {
+public class Notice implements Serializable {
 
-    @Id
-    private int    id;
-    private Detail detail;
-    private String publisher_no;
-    private String publisher;
-    private int    del;
-    private int    department_id;
-    private int    email_state;
-    private int    group_id;
+    private static final long serialVersionUID = 1L;
+
+    private int               id;
+    private String            title;
+    private String            content;
+    private Date              gmtCreate;
+    private Date              gmtModify;
+    private String            publisherId;
+    private String            publisher;
 
     public int getId() {
         return id;
@@ -34,12 +31,44 @@ public class Notice extends DateInfo {
         this.id = id;
     }
 
-    public String getPublisher_no() {
-        return publisher_no;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPublisher_no(String publisher_no) {
-        this.publisher_no = publisher_no;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+    public String getPublisherId() {
+        return publisherId;
+    }
+
+    public void setPublisherId(String publisherId) {
+        this.publisherId = publisherId;
     }
 
     public String getPublisher() {
@@ -50,44 +79,9 @@ public class Notice extends DateInfo {
         this.publisher = publisher;
     }
 
-    public int getDel() {
-        return del;
-    }
-
-    public void setDel(int del) {
-        this.del = del;
-    }
-
-    public int getDepartment_id() {
-        return department_id;
-    }
-
-    public void setDepartment_id(int department_id) {
-        this.department_id = department_id;
-    }
-
-    public int getEmail_state() {
-        return email_state;
-    }
-
-    public void setEmail_state(int email_state) {
-        this.email_state = email_state;
-    }
-
-    public int getGroup_id() {
-        return group_id;
-    }
-
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
-    }
-
-    public Detail getDetail() {
-        return detail;
-    }
-
-    public void setDetail(Detail detail) {
-        this.detail = detail;
+    @Override
+    public String toString() {
+        return "Notice [id=" + id + ", title=" + title + "]";
     }
 
 }
