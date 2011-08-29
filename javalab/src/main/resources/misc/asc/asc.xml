@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+    default-autowire="byName">
+
+    <bean id="searchConfig" class="com.alibaba.china.searchengine.dal.helper.SearchConfig" scope="singleton">
+        <property name="searchUrlMap">
+            <map>
+                <entry key="offer_gb.search.url">
+                    <value>http://mock.b2bqa.com/bin/search</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="searchEngine" class="com.alibaba.capsule.SearchEngineRemoteV2" />
+
+    <bean id="offerSearch" class="com.alibaba.china.searchengine.dal.dao.search.OfferSearchImpl" scope="singleton" />
+
+</beans>

@@ -5,15 +5,15 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import lombok.Data;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
+@Data
 public class Misc {
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(Integer.class);
-        Integer i = 1;
-        System.out.println(i.getClass());
-    }
+    private int id;
+    private String name;
 
 }
