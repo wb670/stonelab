@@ -4,13 +4,8 @@
     default-autowire="byName">
 
     <bean id="searchConfig" class="com.alibaba.china.searchengine.dal.helper.SearchConfig" scope="singleton">
-        <property name="searchUrlMap">
-            <map>
-                <entry key="offer_gb.search.url">
-                    <value>http://mock.b2bqa.com/bin/search</value>
-                </entry>
-            </map>
-        </property>
+        <!-- <property name="searchUrlMap"> <map> <entry key="offer_gb.search.url"> <value>http://mock.b2bqa.com/bin/search</value> 
+            </entry> </map> </property> -->
     </bean>
 
     <bean id="searchEngine" class="com.alibaba.capsule.SearchEngineRemoteV2" />

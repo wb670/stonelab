@@ -9,7 +9,9 @@
         <property name="content" column="content" type="java.lang.String" />
         <property name="gmtCreate" column="gmt_create" type="java.util.Date" />
         <property name="gmtModify" column="gmt_modify" type="java.util.Date" />
-        <property name="publisherId" column="publisher_no" type="java.lang.String" />
-        <property name="publisher" column="publisher" type="java.lang.String" />
+        <component name="publisher">
+            <property name="publisherId" column="publisher_no" type="java.lang.String" />
+            <property name="publisher" column="publisher" type="java.lang.String" />
+        </component>
     </class>
 </hibernate-mapping>

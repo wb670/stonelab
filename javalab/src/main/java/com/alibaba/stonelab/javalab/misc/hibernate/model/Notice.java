@@ -20,8 +20,7 @@ public class Notice implements Serializable {
     private String            content;
     private Date              gmtCreate;
     private Date              gmtModify;
-    private String            publisherId;
-    private String            publisher;
+    private Publisher         publisher;
 
     public int getId() {
         return id;
@@ -63,25 +62,18 @@ public class Notice implements Serializable {
         this.gmtModify = gmtModify;
     }
 
-    public String getPublisherId() {
-        return publisherId;
-    }
-
-    public void setPublisherId(String publisherId) {
-        this.publisherId = publisherId;
-    }
-
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
     @Override
     public String toString() {
-        return "Notice [id=" + id + ", title=" + title + "]";
+        return "Notice [id=" + id + ", title=" + title + ", gmtCreate=" + gmtCreate + ", gmtModify=" + gmtModify
+               + ", publisher=" + publisher + "]";
     }
 
 }
