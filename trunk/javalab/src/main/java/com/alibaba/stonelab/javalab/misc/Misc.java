@@ -5,11 +5,15 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import java.text.MessageFormat;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        System.out.println(MessageFormat.format("abc.value = \"{0}\"", 100));
     }
+
 }
