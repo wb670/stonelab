@@ -1,26 +1,23 @@
+from SocketServer import BaseRequestHandler, ThreadingTCPServer
 import time
+import sys
+import __main__
 
-def timeit(name):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            start = time.time()
-            func(*args, **kwargs)
-            print '%s used: %f' % (name, time.time() - start)
-        return wrapper
-    return decorator
 
-def logit(name):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            print '%s excuted' % (name)
-            func(*args, **kwargs)
-        return wrapper
-    return decorator
-
-@timeit('Foo')
-@logit('Foo')
-def foo(seconds):
-    time.sleep(seconds)
-    print 'foo Done'
+class TimeHandler(BaseRequestHandler):
     
-foo(2)
+    HTML = '''HTTP/1.1 200 OK
+Content-Type: text/plain
+Transfer-Encoding: chunked
+
+e
+Hello, World!!
+0
+'''
+    
+    def handle(self):
+        reload(__main__)
+        self.request.send(TimeHandler.HTML + '\r\n')
+        
+s = ThreadingTCPServer(('127.0.0.1', 8888), TimeHandler)
+s.serve_forever()
