@@ -5,13 +5,18 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
     public static void main(String[] args) {
-
+        Calendar s = Calendar.getInstance();
+        s.set(2008, 8, 18, 0, 0, 0);
+        System.out.println(s.getTime());
     }
 
 }

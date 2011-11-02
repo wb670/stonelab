@@ -12,6 +12,7 @@ import web
 web.config.debug = True        
 
 urls = (
+    '/', 'List',
     '/list', 'List',
     '/add', 'Add',
     '/delete/(\d+)', 'Delete',
@@ -21,6 +22,10 @@ urls = (
 render = render_jinja(
     'templates/gift',
     encoding='utf-8'
+)
+
+render._lookup.globals.update(
+    web=web
 )
 
 db = web.database(dbn='sqlite', db='gift.db')
