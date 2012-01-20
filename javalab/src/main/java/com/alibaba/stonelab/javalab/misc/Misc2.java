@@ -5,9 +5,13 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.mysql.jdbc.Driver;
 
@@ -17,11 +21,28 @@ import com.mysql.jdbc.Driver;
 public class Misc2 {
 
     public static void main(String[] args) throws Exception {
-        DriverManager.registerDriver(new Driver());
+        BufferedWriter br = new BufferedWriter(
+                                               new OutputStreamWriter(
+                                                                      new FileOutputStream(
+                                                                                           "/home/stone/tmp/member_ids.txt")));
 
-        Connection con = DriverManager.getConnection("jdbc:mysql://10.20.156.49:3306/test", "root", "123456");
-        PreparedStatement ps = con.prepareStatement("select count(*) from user where name > 10000");
-        ps.executeQuery();
+        DriverManager.registerDriver(new Driver());
+        Connection con = DriverManager.getConnection("jdbc:mysql://test.ccbu.mysql.alibaba-inc.com:3307/offer3",
+                                                     "offer", "offer");
+        PreparedStatement ps = con.prepareStatement("select distinct(member_id) from offer_group_rel limit 0,10000");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            br.write(rs.getString(1));
+            br.write("\n");
+        }
+
+        br.flush();
+        br.close();
+
+        rs.close();
+        ps.close();
+        con.close();
+        System.out.println("Completed.");
     }
 
 }
