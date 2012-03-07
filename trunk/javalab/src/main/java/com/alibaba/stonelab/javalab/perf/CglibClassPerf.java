@@ -128,13 +128,13 @@ public class CglibClassPerf {
 
     public static class Enhancerx extends Enhancer {
 
-        private static Map<Class, Method> cache = new HashMap<Class, Method>();
+        private static Map<Class<?>, Method> cache = new HashMap<Class<?>, Method>();
 
-        public static void registerCallbacks(Class generatedClass, Callback[] callbacks) {
+        public static void registerCallbacks(Class<?> generatedClass, Callback[] callbacks) {
             setCallbacksHelper(generatedClass, callbacks, "CGLIB$SET_THREAD_CALLBACKS");
         }
 
-        private static void setCallbacksHelper(Class type, Callback[] callbacks, String methodName) {
+        private static void setCallbacksHelper(Class<?> type, Callback[] callbacks, String methodName) {
             try {
                 if (!cache.containsKey(type)) {
                     cache.put(type, type.getDeclaredMethod(methodName, new Class[] { Callback[].class }));

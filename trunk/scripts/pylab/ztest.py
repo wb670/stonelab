@@ -1,23 +1,9 @@
-from SocketServer import BaseRequestHandler, ThreadingTCPServer
-import time
-import sys
-import __main__
+import pickle
 
+data = pickle.load(open('/home/stone/tmp/banner.p', 'r'))    
+print data
 
-class TimeHandler(BaseRequestHandler):
-    
-    HTML = '''HTTP/1.1 200 OK
-Content-Type: text/plain
-Transfer-Encoding: chunked
-
-e
-Hello, World!!
-0
-'''
-    
-    def handle(self):
-        reload(__main__)
-        self.request.send(TimeHandler.HTML + '\r\n')
-        
-s = ThreadingTCPServer(('127.0.0.1', 8888), TimeHandler)
-s.serve_forever()
+for l in data:
+    for i in l:
+        print i[0] * i[1],
+    print
