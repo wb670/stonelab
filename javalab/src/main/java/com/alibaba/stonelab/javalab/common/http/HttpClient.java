@@ -204,7 +204,7 @@ public class HttpClient {
             con.setRequestProperty(e.getKey(), e.getValue());
         }
         // set ssl socket factory if is https request
-        if (isHttpsProtocol(url) & socketFactoryContext != null) {
+        if (isHttpsProtocol(url) && socketFactoryContext != null) {
             ((HttpsURLConnection) con).setSSLSocketFactory((SSLSocketFactory) socketFactoryContext.createSocketFactory());
         }
         return con;

@@ -10,14 +10,25 @@ package com.alibaba.stonelab.javalab.misc;
  */
 public class Misc {
 
-    static {
-        System.loadLibrary("clab");
-    }
-
     public static void main(String[] args) {
-        System.out.println(new Misc().hello());
+        Hello<?> hello = new HelloImpl();
+        hello.hello().hello();
     }
 
-    public native String hello();
+    public static interface Hello<H extends Hello<?>> {
+
+        H hello();
+
+    }
+
+    public static class HelloImpl implements Hello<Hello<?>> {
+
+        @Override
+        public Hello<?> hello() {
+            System.out.println("hello");
+            return this;
+        }
+
+    }
 
 }

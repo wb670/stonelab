@@ -121,7 +121,7 @@ public class Response {
     @Override
     public String toString() {
         return "Response [code=" + code + ", message=" + message + ", headers=" + headers + ", encoding="
-               + getEncoding() + ", type=" + getType() + ", content=" + content + "]";
+               + getEncoding() + ", type=" + getType() + ", content=" + String.valueOf(content) + "]";
     }
 
 }

@@ -3,22 +3,13 @@
  * Alibaba.com ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only
  * in accordance with the terms of the license agreement you entered into with Alibaba.com.
  */
-package com.alibaba.stonelab.javalab.misc;
+package com.alibaba.stonelab.javalab.osgi;
 
 /**
- * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> Nov 15, 2011
+ * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> Jan 30, 2012
  */
-public class Misc2 {
+public interface HelloWorldService {
 
-    public static void main(String[] args) throws Exception {
-    }
-
-    public static void test1() {
-
-    }
-
-    public static void test2() {
-
-    }
+    public String say(String name);
 
 }

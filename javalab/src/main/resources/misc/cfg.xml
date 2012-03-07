@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="show_sql">true</property>
-        <property name="connection.url">jdbc:mysql://10.20.156.49:3306/party</property>
+        <property name="connection.url">jdbc:mysql://10.20.156.88:3306/party</property>
         <property name="connection.username">party</property>
         <property name="connection.password">123456</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
