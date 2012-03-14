@@ -11,24 +11,6 @@ package com.alibaba.stonelab.javalab.misc;
 public class Misc {
 
     public static void main(String[] args) {
-        Hello<?> hello = new HelloImpl();
-        hello.hello().hello();
-    }
-
-    public static interface Hello<H extends Hello<?>> {
-
-        H hello();
-
-    }
-
-    public static class HelloImpl implements Hello<Hello<?>> {
-
-        @Override
-        public Hello<?> hello() {
-            System.out.println("hello");
-            return this;
-        }
-
     }
 
 }
