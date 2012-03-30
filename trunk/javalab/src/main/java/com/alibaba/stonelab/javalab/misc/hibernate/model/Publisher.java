@@ -7,13 +7,18 @@ package com.alibaba.stonelab.javalab.misc.hibernate.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> Sep 14, 2011
  */
+@Embeddable
 public class Publisher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "publisher_no")
     private String            publisherId;
     private String            publisher;
 

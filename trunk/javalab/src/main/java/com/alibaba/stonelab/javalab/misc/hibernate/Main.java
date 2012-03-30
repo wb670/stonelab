@@ -5,9 +5,9 @@
  */
 package com.alibaba.stonelab.javalab.misc.hibernate;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import com.alibaba.stonelab.javalab.misc.hibernate.model.Notice;
 
@@ -17,13 +17,17 @@ import com.alibaba.stonelab.javalab.misc.hibernate.model.Notice;
 public class Main {
 
     public static void main(String[] args) {
-        Configuration cfg = new Configuration();
-        cfg.configure("misc/cfg.xml");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("entity");
+        EntityManager em = emf.createEntityManager();
 
-        SessionFactory sf = cfg.buildSessionFactory();
+        em.getTransaction().begin();
 
-        Session s = sf.openSession();
-        Notice n = (Notice) s.get(Notice.class, 1);
+        Notice n = em.find(Notice.class, 1);
         System.out.println(n);
+        n.setTitle("关于做好2009年度党内双评工作的意见.");
+        em.persist(n);
+
+        em.getTransaction().commit();
+        em.close();
     }
 }
