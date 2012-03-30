@@ -27,11 +27,11 @@ public class QueryDslRunner {
         cfg.configure("misc/cfg.xml");
         Session session = cfg.buildSessionFactory().openSession();
 
-        SQLQuery query = new SQLQueryImpl(session.connection(), new MySQLTemplates());
+        SQLQuery query = new SQLQueryImpl(null, new MySQLTemplates());
         Object r = query.from(QNotice.notice).where(where).list(QNotice.notice.id);
         System.out.println(r);
 
-        session.connection().close();
+        session.close();
     }
 
 }
