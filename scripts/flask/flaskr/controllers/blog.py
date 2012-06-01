@@ -1,23 +1,17 @@
-from flask import Flask
-from flask.globals import request
-from flask.helpers import flash, url_for
-from flask.templating import render_template
-from werkzeug.utils import redirect
+'''
+Created on Jun 1, 2012
+
+@author: stone
+'''
+from flask import Blueprint, request, render_template, redirect, flash, url_for
 import sqlite3
 
-DATABASE = '/tmp/flaskr.db'
-DEBUG = True
-SECRET_KEY = 'key'
-USERNAME = 'admin'
-PASSWORD = 'default'
-
-app = Flask(__name__)
-app.config.from_object(__name__)
+blog = Blueprint('blog', 'controllers.blog', template_folder='../templates/blog', url_prefix='/blog');
 
 def connect_db():
-    return sqlite3.connect(app.config['DATABASE'])
+    return sqlite3.connect('/tmp/blog.db')
 
-@app.route('/add', methods=['POST'])
+@blog.route('/add', methods=['POST'])
 def add_entry():
     db = connect_db()
     db.execute('insert into entries (title, text) values (?,?)',
@@ -25,9 +19,9 @@ def add_entry():
     db.commit()
     db.close()
     flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))    
+    return redirect(url_for('blog.show_entries'))    
 
-@app.route('/')
+@blog.route('/')
 def show_entries():
     db = connect_db()
     cur = db.execute('select id,title,text from entries order by id desc')
@@ -35,7 +29,3 @@ def show_entries():
     cur.close()
     db.close()
     return render_template('show_entries.html', entries=entries)
-
-
-if __name__ == '__main__':
-    app.run()

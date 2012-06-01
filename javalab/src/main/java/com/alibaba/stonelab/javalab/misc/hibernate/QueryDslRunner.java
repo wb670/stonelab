@@ -5,33 +5,40 @@
  */
 package com.alibaba.stonelab.javalab.misc.hibernate;
 
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.List;
 
 import com.alibaba.stonelab.javalab.misc.hibernate.query.QNotice;
 import com.mysema.query.sql.MySQLTemplates;
 import com.mysema.query.sql.SQLQuery;
 import com.mysema.query.sql.SQLQueryImpl;
 import com.mysema.query.types.Predicate;
+import com.mysql.jdbc.Driver;
 
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> Sep 16, 2011
  */
-@SuppressWarnings("deprecation")
 public class QueryDslRunner {
 
     public static void main(String[] args) throws Exception {
-        Predicate where = QNotice.notice.id.eq(1).and(QNotice.notice.id.eq(1).or(QNotice.notice.id.eq(1)));
+        Connection con = openConnection();
 
-        Configuration cfg = new Configuration();
-        cfg.configure("misc/cfg.xml");
-        Session session = cfg.buildSessionFactory().openSession();
+        QNotice notice = QNotice.notice;
+        Predicate where = notice.id.eq(1).and(notice.id.eq(1).or(notice.id.eq(1)));
 
-        SQLQuery query = new SQLQueryImpl(null, new MySQLTemplates());
-        Object r = query.from(QNotice.notice).where(where).list(QNotice.notice.id);
+        SQLQuery query = new SQLQueryImpl(con, new MySQLTemplates());
+        query.from(notice);
+        query.where(where);
+        List<Integer> r = query.list(notice.id);
         System.out.println(r);
 
-        session.close();
+        con.close();
+    }
+
+    public static Connection openConnection() throws Exception {
+        DriverManager.registerDriver(new Driver());
+        return DriverManager.getConnection("jdbc:mysql://10.20.156.88:3306/party", "party", "123456");
     }
 
 }
