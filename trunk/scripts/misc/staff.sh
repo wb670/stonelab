@@ -1,7 +1,7 @@
 #!/bin/sh
 cert_base="/home/stone/data/personal/cert"
 cacert="$cert_base/intranet.crt"
-cert="$cert_base/jinli.pem"
+cert="$cert_base/jinli.cer"
 pwd="helloo"
 if [ "$1" == "" ];then
     echo 'staff.sh name'

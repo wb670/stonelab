@@ -8,7 +8,9 @@ import sys
 web.config.debug = True        
 
 urls = (
-    '/(.*)', 'hello'
+    #'/(.*)', 'hello',
+    '/jump', 'Jump',
+    '/pass', 'Pass',
 )
 
 def log(handler):
@@ -41,6 +43,16 @@ class hello:
         print web.cookies().get('name')
         return 'Hello, ' + name + '!'
 
+class Jump:
+    def GET(self):
+        web.setcookie('PSessionID', '123456789')
+        web.redirect('http://pass.abc.net:8888/pass', '301')
+
+class Pass:
+    def GET(self):
+        print str(web.cookies())
+        return 'Pass'
+
 if __name__ == "__main__":
-    sys.argv.append('127.0.0.1:8888')
+    sys.argv.append('0.0.0.0:8888')
     app.run()
