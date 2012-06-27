@@ -33,13 +33,13 @@ class DnsProxyHandler(BaseRequestHandler):
     def parser_domain_name(self, data):
         data = StringIO(data)
         data.seek(12)
-        list = []
+        l = []
         while True:
-            len = ord(data.read(1))
+            ll = ord(data.read(1))
             if len == 0:
                 break
-            list.append(data.read(len))
-        return '.'.join(list)
+            l.append(data.read(ll))
+        return '.'.join(l)
     
     def parser_response(self, domain, record):
         pass
