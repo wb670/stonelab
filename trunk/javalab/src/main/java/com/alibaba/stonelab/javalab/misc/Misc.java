@@ -5,12 +5,17 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
     public static void main(String[] args) throws Exception {
+        int i = 1;
+        int j = 2;
+
+        while (i <= j && j <= i && i != j) {
+        }
+
     }
 }
