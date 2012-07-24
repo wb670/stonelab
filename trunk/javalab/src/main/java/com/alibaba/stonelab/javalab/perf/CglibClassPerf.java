@@ -76,6 +76,7 @@ public class CglibClassPerf {
         System.out.println("classNewObject: " + dur);
     }
 
+    @SuppressWarnings("unchecked")
     public static void cglibNewObject() throws Exception {
         MethodInterceptor callback = new MethodInterceptor() {
 
