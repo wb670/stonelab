@@ -7,6 +7,17 @@ from flask import Flask, request, redirect, make_response, url_for, render_templ
 
 app = Flask(__name__)
 
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'GET':
+        return render_template('upload.htm')
+    else:
+        f = request.files['file']
+        print type(f)
+        print dir(f)
+        print f
+        return 'Successful.'
+
 @app.route('/index')
 def index():
     return render_template('index.htm')
@@ -52,4 +63,4 @@ def alipass():
     resp.set_cookie('pwd', pwd, domain='.alibaba.com')
     return resp
 
-app.run(host='0.0.0.0', debug=True)
+app.run(host='0.0.0.0', debug=False)
