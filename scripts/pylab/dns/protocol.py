@@ -1,6 +1,8 @@
 import struct
 from cStringIO import StringIO
 
+FLAGS_RESPONSE_OK = 0x8180
+
 class Header(object):
     
     def __init__(self, id, flags, questions, answer_rrs, authority_rrs, additional_rrs):
