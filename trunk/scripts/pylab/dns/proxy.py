@@ -8,7 +8,7 @@ Created on 2011-5-20
 '''
 from SocketServer import BaseRequestHandler, ThreadingUDPServer
 from cStringIO import StringIO
-from protocol import DnsRequest, Answer, DnsResponse
+from protocol import DnsRequest, Answer, DnsResponse, FLAGS_RESPONSE_OK
 import socket
 import time
 
@@ -57,6 +57,7 @@ class DnsProxyHandler(BaseRequestHandler):
         if ip:
             self.log('%s -- [%s] %s %s %s' % (self.client_address[0], time.ctime(), domain, 'Found', ip))
             header = req.header
+            header.flags = FLAGS_RESPONSE_OK
             header.answer_rrs = 1
             query = req.queries[0]
             answer = Answer(domain, Answer.TYPE_A, Answer.CLASS_IN, 60, ip)
@@ -79,4 +80,4 @@ class DnsProxyServer(ThreadingUDPServer):
         self.hosts = Hosts(hosts)
         ThreadingUDPServer.__init__(self, local_server, DnsProxyHandler)
 
-DnsProxyServer(('127.0.0.1', 53), ('10.20.0.97', 53), '/home/stone/tmp/hosts').serve_forever()
+DnsProxyServer(('127.0.0.1', 53), ('10.13.2.1', 53), '/Users/stone/Downloads/hosts').serve_forever()

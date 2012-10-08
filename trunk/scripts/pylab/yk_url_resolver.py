@@ -18,7 +18,7 @@ class UrlResolver(object):
         self.data = self._init_data()
 
     def get_title(self):
-        return self.data['title']
+		return self.data['title']
 
     def get_formats(self):
         return self.data['streamfileids'].keys()

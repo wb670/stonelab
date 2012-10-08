@@ -5,20 +5,24 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.MDC;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> Nov 15, 2011
  */
 public class Misc2 {
 
-    public static void main(String[] args) throws Exception {
-    }
+	public static void main(String[] args) throws Exception {
+		Log LOG = LogFactory.getLog(Misc2.class);
 
-    public static void test1() {
+		MDC.put("ip", "127.0.0.1");
+		MDC.put("user", "stone2083");
 
-    }
-
-    public static void test2() {
-
-    }
+		LOG.error("OK");
+		MDC.remove("ip");
+		MDC.remove("user");
+	}
 
 }
