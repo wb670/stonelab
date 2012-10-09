@@ -1,0 +1,29 @@
+###############################################################
+# bochsrc.txt file for DLX Linux disk image.
+###############################################################
+
+# how much memory the emulated machine will have
+megs: 32
+
+# filename of ROM images
+romimage: file=$BXSHARE/BIOS-bochs-latest
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+
+# what disk images will be used 
+floppya: 1_44=boot/boot.img, status=inserted
+# choose the boot disk.
+boot: floppy
+
+# default config interface is textconfig.
+#config_interface: textconfig
+#config_interface: wx
+
+display_library: x
+#display_library: term
+# other choices: win32 sdl wx carbon amigaos beos macintosh nogui rfb term svga
+
+# where do we send log messages?
+log: /dev/null
+
+# disable the mouse, since DLX is text only
+mouse: enabled=0
