@@ -5,32 +5,9 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import java.util.concurrent.CyclicBarrier;
-
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
-	private int i;
-
-	public class Worker implements Runnable {
-
-		private CyclicBarrier barrier;
-
-		public Worker(CyclicBarrier barrier) {
-			this.barrier = barrier;
-			System.out.println(i);
-		}
-
-		@Override
-		public void run() {
-			try {
-				barrier.await();
-			} catch (Exception e) {
-			}
-			System.out.println(Thread.currentThread().getName() + ":" + System.currentTimeMillis());
-		}
-
-	}
 }
