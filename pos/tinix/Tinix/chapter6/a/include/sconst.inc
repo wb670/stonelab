@@ -30,8 +30,8 @@ P_LDT		equ	P_LDT_SEL	+ 4
 
 TSS3_S_SP0	equ	4
 
-; ÒÔÏÂÑ¡Ôñ×ÓÖµ±ØÐëÓë protect.h ÖÐ±£³ÖÒ»ÖÂ!!!
-SELECTOR_FLAT_C		equ		0x08		; LOADER ÀïÃæÒÑ¾­È·¶¨ÁËµÄ.
-SELECTOR_TSS		equ		0x20		; TSS. ´ÓÍâ²ãÌøµ½ÄÚ´æÊ± SS ºÍ ESP µÄÖµ´ÓÀïÃæ»ñµÃ.
+; ä»¥ä¸‹é€‰æ‹©å­å€¼å¿…é¡»ä¸Ž protect.h ä¸­ä¿æŒä¸€è‡´!!!
+SELECTOR_FLAT_C		equ		0x08		; LOADER é‡Œé¢å·²ç»ç¡®å®šäº†çš„.
+SELECTOR_TSS		equ		0x20		; TSS. ä»Žå¤–å±‚è·³åˆ°å†…å­˜æ—¶ SS å’Œ ESP çš„å€¼ä»Žé‡Œé¢èŽ·å¾—.
 SELECTOR_KERNEL_CS	equ		SELECTOR_FLAT_C
 
