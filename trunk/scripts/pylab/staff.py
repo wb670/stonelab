@@ -1,13 +1,11 @@
 #!/usr/bin/python
 #encoding:utf-8
-import urllib
-import json
-import sys
+import sys, urllib, json
 
 DEFAULT_ENCODE = 'UTF-8'
 DEFAULT_RES_URL = 'http://buc.vip.xyi.cn.alidc.net/rpc/'
 
-def kv(d, k):
+def kv(d, k): 
     return d.get(k, '')
 
 def request(url):
@@ -18,11 +16,11 @@ def info(users):
     if not users or not users.get('content'):
         return
     for u in users['content']['items']:
-        print '%s %s %s %s %s %s %s %s %s ' % (kv(u, 'empId'), kv(u, 'lastName'), kv(u, 'emailAddr'), kv(u, 'extensionPhone'), kv(u, 'cellphone'), kv(u, 'aliWW'), kv(u, 'tbWW'), kv(u, 'depDesc'), kv(u, 'jobDesc'))
+        print '%s %s %s %s %s %s %s %s %s(%s) ' % (kv(u, 'empId'), kv(u, 'lastName'), kv(u, 'emailAddr'), kv(u, 'extensionPhone'), kv(u, 'cellphone'), kv(u, 'aliww'), kv(u, 'tbww'), kv(u, 'depDesc'), kv(u, 'jobDesc'), kv(u, 'jobCode'))
     print 'Total Count: %d' % (users['content']['count'])
 
 def find(q, page=1, page_size=50):
-    url = DEFAULT_RES_URL + 'userQuery/findUsers/byFuzzyQuery.json?fuzzyStr=%s&page=%d&sizePerPage=%d&available=T&rightFuzzy=false' % (q, page, page_size)
+    url = DEFAULT_RES_URL + 'enhancedUserQuery/findUsers/byFuzzyQuery.json?fuzzyStr=%s&page=%d&sizePerPage=%d&available=T' % (q, page, page_size)
     return request(url)
 
 def main():

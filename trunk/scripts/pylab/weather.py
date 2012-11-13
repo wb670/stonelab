@@ -1,0 +1,2 @@
+import sys, os, re, itertools
+print max([max((sum(v) / len(v), '%s-%s' % (city, k)) for (k, v) in [(k, [vl[1] for vl in  list(v)]) for (k, v) in itertools.groupby([(fd[0:7], float(re.sub(r'max:(.+) min:(.+)', lambda m: str(int(m.group(1)) - int(m.group(2))), open('%s/%s' % (('%s/%s' % (sys.argv[1], city)), fd)).read()))) for fd in os.listdir('%s/%s' % (sys.argv[1], city)) ], lambda x: x[0])]) for city in os.listdir(sys.argv[1])])
