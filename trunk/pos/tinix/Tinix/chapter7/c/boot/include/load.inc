@@ -6,19 +6,19 @@
 ; ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-BaseOfLoader		equ	 09000h	; LOADER.BIN ±»¼ÓÔØµ½µÄÎ»ÖÃ ----  ¶ÎµØÖ·
-OffsetOfLoader		equ	  0100h	; LOADER.BIN ±»¼ÓÔØµ½µÄÎ»ÖÃ ---- Æ«ÒÆµØÖ·
+BaseOfLoader		equ	 09000h	; LOADER.BIN è¢«åŠ è½½åˆ°çš„ä½ç½® ----  æ®µåœ°å€
+OffsetOfLoader		equ	  0100h	; LOADER.BIN è¢«åŠ è½½åˆ°çš„ä½ç½® ---- åç§»åœ°å€
 
-BaseOfLoaderPhyAddr	equ	BaseOfLoader * 10h	; LOADER.BIN ±»¼ÓÔØµ½µÄÎ»ÖÃ ---- ÎïÀíµØÖ· (= BaseOfLoader * 10h)
+BaseOfLoaderPhyAddr	equ	BaseOfLoader * 10h	; LOADER.BIN è¢«åŠ è½½åˆ°çš„ä½ç½® ---- ç‰©ç†åœ°å€ (= BaseOfLoader * 10h)
 
 
-BaseOfKernelFile	equ	 08000h	; KERNEL.BIN ±»¼ÓÔØµ½µÄÎ»ÖÃ ----  ¶ÎµØÖ·
-OffsetOfKernelFile	equ	     0h	; KERNEL.BIN ±»¼ÓÔØµ½µÄÎ»ÖÃ ---- Æ«ÒÆµØÖ·
+BaseOfKernelFile	equ	 08000h	; KERNEL.BIN è¢«åŠ è½½åˆ°çš„ä½ç½® ----  æ®µåœ°å€
+OffsetOfKernelFile	equ	     0h	; KERNEL.BIN è¢«åŠ è½½åˆ°çš„ä½ç½® ---- åç§»åœ°å€
 
 BaseOfKernelFilePhyAddr	equ	BaseOfKernelFile * 10h
-KernelEntryPointPhyAddr	equ	030400h	; ×¢Òâ£º1¡¢±ØĞëÓë MAKEFILE ÖĞ²ÎÊı -Ttext µÄÖµÏàµÈ!!
-					;       2¡¢ÕâÊÇ¸öµØÖ·¶ø·Ç½ö½öÊÇ¸öÆ«ÒÆ£¬Èç¹û -Ttext µÄÖµÎª 0x400400£¬ÔòËüµÄÖµÒ²Ó¦¸ÃÊÇ 0x400400¡£
+KernelEntryPointPhyAddr	equ	030400h	; æ³¨æ„ï¼š1ã€å¿…é¡»ä¸ MAKEFILE ä¸­å‚æ•° -Ttext çš„å€¼ç›¸ç­‰!!
+					;       2ã€è¿™æ˜¯ä¸ªåœ°å€è€Œéä»…ä»…æ˜¯ä¸ªåç§»ï¼Œå¦‚æœ -Ttext çš„å€¼ä¸º 0x400400ï¼Œåˆ™å®ƒçš„å€¼ä¹Ÿåº”è¯¥æ˜¯ 0x400400ã€‚
 
-PageDirBase		equ	200000h	; Ò³Ä¿Â¼¿ªÊ¼µØÖ·:		2M
-PageTblBase		equ	201000h	; Ò³±í¿ªÊ¼µØÖ·:			2M + 4K
+PageDirBase		equ	200000h	; é¡µç›®å½•å¼€å§‹åœ°å€:		2M
+PageTblBase		equ	201000h	; é¡µè¡¨å¼€å§‹åœ°å€:			2M + 4K
 
