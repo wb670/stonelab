@@ -10,4 +10,33 @@ package com.alibaba.stonelab.javalab.misc;
  */
 public class Misc {
 
+	public static void main(String[] args) {
+		int i = 10;
+		if (i > 9) {
+			System.out.println(9);
+		} else if (i > 8) {
+			System.out.println(8);
+		} else if (i > 7) {
+			System.out.println(7);
+		} else {
+			System.out.println(6);
+		}
+	}
+
+	public static class Child extends Parent {
+		public Child(String name) {
+			System.out.println(name);
+		}
+	}
+
+	public static class Parent {
+		public Parent() {
+			System.out.println("parent.");
+		}
+
+		public Parent(String name) {
+			System.out.println("parent. " + name);
+		}
+	}
+
 }
