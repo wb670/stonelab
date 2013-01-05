@@ -5,38 +5,39 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
-public class Misc {
+public class Misc extends JFrame implements KeyListener {
 
 	public static void main(String[] args) {
-		int i = 10;
-		if (i > 9) {
-			System.out.println(9);
-		} else if (i > 8) {
-			System.out.println(8);
-		} else if (i > 7) {
-			System.out.println(7);
-		} else {
-			System.out.println(6);
-		}
+		Misc d = new Misc();
+		d.setVisible(true);
+
 	}
 
-	public static class Child extends Parent {
-		public Child(String name) {
-			System.out.println(name);
-		}
+	public Misc() {
+		this.setSize(500, 500);
+		this.setVisible(true);
+		this.addKeyListener(this);
 	}
 
-	public static class Parent {
-		public Parent() {
-			System.out.println("parent.");
-		}
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
 
-		public Parent(String name) {
-			System.out.println("parent. " + name);
-		}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println(e);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 	}
 
 }

@@ -1,0 +1,9 @@
+#!/bin/sh
+#mock omxplayer shell
+/bin/echo -n "playing $1(DEV:$2)"
+for i in `seq 10`
+do
+    sleep 1
+    /bin/echo -n '.'
+done
+/bin/echo 'FINISHED'
