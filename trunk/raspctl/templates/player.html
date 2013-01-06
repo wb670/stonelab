@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>RaspCTL</title>
+    <link rel="stylesheet" href="/static/css/smoothness/jquery-ui-1.9.2.custom.css" />
+    <script src="/static/js/jquery-1.8.3.js"></script>
+    <script src="/static/js/jquery-ui-1.9.2.custom.js"></script>
+    <style>
+    #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    #sortable li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 1.5em; }
+    html>body #sortable li { height: 1.5em; line-height: 1.2em; }
+    .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+    </style>
+    <script>
+    $(function() {
+        $( "#sortable" ).sortable({
+            placeholder: "ui-state-highlight"
+        });
+        $( "#sortable" ).disableSelection();
+        $( "#sortable" ).on("sortupdate", function(event, ui){
+            for (i in ui.item) {
+                document.write(i+'<br/>');
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+ 
+<ul id="sortable">
+    <li class="ui-state-default" value="1">Item 1</li>
+    <li class="ui-state-default" value="2">Item 2</li>
+    <li class="ui-state-default">Item 3</li>
+    <li class="ui-state-default">Item 4</li>
+    <li class="ui-state-default">Item 5</li>
+    <li class="ui-state-default">Item 6</li>
+    <li class="ui-state-default">Item 7</li>
+</ul>
+
+<script type="text/javascript">
+</script>
+ 
+</body>
+</html>
