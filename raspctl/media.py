@@ -57,9 +57,10 @@ class Omxplayer:
         self.dev        = Omxplayer.DEV_HDMI
         self.process   = None
 
-    def play(self, index=0, loop=False):
+    def play(self, index=0, loop=None):
         if  not self.state == Omxplayer.State_Init:
             self.stop()
+        loop = loop if loop else self.loop
         Thread(target=self._play, args=(index, loop,)).start()
 
     
