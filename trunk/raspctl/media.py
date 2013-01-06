@@ -8,8 +8,8 @@ Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 """
 
 from threading import Thread
-import os
-import pexpect
+from json import JSONEncoder
+import os, pexpect
 
 class LocalFile:
     AUDIO_ROOTPATH = '/home/pi/Media/Music'
@@ -21,10 +21,11 @@ class LocalFile:
     def __init__(self, encoding='UTF-8'):
         self.encoding = encoding
     
-    def list(self, dir, formats):
+    def list(self, dir, formats, filter_dir=False):
         if not os.path.isdir(dir):
             return None
-        return sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if media[media.rindex('.') + 1:] in formats]) 
+        files = ['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if os.path.isdir('%s/%s' % (dir, media)) ] if not filter_dir else []
+        return sorted(files) + sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if media[media.rindex('.') + 1:] in formats]) 
 
 #singleton instance
 local_file = LocalFile()
@@ -50,21 +51,30 @@ class Omxplayer:
 
     def __init__(self):
         self.playlist   = []
+        self.index      = 0
         self.state      = Omxplayer.State_Init
+        self.loop       = False
         self.dev        = Omxplayer.DEV_HDMI
         self.process   = None
+
+    def play(self, index=0, loop=False):
+        if  not self.state == Omxplayer.State_Init:
+            self.stop()
+        Thread(target=self._play, args=(index, loop,)).start()
+
     
-    def play(self, loop=False):
-        Thread(target=self._play, args=(loop,)).start()
-    
-    def _play(self, loop=False):
+    def _play(self, index=0, loop=False):
         if not self.state == Omxplayer.State_Init:
             return
         #play 
         self.state = Omxplayer.State_Play
+        self.loop  = loop
         while(True):
-            for media in self.playlist:
+            for i, media in enumerate(self.playlist):
+                if not index == i:
+                    continue
                 if self.state == Omxplayer.State_Play:
+                    self.index = i
                     self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, media)) 
                     self.process.wait()
                     self.process.close()
@@ -83,7 +93,20 @@ class Omxplayer:
             if self.process and self.process.isalive():
                 self.process.send(Omxplayer.CTL_RESUME)
                 self.state = Omxplayer.State_Play
-    
+
+    def prev(self):
+        if not self.state == Omxplayer.State_Play:
+            return
+        index = self.index - 1 if self.index > 0 else 0
+        self.play(index, self.loop)
+
+    def next(self):
+        if not self.state == Omxplayer.State_Play:
+            return
+        index = self.index + 1 if self.index < len(self.playlist) else (len(self.playlist) - 1 if not loop else 0)
+        self.play(index, self.loop)
+
+
     def lseek(self, step=False):
         raise NotImplementedError
         
@@ -95,17 +118,19 @@ class Omxplayer:
             if self.process and self.process.isalive():
                 self.process.send(Omxplayer.CTL_QUIT)
                 self.state = Omxplayer.State_Init
-        
+    
     def set_playlist(self, playlist):
         if self.state == Omxplayer.State_Init:
-            self.playlist = playlist if playlist else []
+            del self.playlist[:]
+            self.playlist.extend(playlist if playlist else [])
     
     def add_playitem(self, item):
         if item:
             self.playlist.append(item)
         
-    def del_playitem(self, item):
-        self.playlist.remove(item)
+    def del_playitem(self, index):
+        if 0 <= index < len(self.playlist):
+            del self.playlist[index]
 
     def set_dev(self, dev):
         if not dev in (Omxplayer.DEV_HDMI, Omxplayer.DEV_LOCAL):
@@ -113,9 +138,22 @@ class Omxplayer:
         if self.state == Omxplayer.State_Init:
             self.dev = dev
 
-        
+    def set_loop(loop=False):
+        self.loop = loop
+
+    def get_playerinfo(self):
+        return self.__dict__
+
 #singleton instance
 player = Omxplayer()
+
+
+class JSONEncoderX(JSONEncoder):
+    def default(self, obj):
+        if hasattr(obj, '__dict__'):
+            return getattr(obj, '__dict__')
+        else:
+            return JSONEncoder.default(self, obj)
 
 class VirtualKey:
     
@@ -149,7 +187,5 @@ class VirtualKey:
 vk = VirtualKey()
 
 
-def for_test():
-    m = lfile.list(lfile.VIDEO_ROOTPATH, lfile.VIDEO_FORMATS)
-    player.set_playlist(m)
-    player.play()
+if __name__ == '__main__':
+    print local_file.list('/Users/stone/Movies', local_file.VIDEO_FORMATS, True)
