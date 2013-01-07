@@ -13,7 +13,7 @@ render = render_jinja('templates', encoding='utf-8')
 
 class Index:
     def GET(self):
-        return render.index()
+        return 'RaspCTL'
 
 class Player:
     def GET(self):
@@ -23,13 +23,12 @@ class Api:
 
     def GET(self):
         web.header('Content-Type', 'application/json')
-        i = web.input(name=None, data='')
+        i = web.input(name=None, data='{}')
         if not i.name:
             return self.result(None,'FAIL','Illegal Arguments', None)
         try:
-            print '%s(%s)' % (i.name, ','.join(i.data))
-            data = eval('%s(%s)' % (i.name, ','.join(i.data))) 
-            return self.result(i.name, 'Success', 'Success', r)
+            data = eval('%s(%s)' % (i.name, self.dict2args(json.loads(i.data)))) 
+            return self.result(i.name, 'Success', 'Success', data)
         except Exception as e:
             return self.result(i.name, 'FAIL', str(e), None)
 
@@ -37,6 +36,9 @@ class Api:
         r = {}
         r['api']=api;r['status']=status;r['message']=message;r['data']=data
         return json.dumps(r, cls=JSONEncoderX)
+
+    def dict2args(self, data):
+        return ','.join(['%s=%s' % (k, data[k] if not isinstance(data[k], unicode) else '"%s"' % data[k]) for k in data])
 
 
 if __name__ == '__main__':

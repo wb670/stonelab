@@ -160,7 +160,7 @@ class Omxplayer:
     def set_loop(self, loop=False):
         self.loop = loop
 
-    def get_playerinfo(self):
+    def get_info(self):
         return self.__dict__
 
 #singleton instance
@@ -172,7 +172,10 @@ class JSONEncoderX(JSONEncoder):
         if hasattr(obj, '__dict__'):
             return getattr(obj, '__dict__')
         else:
-            return JSONEncoder.default(self, obj)
+            try:
+                return JSONEncoder.default(self, obj)
+            except:
+                return None
 
 class VirtualKey:
     
