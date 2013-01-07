@@ -58,13 +58,14 @@ class Omxplayer:
         self.process    = None
         self.con        = Condition()
 
-    def play(self, index=0, loop=False):
+    def play(self, index=0, loop=None):
         if  not self.state == Omxplayer.State_Init:
             self.stop()
-        Thread(target=self._play, args=(index, loop,)).start()
+        if not loop == None: self.set_loop(loop)
+        Thread(target=self._play, args=(index,)).start()
 
     
-    def _play(self, index=0, loop=False):
+    def _play(self, index):
         if not 0 <= index < len(self.playlist):
             return
         if not self.state == Omxplayer.State_Init:
@@ -76,19 +77,18 @@ class Omxplayer:
             self.con.release()
         #play 
         self.state = Omxplayer.State_Play
-        self.loop  = loop
         while(self.state == Omxplayer.State_Play):
             for i in xrange(index, len(self.playlist)):
                 if self.state == Omxplayer.State_Play:
                     self.index = i
-                    self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i])) 
+                    self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i][1])) 
                     self.process.wait()
                     self.process.close()
                     if self.con.acquire():
                         self.con.notify()
                         self.con.release()
             index = 0
-            if not loop:
+            if not self.loop:
                 break
         self.state = Omxplayer.State_Init
     
@@ -112,7 +112,6 @@ class Omxplayer:
 
     def next(self):
         if not self.state == Omxplayer.State_Play:
-            print self.state,
             return
         index = self.index + 1 if (self.index + 1) < len(self.playlist) else (len(self.playlist) - 1 if not self.loop else 0)
         self.play(index, self.loop)
@@ -134,15 +133,23 @@ class Omxplayer:
     def set_playlist(self, playlist):
         if self.state == Omxplayer.State_Init:
             del self.playlist[:]
-            self.playlist.extend(playlist if playlist else [])
+            for item in playlist:
+                self.add_playitem(item)
     
     def add_playitem(self, item):
-        if item:
+        if item: 
             self.playlist.append(item)
         
     def del_playitem(self, index):
         if 0 <= index < len(self.playlist):
             del self.playlist[index]
+    
+    def sort_playitem(self, item, offset, back=True):
+        if back:
+            to = (item + offset) if (item + offset) < len(self.playlist) else len(self.playlist) - 1
+        else:
+            to = (item - offset) if (item - offset) > 0 else 0
+        self.playlist.insert(to, self.playlist.pop(item))
 
     def set_dev(self, dev):
         if not dev in (Omxplayer.DEV_HDMI, Omxplayer.DEV_LOCAL):
@@ -150,7 +157,7 @@ class Omxplayer:
         if self.state == Omxplayer.State_Init:
             self.dev = dev
 
-    def set_loop(loop=False):
+    def set_loop(self, loop=False):
         self.loop = loop
 
     def get_playerinfo(self):
