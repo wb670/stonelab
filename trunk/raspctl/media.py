@@ -7,7 +7,7 @@ Created by stone on 2012-12-27.
 Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 """
 
-from threading import Thread
+from threading import Thread, Condition
 from json import JSONEncoder
 import os, pexpect
 
@@ -55,30 +55,39 @@ class Omxplayer:
         self.state      = Omxplayer.State_Init
         self.loop       = False
         self.dev        = Omxplayer.DEV_HDMI
-        self.process   = None
+        self.process    = None
+        self.con        = Condition()
 
-    def play(self, index=0, loop=None):
+    def play(self, index=0, loop=False):
         if  not self.state == Omxplayer.State_Init:
             self.stop()
-        loop = loop if loop else self.loop
         Thread(target=self._play, args=(index, loop,)).start()
 
     
     def _play(self, index=0, loop=False):
+        if not 0 <= index < len(self.playlist):
+            return
         if not self.state == Omxplayer.State_Init:
             return
+        #only one player process at the same time.
+        if self.con.acquire():
+            while(self.process and (not self.process.closed)):
+                self.con.wait()
+            self.con.release()
         #play 
         self.state = Omxplayer.State_Play
         self.loop  = loop
-        while(True):
-            for i, media in enumerate(self.playlist):
-                if not index == i:
-                    continue
+        while(self.state == Omxplayer.State_Play):
+            for i in xrange(index, len(self.playlist)):
                 if self.state == Omxplayer.State_Play:
                     self.index = i
-                    self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, media)) 
+                    self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i])) 
                     self.process.wait()
                     self.process.close()
+                    if self.con.acquire():
+                        self.con.notify()
+                        self.con.release()
+            index = 0
             if not loop:
                 break
         self.state = Omxplayer.State_Init
@@ -103,10 +112,10 @@ class Omxplayer:
 
     def next(self):
         if not self.state == Omxplayer.State_Play:
+            print self.state,
             return
-        index = self.index + 1 if self.index < len(self.playlist) else (len(self.playlist) - 1 if not loop else 0)
+        index = self.index + 1 if (self.index + 1) < len(self.playlist) else (len(self.playlist) - 1 if not self.loop else 0)
         self.play(index, self.loop)
-
 
     def lseek(self, step=False):
         raise NotImplementedError
@@ -119,6 +128,8 @@ class Omxplayer:
             if self.process and self.process.isalive():
                 self.process.send(Omxplayer.CTL_QUIT)
                 self.state = Omxplayer.State_Init
+                if self.process.isalive():
+                    self.process.sendcontrol('C')
     
     def set_playlist(self, playlist):
         if self.state == Omxplayer.State_Init:
