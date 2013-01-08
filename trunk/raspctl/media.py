@@ -33,7 +33,7 @@ local_file = LocalFile()
 
 class Omxplayer:
     '''omxplayer cmd'''
-    CMD = '/usr/bin/omxplayer -p -o %s %s' 
+    CMD = '/usr/bin/omxplayer -p -o %s "%s"' 
 
     '''omxplayer controllers'''
     CTL_QUIT        = 'q'
@@ -67,6 +67,10 @@ class Omxplayer:
             self.stop()
         if not loop == None: self.set_loop(loop)
         Thread(target=self._play, args=(index,)).start()
+        #waiting
+        while(self.state != Omxplayer.State_Play or self.index != index):
+            pass
+        return
 
     
     def _play(self, index):
@@ -131,7 +135,7 @@ class Omxplayer:
         
     def rseek(self, fast=False):
         if self.state == Omxplayer.State_Play:
-            cmd = Omxplayer.CTL_FRSEEK if fast else Omxplayer.CTL_RESUME
+            cmd = Omxplayer.CTL_FRSEEK if fast else Omxplayer.CTL_RSEEK
             self.process.send(cmd)
 
     def stop(self):
