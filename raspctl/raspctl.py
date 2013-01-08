@@ -23,7 +23,7 @@ class Player:
     @classmethod
     def play(cls, index=0, loop=None):
         player.play(index, loop)
-        return Player.get_info(True)
+        return Player.get_info()
     @classmethod
     def pause(cls):
         player.pause()
@@ -35,11 +35,11 @@ class Player:
     @classmethod
     def prev(cls):
         player.prev()
-        return Player.get_info(True)
+        return Player.get_info()
     @classmethod
     def next(cls):
         player.next()
-        return Player.get_info(True)
+        return Player.get_info()
     @classmethod
     def lseek(cls):
         player.lseek()
@@ -61,9 +61,7 @@ class Player:
         player.set_loop(loop=='True')
         return Player.get_info()
     @classmethod
-    def get_info(cls, sleep=False):
-        if sleep:
-            time.sleep(1)
+    def get_info(cls):
         return player.get_info()
     @classmethod
     def set_playlist(cls, names, resources):
@@ -88,6 +86,11 @@ class Player:
         info  = Player.get_info()
         info['CMD'] = Omxplayer.CMD
         return info
+    @classmethod
+    def test(cls):
+        music = local_file.list(local_file.AUDIO_ROOTPATH, local_file.AUDIO_FORMATS, True)
+        player.set_playlist(zip(music, music))
+        return Player.get_info()
 
 class Api:
 
