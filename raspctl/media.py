@@ -39,6 +39,10 @@ class Omxplayer:
     CTL_QUIT        = 'q'
     CTL_PASUE       = 'p'
     CTL_RESUME      = 'p'
+    CTL_LSEEK       = '\x1b[D' #30
+    CTL_RSEEK       = '\x1b[C' #30
+    CTL_FLSEEK      = '\x1b[B' #600
+    CTL_FRSEEK      = '\x1b[A' #600
 
 
     '''Omxplayer States'''
@@ -81,9 +85,13 @@ class Omxplayer:
             for i in xrange(index, len(self.playlist)):
                 if self.state == Omxplayer.State_Play:
                     self.index = i
-                    self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i][1])) 
-                    self.process.wait()
-                    self.process.close()
+                    try:
+                        self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i][0])) 
+                        self.process.wait()
+                        self.process.close()
+                    except Exception as e:
+                        print e
+                        pass
                     if self.con.acquire():
                         self.con.notify()
                         self.con.release()
@@ -116,11 +124,15 @@ class Omxplayer:
         index = self.index + 1 if (self.index + 1) < len(self.playlist) else (len(self.playlist) - 1 if not self.loop else 0)
         self.play(index, self.loop)
 
-    def lseek(self, step=False):
-        raise NotImplementedError
+    def lseek(self, fast=False):
+        if self.state == Omxplayer.State_Play:
+            cmd = Omxplayer.CTL_FLSEEK if fast else Omxplayer.CTL_LSEEK
+            self.process.send(cmd)
         
-    def rseek(self, step=False):
-        raise NotImplementedError
+    def rseek(self, fast=False):
+        if self.state == Omxplayer.State_Play:
+            cmd = Omxplayer.CTL_FRSEEK if fast else Omxplayer.CTL_RESUME
+            self.process.send(cmd)
 
     def stop(self):
         if self.state in (Omxplayer.State_Play, Omxplayer.State_Pause):
@@ -132,6 +144,7 @@ class Omxplayer:
     
     def set_playlist(self, playlist):
         if self.state == Omxplayer.State_Init:
+            playlist = playlist if playlist else []
             del self.playlist[:]
             for item in playlist:
                 self.add_playitem(item)
@@ -145,6 +158,8 @@ class Omxplayer:
             del self.playlist[index]
     
     def sort_playitem(self, item, offset, back=True):
+        if not 0 <= item < len(self.playlist):
+            return
         if back:
             to = (item + offset) if (item + offset) < len(self.playlist) else len(self.playlist) - 1
         else:
@@ -158,10 +173,12 @@ class Omxplayer:
             self.dev = dev
 
     def set_loop(self, loop=False):
-        self.loop = loop
+        self.loop = bool(loop)
 
     def get_info(self):
-        return self.__dict__
+        info = dict(self.__dict__)
+        del info['con']; del info['process']
+        return info
 
 #singleton instance
 player = Omxplayer()
