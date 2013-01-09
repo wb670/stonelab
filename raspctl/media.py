@@ -12,11 +12,11 @@ from json import JSONEncoder
 import os, pexpect
 
 class LocalFile:
-    AUDIO_ROOTPATH = '/home/pi/Media/Music'
-    VIDEO_ROOTPATH = '/home/pi/Media/Movies'
+    MEDIA_ROOTPATH = '/home/pi/Media'
     
     AUDIO_FORMATS = ('mp3',)
     VIDEO_FORMATS = ('mkv', 'mp4',)
+    MEDIA_FORMATS = LocalFile.AUDIO_FORMATS + LocalFile.VIDEO_FORMATS
     
     def __init__(self, encoding='UTF-8'):
         self.encoding = encoding
@@ -67,13 +67,13 @@ class Omxplayer:
             self.stop()
         if not loop == None: self.set_loop(loop)
         Thread(target=self._play, args=(index,)).start()
-        #waiting
-        while(self.state != Omxplayer.State_Play or self.index != index):
-            pass
+        #FIXME
+        import time;time.sleep(1)
         return
 
     
     def _play(self, index):
+        print '_play'
         if not 0 <= index < len(self.playlist):
             return
         if not self.state == Omxplayer.State_Init:

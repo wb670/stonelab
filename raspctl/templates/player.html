@@ -23,12 +23,6 @@
 </span>
 
 <table id="playlist"> 
-    <tr>
-        <td>abc</td>
-        <td>播放/删除</td>
-        <td>向上/向下</td>
-    </tr>
-    </tr>
 </table>
 
 <script type="text/javascript">
@@ -81,14 +75,49 @@
 
         if(player.loop) {
             $("#loop").attr("checked", true);
+            $("#loop").attr("disabled", true);
+            $("#seq").attr("disabled", false);
         } else {
             $("#seq").attr("checked", true);
+            $("#seq").attr("disabled", true);
+            $("#loop").attr("disabled", false);
         }
     }
 
     function playlist() {
+        tr = "<tr><td></td><td><button>播放</button><button>删除</button><button>向上</button><button>向下</button></td></tr>"
+        $("#playlist").empty();
         for (i in player.playlist) {
-            //alert(i);
+            $("#playlist").append(tr);
+            $("#playlist tr:last td:first").html(player.playlist[i][1]);
+            buttons = $("#playlist tr:last td:last button");
+            buttons.each(function(){
+                $(this).val(i.toString());
+            });
+            buttons.eq(0).click(function(e){
+                data = {name:"Player.play", args:[$(this).val()]};
+                call_player(data, function() {
+                    toolbar();
+                });
+            });
+            buttons.eq(1).click(function(e){
+                data = {name:"Player.del_playitem", args:[$(this).val()]};
+                call_player(data, function() {
+                    playlist();
+                });
+            });
+            buttons.eq(2).click(function(e){
+                data = {name:"Player.sort_playitem", args:[$(this).val(), "False"]};
+                call_player(data, function() {
+                    playlist();
+                });
+            });
+            buttons.eq(3).click(function(e){
+                data = {name:"Player.sort_playitem", args:[$(this).val(), "True"]};
+                call_player(data, function() {
+                    playlist();
+                });
+            });
         }
     }
 
@@ -130,8 +159,16 @@
         data = {name:"Player.rseek"}
         call_player(data);
     });
-
-
+    $("input[name='mode']").click(function(e) {
+        if(e.target.id == "loop") {
+            data = {name:"Player.set_loop", args:["True"]};
+        } else {
+            data = {name:"Player.set_loop", args:["False"]};
+        }
+        call_player(data, function(){
+            toolbar(); 
+        });
+    });
 </script>
 
 </body>
