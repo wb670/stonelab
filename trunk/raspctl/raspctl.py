@@ -22,7 +22,7 @@ class Player:
 
     @classmethod
     def play(cls, index=0, loop=None):
-        player.play(index, loop)
+        player.play(int(index), loop=='True')
         return Player.get_info()
     @classmethod
     def pause(cls):
