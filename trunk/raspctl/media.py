@@ -16,16 +16,24 @@ class LocalFile:
     
     AUDIO_FORMATS = ('mp3',)
     VIDEO_FORMATS = ('mkv', 'mp4',)
-    MEDIA_FORMATS = LocalFile.AUDIO_FORMATS + LocalFile.VIDEO_FORMATS
+    MEDIA_FORMATS = AUDIO_FORMATS + VIDEO_FORMATS
     
     def __init__(self, encoding='UTF-8'):
         self.encoding = encoding
     
     def list(self, dir, formats, filter_dir=False):
         if not os.path.isdir(dir):
-            return None
+            return []
         files = ['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if os.path.isdir('%s/%s' % (dir, media)) ] if not filter_dir else []
-        return sorted(files) + sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if media[media.rindex('.') + 1:] in formats]) 
+        return sorted(files) + sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if '.' in media and media[media.rindex('.') + 1:] in formats]) 
+    
+    def list_all(self, dir, formats, filter_dir=False):
+        if not os.path.isdir(dir):
+            return []
+        files = []
+        for item in os.walk(dir):
+            files.extend(self.list(item[0].decode(self.encoding), formats, False))
+        return [f for f in files if not os.path.isdir(f)] if filter_dir else files
 
 #singleton instance
 local_file = LocalFile()
