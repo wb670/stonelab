@@ -1,12 +1,13 @@
-import web, json, time
+import web, json, time, os
 from web.contrib.template import render_jinja
-from media import player, local_file, JSONEncoderX, Omxplayer
+from media import player, local_file, JSONEncoderX, Omxplayer, LocalFile
 
 
 urls = (
     '/', 'Index',     
     '/api', 'Api',
     '/player', 'Player',
+    '/file', 'File',
 )
 
 render = render_jinja('templates', encoding='utf-8')
@@ -65,7 +66,13 @@ class Player:
         return player.get_info()
     @classmethod
     def set_playlist(cls, names, resources):
-        player.set_playlist(zip(resources, names))
+        if names == '' or resources == '':
+            player.set_playlist([])
+        else:
+            names = names.split('#')
+            resources = resources.split('#')
+            for i in zip(resources, names):
+                player.add_playitem(i)
         return Player.get_info()
     @classmethod
     def add_playitem(cls, name, resource):
@@ -85,12 +92,30 @@ class Player:
         Omxplayer.CMD = '/Users/stone/Tmp/cmd.sh %s %s'
         info  = Player.get_info()
         info['CMD'] = Omxplayer.CMD
+        
+        LocalFile.MEDIA_ROOTPATH = '/Users/stone/Tmp/root'
         return info
     @classmethod
     def test(cls):
-        music = local_file.list(local_file.AUDIO_ROOTPATH, local_file.AUDIO_FORMATS, True)
-        player.set_playlist(zip(music, music))
+        music = local_file.list(local_file.MEDIA_ROOTPATH+'/Music', local_file.AUDIO_FORMATS, True)
+        names = [m[m.rfind('/') + 1:m.rfind('.')] for m in music]
+        player.set_playlist(zip(music, names))
         return Player.get_info()
+
+class File:
+    def GET(self):
+        return render.file()
+
+    @classmethod
+    def list(cls, dir):
+        ndir = '%s%s' % (LocalFile.MEDIA_ROOTPATH, dir)
+        l = local_file.list(ndir, LocalFile.MEDIA_FORMATS)
+        return [(i[0], i[1], os.path.basename(i[0]))for i in l]
+    @classmethod
+    def list_all(cls, dir):
+        ndir = '%s%s' % (LocalFile.MEDIA_ROOTPATH, dir)
+        l = local_file.list_all(ndir, LocalFile.MEDIA_FORMATS, True)
+        return [(i[0], i[1], os.path.basename(i[0]))for i in l]
 
 class Api:
 
