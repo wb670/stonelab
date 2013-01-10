@@ -17,23 +17,28 @@ class LocalFile:
     AUDIO_FORMATS = ('mp3',)
     VIDEO_FORMATS = ('mkv', 'mp4',)
     MEDIA_FORMATS = AUDIO_FORMATS + VIDEO_FORMATS
+
+    TYPE_DIR      = 'd'
+    TYPE_FILE     = 'f'
     
     def __init__(self, encoding='UTF-8'):
         self.encoding = encoding
     
     def list(self, dir, formats, filter_dir=False):
         if not os.path.isdir(dir):
-            return []
+            None
+        dir = os.path.abspath(dir)
         files = ['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if os.path.isdir('%s/%s' % (dir, media)) ] if not filter_dir else []
-        return sorted(files) + sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if '.' in media and media[media.rindex('.') + 1:] in formats]) 
+        files = sorted(files) + sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if '.' in media and media[media.rindex('.') + 1:] in formats]) 
+        return [(f, LocalFile.TYPE_DIR if os.path.isdir(f) else LocalFile.TYPE_FILE ) for f in files]
     
     def list_all(self, dir, formats, filter_dir=False):
         if not os.path.isdir(dir):
-            return []
+            return None
         files = []
         for item in os.walk(dir):
             files.extend(self.list(item[0].decode(self.encoding), formats, False))
-        return [f for f in files if not os.path.isdir(f)] if filter_dir else files
+        return [f for f in files if f[1] == LocalFile.TYPE_FILE] if filter_dir else files
 
 #singleton instance
 local_file = LocalFile()
@@ -81,7 +86,6 @@ class Omxplayer:
 
     
     def _play(self, index):
-        print '_play'
         if not 0 <= index < len(self.playlist):
             return
         if not self.state == Omxplayer.State_Init:
