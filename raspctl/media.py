@@ -9,7 +9,7 @@ Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 
 from threading import Thread, Condition
 from json import JSONEncoder
-import os, pexpect
+import os, pexpect, time
 
 class LocalFile:
     MEDIA_ROOTPATH = '/home/pi/Media'
@@ -28,8 +28,8 @@ class LocalFile:
         if not os.path.isdir(dir):
             None
         dir = os.path.abspath(dir)
-        files = ['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if os.path.isdir('%s/%s' % (dir, media)) ] if not filter_dir else []
-        files = sorted(files) + sorted(['%s/%s' % (dir, media.decode(self.encoding)) for media in os.listdir(dir) if '.' in media and media[media.rindex('.') + 1:] in formats]) 
+        files = ['%s/%s' % (dir, self._unicode(media)) for media in os.listdir(dir) if os.path.isdir('%s/%s' % (dir, media)) ] if not filter_dir else []
+        files = sorted(files) + sorted(['%s/%s' % (dir, self._unicode(media)) for media in os.listdir(dir) if '.' in media and media[media.rindex('.') + 1:] in formats]) 
         return [(f, LocalFile.TYPE_DIR if os.path.isdir(f) else LocalFile.TYPE_FILE ) for f in files]
     
     def list_all(self, dir, formats, filter_dir=False):
@@ -37,8 +37,16 @@ class LocalFile:
             return None
         files = []
         for item in os.walk(dir):
-            files.extend(self.list(item[0].decode(self.encoding), formats, False))
+            files.extend(self.list(self._unicode(item[0]), formats, False))
         return [f for f in files if f[1] == LocalFile.TYPE_FILE] if filter_dir else files
+
+    def _unicode(self, f):
+        if isinstance(f, unicode):
+            return f
+        try:
+            return f.decode(self.encoding)
+        except UnicodeEncodeError:
+            return f
 
 #singleton instance
 local_file = LocalFile()
@@ -46,7 +54,7 @@ local_file = LocalFile()
 
 class Omxplayer:
     '''omxplayer cmd'''
-    CMD = '/usr/bin/omxplayer -p -o %s "%s"' 
+    CMD = '/usr/bin/omxplayer -y -p -o %s "%s"' 
 
     '''omxplayer controllers'''
     CTL_QUIT        = 'q'
@@ -76,12 +84,18 @@ class Omxplayer:
         self.con        = Condition()
 
     def play(self, index=0, loop=None):
+        if not 0 <= index < len(self.playlist):
+            return
         if  not self.state == Omxplayer.State_Init:
             self.stop()
         if not loop == None: self.set_loop(loop)
         Thread(target=self._play, args=(index,)).start()
-        #FIXME
-        import time;time.sleep(1)
+        #waiting for self.info info.
+        twait = 0.0
+        while(self.state != Omxplayer.State_Play or self.index != index):
+            time.sleep(0.1); twait += 0.1
+            if twait >= 2.0:
+                break
         return
 
     
@@ -111,8 +125,12 @@ class Omxplayer:
                     if self.con.acquire():
                         self.con.notify()
                         self.con.release()
+            #compensate. maybe playlist is updated while playing.
+            if self.index < len(self.playlist) - 1:
+                index = self.index + 1
+                continue
             index = 0
-            if not self.loop:
+            if len(self.playlist)==0 or not self.loop:
                 break
         self.state = Omxplayer.State_Init
     
@@ -159,11 +177,10 @@ class Omxplayer:
                     self.process.sendcontrol('C')
     
     def set_playlist(self, playlist):
-        if self.state == Omxplayer.State_Init:
-            playlist = playlist if playlist else []
-            del self.playlist[:]
-            for item in playlist:
-                self.add_playitem(item)
+        playlist = playlist if playlist else []
+        del self.playlist[:]
+        for item in playlist:
+            self.add_playitem(item)
     
     def add_playitem(self, item):
         if item: 

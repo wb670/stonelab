@@ -20,6 +20,7 @@
     </span>
     
     <button id="addplaylist">添加</button>
+    <button id="emptyplaylist">清空</button>
 </span>
 
 <table id="playlist"> 
@@ -171,6 +172,15 @@
     });
     $("#addplaylist").click(function(e) {
         location.href = '/file';
+    });
+    $("#emptyplaylist").click(function(e) {
+        data = {name:"Player.set_playlist", args:["",""]};
+        call_player(data, function(){
+            playlist();
+        }); 
+        call_player({name:"Player.get_info", args:[]}, function() {
+            toolbar();
+        });
     });
 </script>
 

@@ -26,6 +26,7 @@
                  info.files = data.result;
                 if(func) { func(); }
             } else {
+                $("filelist").empty();
                 alert("ERROR");
             }
         });
@@ -43,7 +44,7 @@
     function filelist() {
         $("#filelist").empty();
         tr = '<tr><td><input type="checkbox" /></td><td><img src="static/img/folder.gif" style="display:none"/></td><td></td></tr>';
-        tr2 = '<tr><td><input type="checkbox" /></td><td><img src="static/img/folder.gif" style="display:block"/></td><td>..</td></tr>';
+        tr2 = '<tr><td><input type="checkbox" disabled="true" /></td><td><img src="static/img/folder.gif" style="display:block"/></td><td>..</td></tr>';
         if(info.files == null) {
             return
         }
