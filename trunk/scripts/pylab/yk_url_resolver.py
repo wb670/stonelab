@@ -53,9 +53,7 @@ class UrlResolver(object):
         
 
 if __name__ == '__main__':
-    r = UrlResolver('http://v.youku.com/v_show/id_XMzYzODA4MTQ4.html')
-    print r.data
+    r = UrlResolver('http://v.youku.com/v_show/id_XMTAyMDI3Mjg4.html')
     print r.get_title()
     print r.get_formats()
     print len(r.get_urls('flv')), r.get_urls('flv')
-    print len(r.get_urls('mp4')), r.get_urls('mp4')[0]
