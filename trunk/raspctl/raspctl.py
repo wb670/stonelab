@@ -2,20 +2,20 @@ import web, json, time, os
 from web.contrib.template import render_jinja
 from media import player, local_file, JSONEncoderX, Omxplayer, LocalFile
 
-
-urls = (
+base_urls = (
     '/', 'Index',     
     '/api', 'Api',
     '/player', 'Player',
     '/file', 'File',
 )
 
+urls = []
+
 render = render_jinja('templates', encoding='utf-8')
 
 class Index:
     def GET(self):
-        return render.index()
-        #return 'RaspCTL'
+        return 'RaspCTL'
 
 class Player:
     def GET(self):
@@ -139,6 +139,54 @@ class Api:
         return json.dumps(r, cls=JSONEncoderX)
 
 
+class Plugin:
+  
+    def __init__(self, name, urls, encoding='utf-8'):
+        self.name = name
+        self.urls = urls
+        self.encoding = encoding
+        self.module = None
+        self.render = render_jinja('plugins/%s' % (self.name) , encoding=self.encoding)
+
+class Plugins:
+    
+    HOME    = 'plugins'
+    ALL     = {}
+
+    @classmethod
+    def loads(cls):
+        for name in os.listdir(cls.HOME):
+            if os.path.isdir('%s/%s' % (cls.HOME,name)):
+                cls.load(name)
+
+    @classmethod
+    def load(cls, name):
+        if name not in os.listdir(cls.HOME): 
+            return
+        module = __import__('%s.%s' % (cls.HOME, name), fromlist=[cls.HOME])
+        plugin = getattr(module, 'plugin')
+        if plugin:
+            #clear old plugin
+            if name in Plugins.ALL:
+                old = Plugins.ALL[name]
+                for i in xrange(0, len(old.urls), 2):
+                    urls.remove('/plugins/%s%s' % (name, cls._url(old.urls[i])))
+                    urls.remove(getattr(old.module, old.urls[i+1]))
+            #add new plugin
+            plugin.module = module
+            Plugins.ALL[name] = plugin
+            for i in xrange(0, len(plugin.urls), 2):
+                urls.append('/plugins/%s%s' % (name, cls._url(plugin.urls[i])))
+                urls.append(getattr(plugin.module, plugin.urls[i+1]))
+         
+    @classmethod
+    def _url(cls, url):
+        return url if url != '/' else ''
+
+
 if __name__ == '__main__':
+    urls.extend(base_urls)
+    Plugins.loads()
+    print urls
     app = web.application(urls, globals())
     app.run()
