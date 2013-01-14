@@ -1,9 +1,10 @@
 import web, json, time, os
 from web.contrib.template import render_jinja
-from rasplib import player, local_file, plugins, JSONEncoderX, Omxplayer, LocalFile
+from rasplib import player, local_file, plugins, cnf, JSONEncoderX, Omxplayer, LocalFile
 
 base_urls = (
     '/', 'Index',     
+    '/config', 'Config',
     '/api', 'Api',
     '/player', 'Player',
     '/file', 'File',
@@ -14,6 +15,24 @@ render = render_jinja('templates', encoding='utf-8')
 class Index:
     def GET(self):
         return 'RaspCTL'
+
+class Config:
+    def GET(self):
+        return render.config()
+
+    @classmethod
+    def load(cls):
+        data = []
+        for i, s in enumerate(cnf.data.sections()):
+            data.append({'section':s, 'items':[]})
+            for item in cnf.data.items(s):
+                data[i]['items'].append(item)
+        return data
+
+    @classmethod
+    def save(cls, section, key, value):
+        cnf.data.set(section, key, value)
+        cnf.save()
 
 class Player:
     def GET(self):
@@ -85,20 +104,6 @@ class Player:
         index, back = int(index), back == 'True'
         player.sort_playitem(index, 1, back)
         return Player.get_info()
-    @classmethod
-    def mock(cls):
-        Omxplayer.CMD = '/Users/stone/Tmp/cmd.sh %s %s'
-        info  = Player.get_info()
-        info['CMD'] = Omxplayer.CMD
-        
-        LocalFile.MEDIA_ROOTPATH = '/Users/stone/Tmp/root'
-        return info
-    @classmethod
-    def test(cls):
-        music = local_file.list(local_file.MEDIA_ROOTPATH+'/Music', local_file.AUDIO_FORMATS, True)
-        names = [m[m.rfind('/') + 1:m.rfind('.')] for m in music]
-        player.set_playlist(zip(music, names))
-        return Player.get_info()
 
 class File:
     def GET(self):
@@ -114,6 +119,15 @@ class File:
         ndir = '%s%s' % (LocalFile.MEDIA_ROOTPATH, dir)
         l = local_file.list_all(ndir, LocalFile.MEDIA_FORMATS, True)
         return [(i[0], i[1], os.path.basename(i[0]))for i in l]
+
+class System:
+
+    @classmethod
+    def shutdown(cls):
+        os.system('sudo shutdown -h now')
+    @classmethod
+    def reboot(cls):
+        os.system('sudo reboot')
 
 class Api:
 

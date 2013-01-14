@@ -9,10 +9,26 @@ Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 
 from threading import Thread, Condition
 from json import JSONEncoder
-import os, pexpect, time, re
+import os, pexpect, time, re, ConfigParser
+
+class Config:
+    FILE = 'raspctl.cnf'
+
+    def __init__(self):
+        self.data = ConfigParser.ConfigParser()
+        self.load()
+
+    def load(self):
+        self.data.read(Config.FILE)
+
+    def save(self):
+        self.data.write(open(Config.FILE,'w'))
+cnf = Config()
+
 
 class LocalFile:
-    MEDIA_ROOTPATH = '/home/pi/Media'
+    #MEDIA_ROOTPATH = '/home/pi/Media'
+    MEDIA_ROOTPATH = cnf.data.get('LocalFile', 'media_path') 
     
     AUDIO_FORMATS = ('mp3',)
     VIDEO_FORMATS = ('mkv', 'mp4',)
@@ -54,7 +70,8 @@ local_file = LocalFile()
 
 class Omxplayer:
     '''omxplayer cmd'''
-    CMD = '/usr/bin/omxplayer -y -p -o %s "%s"' 
+    #CMD = '/usr/bin/omxplayer -y -p -o %s "%s"' 
+    CMD = cnf.data.get('Omxplayer', 'bin')
 
     '''omxplayer controllers'''
     CTL_QUIT        = 'q'
