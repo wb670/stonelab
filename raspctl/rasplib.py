@@ -9,7 +9,7 @@ Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 
 from threading import Thread, Condition
 from json import JSONEncoder
-import os, pexpect, time
+import os, pexpect, time, re
 
 class LocalFile:
     MEDIA_ROOTPATH = '/home/pi/Media'
@@ -258,3 +258,104 @@ class VirtualKey:
         
 #singleton instance
 vk = VirtualKey()
+
+
+#plugin spec
+from web.contrib.template import render_jinja
+class Plugin:
+
+    def __init__(self, name, author, version, urls, encoding='utf-8'):
+        #plugin info
+        self.name       = name
+        self.author     = author
+        self.version    = version
+        self.urls       = urls
+        self.encoding   = encoding
+        
+        #raspctl lib
+        self.render     = None       #lazy init 
+        self.player     = player
+        self.file       = local_file
+
+        #private attr
+        self._module    = None
+
+    def init_plugin(self):
+        self.render     = render_jinja(self._module.__path__, encoding=self.encoding)
+
+    def uninit_plugin(self):
+        del self._module
+
+
+class Plugins:
+    
+    HOME    = 'plugins'
+    
+    def __init__(self, urls=[]):
+        self.plugins    = {}
+        self.urls       = urls
+
+    def add_plugin(self, plugin):
+        for i in xrange(0, len(plugin.urls), 2):
+            self.urls.append('/%s/%s%s' % (Plugins.HOME, plugin.name, self._url(plugin.urls[i])))
+            self.urls.append(getattr(plugin._module, plugin.urls[i+1]))
+        plugin.init_plugin()
+        self.plugins[plugin.name] = plugin    
+
+    def del_plugin(self, plugin):
+        for i in xrange(0, len(plugin.urls), 2):
+            self.urls.remove('/%s/%s%s' % (Plugins.HOME, plugin.name, self._url(plugin.urls[i])))
+            self.urls.remove(getattr(plugin._module, plugin.urls[i+1]))
+        plugin.uninit_plugin()
+        del self.plugins[plugin.name]    
+
+
+    def load_all(self):
+        for name in os.listdir(Plugins.HOME):
+            if os.path.isdir('%s/%s' % (Plugins.HOME,name)):
+                self.load(name)
+
+    def load(self, name):
+        if name not in os.listdir(Plugins.HOME): 
+            return
+        module = __import__('%s.%s' % (Plugins.HOME, name), fromlist=[Plugins.HOME])
+        plugin = getattr(module, 'plugin')
+        plugin._module = module
+        if plugin:
+            if plugin.name in  self.plugins:
+                self.del_plugin(self.plugins[plugin.name])
+            self.add_plugin(plugin)
+         
+    def _url(self, url):
+        return url if url != '/' else ''
+#singleton instance
+plugins = Plugins()
+
+import urllib2
+class MediaUrl:
+ 
+    URL         = 'http://www.flvcd.com/parse.php?kw=%s&format=%s'
+    ENCODING    = 'GBK'
+    
+    PATTERN_URL = re.compile('<a href="(.*)" target="_blank" onclick="')
+    PATTERN_NS  = u'提示：对不起，FLVCD暂不支持此地址的解析' 
+    
+
+    FMT_NORMAL  = 'normal'
+    FMT_HIGH    = 'high'
+
+    def get_urls(self, url, fmt=FMT_NORMAL):
+        fmt = fmt if fmt in (MediaUrl.FMT_NORMAL, MediaUrl.FMT_HIGH) else MediaUrl.FMT_NORMAL
+        info  = urllib2.urlopen(MediaUrl.URL % (url, fmt)).read().decode(MediaUrl.ENCODING)
+        if MediaUrl.PATTERN_NS in info:
+            return url
+        return self._filter(url, MediaUrl.PATTERN.findall(info))
+
+    def _filter(self, url, urls):
+        if 'v.youku.com' in url:
+            return [urllib2.urlopen(u).url for u in urls]
+        return urls
+
+
+#singleton instance
+media_url = MediaUrl()

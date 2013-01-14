@@ -1,11 +1,11 @@
-from raspctl import Plugin
+from rasplib import Plugin
 
 urls = (
     '/', 'Index',
     '/youku', 'Youku',
 )
 
-plugin = Plugin('youku', urls)
+plugin = Plugin('youku','stone2083', '0.1', urls)
 
 
 class Index:
@@ -14,4 +14,4 @@ class Index:
 
 class Youku:
     def GET(self):
-        return 'youku'
+        return 'youku-NotSupported.'
