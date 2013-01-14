@@ -116,6 +116,7 @@ class Omxplayer:
                 if self.state == Omxplayer.State_Play:
                     self.index = i
                     try:
+                        if i >= len(self.playlist): break
                         self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i][0])) 
                         self.process.wait()
                         self.process.close()
@@ -126,7 +127,7 @@ class Omxplayer:
                         self.con.notify()
                         self.con.release()
             #compensate. maybe playlist is updated while playing.
-            if self.index < len(self.playlist) - 1:
+            if self.index < len(self.playlist):
                 index = self.index + 1
                 continue
             index = 0
@@ -257,7 +258,3 @@ class VirtualKey:
         
 #singleton instance
 vk = VirtualKey()
-
-
-if __name__ == '__main__':
-    print local_file.list('/Users/stone/Movies', local_file.VIDEO_FORMATS, True)

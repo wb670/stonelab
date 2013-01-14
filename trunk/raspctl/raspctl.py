@@ -1,6 +1,6 @@
 import web, json, time, os
 from web.contrib.template import render_jinja
-from media import player, local_file, JSONEncoderX, Omxplayer, LocalFile
+from lib import player, local_file, JSONEncoderX, Omxplayer, LocalFile
 
 base_urls = (
     '/', 'Index',     
@@ -142,11 +142,15 @@ class Api:
 class Plugin:
   
     def __init__(self, name, urls, encoding='utf-8'):
-        self.name = name
-        self.urls = urls
-        self.encoding = encoding
-        self.module = None
-        self.render = render_jinja('plugins/%s' % (self.name) , encoding=self.encoding)
+        #plugin info
+        self.name       = name
+        self.urls       = urls
+        self.encoding   = encoding
+        self.module     = None
+        #raspctl lib
+        self.render     = render_jinja('plugins/%s' % (self.name) , encoding=self.encoding)
+        self.player     = player
+        self.file       = local_file
 
 class Plugins:
     
