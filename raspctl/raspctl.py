@@ -24,7 +24,7 @@ class Config:
     def load(cls):
         data = []
         for i, s in enumerate(cnf.data.sections()):
-            data.append({'section':s, 'items':[]})
+            data.append({'name':s, 'items':[]})
             for item in cnf.data.items(s):
                 data[i]['items'].append(item)
         return data
