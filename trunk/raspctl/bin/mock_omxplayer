@@ -1,0 +1,8 @@
+#!/bin/sh
+/bin/echo ""
+/bin/echo -n ">>>playing $1 $2"
+for i in `seq 10`;do
+    /bin/echo -n "."
+    sleep 1
+done
+/bin/echo -n " Finished"
