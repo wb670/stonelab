@@ -27,8 +27,7 @@ cnf = Config()
 
 
 class LocalFile:
-    #MEDIA_ROOTPATH = '/home/pi/Media'
-    MEDIA_ROOTPATH = cnf.data.get('LocalFile', 'media_path') 
+    MEDIA_ROOTPATH = '/home/pi/Media'
     
     AUDIO_FORMATS = ('mp3',)
     VIDEO_FORMATS = ('mkv', 'mp4',)
@@ -39,6 +38,9 @@ class LocalFile:
     
     def __init__(self, encoding='UTF-8'):
         self.encoding = encoding
+
+    def get_mediapath(self):
+        return cnf.data.get('LocalFile', 'media_path') if cnf.data.has_option('LocalFile', 'media_path') else LocalFile.MEDIA_ROOTPATH 
     
     def list(self, dir, formats, filter_dir=False):
         if not os.path.isdir(dir):
@@ -70,8 +72,7 @@ local_file = LocalFile()
 
 class Omxplayer:
     '''omxplayer cmd'''
-    #CMD = '/usr/bin/omxplayer -y -p -o %s "%s"' 
-    CMD = cnf.data.get('Omxplayer', 'bin')
+    CMD = '/usr/bin/omxplayer -y -p -o %s "%s"' #cnf Omxplayer bin
 
     '''omxplayer controllers'''
     CTL_QUIT        = 'q'
@@ -134,17 +135,16 @@ class Omxplayer:
                     self.index = i
                     try:
                         if i >= len(self.playlist): break
-                        self.process = pexpect.spawn(Omxplayer.CMD % (self.dev, self.playlist[i][0])) 
+                        self.process = pexpect.spawn(self._get_cmd() % (self.dev, self.playlist[i][0])) 
                         self.process.wait()
                         self.process.close()
                     except Exception as e:
-                        print e
                         pass
                     if self.con.acquire():
                         self.con.notify()
                         self.con.release()
             #compensate. maybe playlist is updated while playing.
-            if self.index < len(self.playlist):
+            if self.index < len(self.playlist) - 1:
                 index = self.index + 1
                 continue
             index = 0
@@ -230,6 +230,9 @@ class Omxplayer:
         info = dict(self.__dict__)
         del info['con']; del info['process']
         return info
+
+    def _get_cmd(self):
+        return cnf.data.get('Omxplayer', 'bin') if  cnf.data.has_option('Omxplayer', 'bin') else Omxplayer.CMD
 
 #singleton instance
 player = Omxplayer()
