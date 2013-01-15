@@ -3,7 +3,7 @@ cd $(dirname $_)/..
 BASE=`pwd`
 
 #install 3rd lib
-sudo apt-get install python-web
+sudo apt-get install python-webpy
 sudo apt-get install python-jinja2
 sudo apt-get install python-pexpect
 
