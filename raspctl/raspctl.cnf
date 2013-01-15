@@ -1,6 +1,5 @@
 [Omxplayer]
 bin = /usr/bin/omxplayer -y -p -o %s "%s"
-bin2 = 测试
 
 [LocalFile]
 media_path = /home/pi/Media
