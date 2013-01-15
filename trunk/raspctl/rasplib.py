@@ -369,7 +369,7 @@ class MediaUrl:
         info  = urllib2.urlopen(MediaUrl.URL % (url, fmt)).read().decode(MediaUrl.ENCODING)
         if MediaUrl.PATTERN_NS in info:
             return url
-        return self._filter(url, MediaUrl.PATTERN.findall(info))
+        return self._filter(url, MediaUrl.PATTERN_URL.findall(info))
 
     def _filter(self, url, urls):
         if 'v.youku.com' in url:
