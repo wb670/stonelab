@@ -1,8 +1,6 @@
 #!/bin/sh
-cd $(dirname $_)/..
-BASE=`pwd`
-if [ ! -d $BASE/logs ];then
+BASE=$(dirname $0)/..
+if [! -d $BASE/logs ];then
     mkdir $BASE/logs
 fi
-
-$BASE/bin/mock_omxplayer >> $BASE/logs/mock_omxplayer.log
+$BASE/bin/mock_omxplayer $1 $2 >>$BASE/logs/mock_omxplayer.log

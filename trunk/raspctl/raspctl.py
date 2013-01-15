@@ -111,12 +111,12 @@ class File:
 
     @classmethod
     def list(cls, dir):
-        ndir = '%s%s' % (LocalFile.MEDIA_ROOTPATH, dir)
+        ndir = '%s%s' % (local_file.get_mediapath(), dir)
         l = local_file.list(ndir, LocalFile.MEDIA_FORMATS)
         return [(i[0], i[1], os.path.basename(i[0]))for i in l]
     @classmethod
     def list_all(cls, dir):
-        ndir = '%s%s' % (LocalFile.MEDIA_ROOTPATH, dir)
+        ndir = '%s%s' % (local_file.get_mediapath(), dir)
         l = local_file.list_all(ndir, LocalFile.MEDIA_FORMATS, True)
         return [(i[0], i[1], os.path.basename(i[0]))for i in l]
 
