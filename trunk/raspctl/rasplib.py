@@ -328,7 +328,7 @@ class Plugins:
 
 
     def load_all(self):
-        for name in os.listdir(Plugins.HOME):
+        for name in [for f in os.listdir(Plugins.HOME) if not f.startswith('.')]:
             if os.path.isdir('%s/%s' % (Plugins.HOME,name)):
                 self.load(name)
 
