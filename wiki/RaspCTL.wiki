@@ -102,12 +102,61 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 || load || 获取raspctl.cnf中的配置信息  ||
 || save || 更新raspctl.cnf中的配置信息  ||
 
-* MediaUrl
+* MediaUrl 
 || get_urls || 获取网站url对应的真实视屏url地址信息， fmt=high 获取高清视屏地址 ||
 
 == Ajax规范 ==
+使用Ajax的目的：为了RaspCTL提供的服务可以同时被WAP， Android APP, IOS APP使用，RaspCTL服务均以Ajax形式提供。希望Plugins开发者也遵照这个规约，但不强制。
 
+类库中，只要被标志@classmethod的方法，会直接暴露成Ajax服务，如：
+{{{
+class Foo:
+    @classmethod
+    def hello(cls, arg1, arg2): 
+        return {msg: 'Hello Ajax[%s %s]' % (arg1, arg2)}
+}}}
+Ajax服务地址为：http://xxx.xxx.xxx.xxx:8000/api?data={"name":"Foo.hello", "args":["stone2083", "connie2083"]}
+服务信息为：
+{{{
+{
+  status: "Success",
+  message: "Success",
+  api: {
+    args: [ ],
+    name: "Foo.hello"
+  },
+  result: {
+    msg: "Hello Ajax[stone2083 connie2083]"
+  }
+}
+}}}
 
 == Plugins规范 ==
+{{{
+youku --> 插件名字
+    __init__.py --> 插件程序
+    index.html --> 插件模板 【可选择】
+}}}
+__init__.py 内容为：
+{{{
+from rasplib import Plugin
+urls = (
+    '/', 'Index',
+)
+
+# 必须创建plugin实例，参数分别为插件名，作者名，版本号， 支持功能的urls
+#其中，plugin中包含RaspCTL类库的所有方法，可直接调用
+plugin = Plugin('youku','stone2083', '0.1', urls)
+
+#web.py写法，插件规范并不引入新的学习成本。
+class Index:
+    def GET(self):
+        return 'youku-NotSupported.'  #可以直接输出
+        #return plugin.render.index()  #可以渲染某个模板信息
+}}}
 
 = 写在最后 =
+  * RaspCTL作者联系信息：stone2083#yahoo.cn 程序的任何问题可直接联系这个邮箱
+  * 招募UED设计前端界面 0.1.0前端非常糟糕，急待重构
+  * 招募Plugin开发者，丰富RaspCTL
+  * 期待小白鼠适用RaspCTL
