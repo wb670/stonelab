@@ -1,13 +1,27 @@
-#summary One-sentence summary of this page.
+# RaspCTL(树莓派控制器)
 
-= Introduction =
+= 什么是RaspCTL =
+RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等设备）控制[http://www.raspberrypi.org/ 树莓派]的软件。
+目前，通过Raspberry&RaspCTL组合，打造成家庭多媒体播放机顶盒，在此场景中，RaspCTL非常类似[http://xbmc.org XBMC]平台。
+未来，会不断扩展RaspCTL功能，用于控制家庭物联网设备中心，比如控制摄像头，空调开关等。此乃后话，按下不表。 ：）
 
-Add your content here.
 
+= 为什么选择Raspberry&RaspCTL =
 
-= Details =
+= RaspCTL(V0.1.0)功能特性 =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= 使用者文档 =
+
+* 如何安装RaspCTL
+
+* 如何使用RaspCTL
+
+= 开发者文档 =
+
+* 类库API
+
+* Ajax规范
+
+* Plugins规范
+
+= 其他 =
