@@ -4,14 +4,35 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 目前，通过Raspberry&RaspCTL组合，打造成家庭多媒体播放机顶盒，在此场景中，RaspCTL非常类似[http://xbmc.org XBMC]平台。
 未来，会不断扩展RaspCTL功能，成为控制家庭物联网的设备中心，比如控制摄像头，空调开关等。此乃后话，按下不表。
 
-= 为什么选择Raspberry&RaspCTL =
-* VS 华数机顶盒
+= 为什么选择Raspberry Pi&RaspCTL =
+* 为什么选择Raspberry Pi
+我们先来看看Raspberry Pi的相关参数：
+|| CPU || 700 MHz， ARM1176JZF-S ||
+|| GPU（显卡）  || Broadcom VideoCore IV，OpenGL ES 2.0， 1080p30 h.264/MPEG-4 AVC high-profile decoder ||
+|| MEM（内存） || 512M ||
+|| 分辨率 || 1080P ||
+|| 输出接口 || 1*SD口 2*USB口 1*音频口 1*HDMI口 1*网卡 ||
+|| 尺寸 || 85.6 x 53.98 x 17mm （一张信用卡大小） ||
+|| 价格 || $35 ||
+好吧，一起来总结下Raspberry Pi的优势吧
+1. 小巧：只有一张信用卡大小
+2. GPU强悍： 硬解1080P，30帧/S，通俗地将，差不多是iphone4S手机的2倍性能
+3. 输出接口丰富： 包括2*USB，1*HDMI
+4. 性价比高：$35
+从这些特性看，Raspberry非常合适充当高清视频播放机顶盒，来替代目前的华数机顶盒（华数官方垄断，费用高，质量差）。
+家庭中，只要购置了Raspberry Pi和宽带，高清电影电视，免费看。 ：）
 
-* VS Xbian
-
-
+* 为什么选择RaspCTL
+只有一个原因：Raspberry Pi CPU很弱：700MHZ。
+同样，我们来看一组数据：
+1. Raspbian Terminal下 CPU LOAD在0.2左右
+2. Raspbian XWindows下， CPU占用率差不多在70%以上
+3. [http://xbian.org/ XBian]下，CPU占用率在95%以上
+如果，Raspberry Pi CPU能强悍那么一点点，那么XBian一定是首选，我也不会重新创造RaspCTL这个轮子了。只是目前，XBMC在Raspberry Pi（XBian）上的性能太糟糕了。
+从数据看，只有在Raspbian Terminal下的性能，才能符合用户的期望，所以作者编写了RaspCTL这个控制端。通过手机终端的界面，来操作Raspbian Terminal，实现多媒体播放的功能。
 
 = RaspCTL(V0.1.0)功能特性 =
+1. 视屏，
 
 = 使用者文档 =
 
