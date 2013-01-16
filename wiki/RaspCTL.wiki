@@ -1,12 +1,15 @@
-# RaspCTL(树莓派控制器)
-
 = 什么是RaspCTL =
+RaspCTL是Raspberry Pi和Control字母的组合，表示树莓派控制端。
 RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等设备）控制[http://www.raspberrypi.org/ 树莓派]的软件。
 目前，通过Raspberry&RaspCTL组合，打造成家庭多媒体播放机顶盒，在此场景中，RaspCTL非常类似[http://xbmc.org XBMC]平台。
-未来，会不断扩展RaspCTL功能，用于控制家庭物联网设备中心，比如控制摄像头，空调开关等。此乃后话，按下不表。 ：）
-
+未来，会不断扩展RaspCTL功能，成为控制家庭物联网的设备中心，比如控制摄像头，空调开关等。此乃后话，按下不表。
 
 = 为什么选择Raspberry&RaspCTL =
+* VS 华数机顶盒
+
+* VS Xbian
+
+
 
 = RaspCTL(V0.1.0)功能特性 =
 
