@@ -51,7 +51,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 == 如何安装RaspCTL ==
   # 下载[http://stonelab.googlecode.com/files/raspctl-0.1.0.tar.gz RaspCTL]
      # 下载，解压到指定目录
-     # 或者直接使用svn地址： svn co https://stonelab.googlecode.com/svn/tags/raspctl-0.1.0 RaspCTL 
+     # 或者直接使用svn地址： svn co [https://stonelab.googlecode.com/svn/tags/raspctl-0.1.0] RaspCTL 
   # 安装RaspCTL
      # chmox +x bin/install.sh; bin/install.sh 
      # 会自动安装RaspCTL依赖的第三方库，主要是python-webpy python-jinja2 python-pexpect依赖
@@ -60,8 +60,8 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
   # 启动RaspCTL服务
      * bin/start.sh
      * 启动后，在你手机浏览器上输入：
-     * http://xxx.xxx.xxx.xxx:8000/config 配置你树莓派上本地多媒体文件根目录
-     * http://xxx.xxx.xxx.xxx:8000/player 进入播放器
+     * [http://xxx.xxx.xxx.xxx:8000/config] 配置你树莓派上本地多媒体文件根目录
+     * [http://xxx.xxx.xxx.xxx:8000/player] 进入播放器
      * 点击添加，选择本地多媒体文件
      * 点击播放，暂停等功能
   # 关闭RaspCTL服务
@@ -77,7 +77,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 = 开发者文档 =
 
 == 类库API ==
-* Omxplayer
+* Omxplayer.
 || play || 播放，可以指定播放列表中任一一个资源 ||  
 || pause || 暂停播放 || 
 || resume || 恢复播放 ||
@@ -94,16 +94,16 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 || set_loop || 设置播放模式：顺序，循环 || 
 || get_info || 获取播放器信息，如播放状态等 || 
 
-* LocalFile
+* LocalFile.
 || get_mediapath || 获得多媒体文件根目录路径 || 
 || list || 获取一个目录下的所有资源 || 
 || list_all || 递归获取一个目录下的所有资源 ||
 
-* Config
+* Config.
 || load || 获取raspctl.cnf中的配置信息  ||
 || save || 更新raspctl.cnf中的配置信息  ||
 
-* MediaUrl 
+* MediaUrl. 
 || get_urls || 获取网站url对应的真实视屏url地址信息， fmt=high 获取高清视屏地址 ||
 
 == Ajax规范 ==
@@ -116,7 +116,7 @@ class Foo:
     def hello(cls, arg1, arg2): 
         return {msg: 'Hello Ajax[%s %s]' % (arg1, arg2)}
 }}}
-Ajax服务地址为：http://xxx.xxx.xxx.xxx:8000/api?data={"name":"Foo.hello", "args":["stone2083", "connie2083"]}
+Ajax服务地址为：{{{http://xxx.xxx.xxx.xxx:8000/api?data={"name":"Foo.hello", "args":["stone2083", "connie2083"]}}}}
 服务信息为：
 {{{
 {
