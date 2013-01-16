@@ -76,9 +76,38 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 = 开发者文档 =
 
 == 类库API ==
+* Omxplayer
+|| play || 播放，可以指定播放列表中任一一个资源 ||  
+|| pause || 暂停播放 || 
+|| resume || 恢复播放 ||
+|| stop || 停止播放 || 
+|| lseek || 快退， 快退30秒， 参数为True的话，快退10分钟 || 
+|| rseek || 快进， 快进30秒，参数为True的话，快进10分钟 || 
+|| prev || 播放上一首 ||  
+|| next || 播放下一首 || 
+|| set_playlist || 设置播放列表 ||
+|| add_playitem || 添加多媒体资源到播放列表中, 参数为 ('url', 'name') 资源地址， 资源显示名  || 
+|| del_playitem || 清空播放列表 || 
+|| sort_playitem || 播放列表排序 ||
+|| set_dev || 设置输出设备， hdmi接口 或者 本地音频接口 || 
+|| set_loop || 设置播放模式：顺序，循环 || 
+|| get_info || 获取播放器信息，如播放状态等 || 
+
+* LocalFile
+|| get_mediapath || 获得多媒体文件根目录路径 || 
+|| list || 获取一个目录下的所有资源 || 
+|| list_all || 递归获取一个目录下的所有资源 ||
+
+* Config
+|| load || 获取raspctl.cnf中的配置信息  ||
+|| save || 更新raspctl.cnf中的配置信息  ||
+
+* MediaUrl
+|| get_urls || 获取网站url对应的真实视屏url地址信息， fmt=high 获取高清视屏地址 ||
 
 == Ajax规范 ==
 
+
 == Plugins规范 ==
 
-= 其他 =
+= 写在最后 =
