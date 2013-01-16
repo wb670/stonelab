@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>RaspCTL</title>
+    <script src="/static/js/jquery-1.8.3.js"></script>
+    <script src="/static/js/jquery.json-2.4.js"></script>
+</head>
+<body>
+
+<div id="cnf">
+</div>
+
+<table id="tabletmpl" border="1" style="display:none">
+    <tr>
+        <td></td>
+        <td><input type="text" name="value" size="50" /></td>
+        <td><button>保存</button></td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    cnf = {}; //global var
+
+    $(document).ready( function() {
+        load();
+    });
+
+    function load() {
+        qp = {name:"Config.load", args:[]};
+        $.get('/api', {data:$.toJSON(qp)}, function(data) {
+            if(data && data.status == "Success") {
+                cnf  = data.result;
+                $("#cnf").empty();
+                for (i in cnf) {
+                    $("#cnf").append("<label>" + cnf[i].name  + "</label>")
+                    $("#cnf").append("<table width='30%' border='1'></table>");
+                    for (j in cnf[i].items) {
+                        item = cnf[i].items[j]
+                        $("#cnf table:last").append($("#tabletmpl").html());
+                        $("#cnf table:last tr:last td").eq(0).html(item[0]);
+                        $("#cnf table:last tr:last td input").eq(0).val(item[1]);
+                        $("#cnf table:last tr:last td button").val(cnf[i].name+":"+item[0])
+
+                        $("#cnf table:last tr:last td button").click(function(e){
+                            save($(this).val(), $(this).parent().parent().find("td input").val());    
+                        });
+                    }
+                }
+            }
+        } );
+    }
+
+    function save(key, value) {
+        info = key.split(":");
+        qp = {name:"Config.save", args:[info[0], info[1], value]};
+        $.get('/api', {data:$.toJSON(qp)}, function(data) {
+            if(data && data.status == "Success") {
+                load();
+            } else {
+                alert("ERROR");
+            }
+        });
+    }
+</script>
+</body>
+</html>
