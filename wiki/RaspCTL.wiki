@@ -77,7 +77,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 = 开发者文档 =
 
 == 类库API ==
-* Omxplayer.
+* Omxplayer
 || play || 播放，可以指定播放列表中任一一个资源 ||  
 || pause || 暂停播放 || 
 || resume || 恢复播放 ||
@@ -94,16 +94,16 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 || set_loop || 设置播放模式：顺序，循环 || 
 || get_info || 获取播放器信息，如播放状态等 || 
 
-* LocalFile.
+* LocalFile
 || get_mediapath || 获得多媒体文件根目录路径 || 
 || list || 获取一个目录下的所有资源 || 
 || list_all || 递归获取一个目录下的所有资源 ||
 
-* Config.
+* Config
 || load || 获取raspctl.cnf中的配置信息  ||
 || save || 更新raspctl.cnf中的配置信息  ||
 
-* MediaUrl. 
+* MediaUrl 
 || get_urls || 获取网站url对应的真实视屏url地址信息， fmt=high 获取高清视屏地址 ||
 
 == Ajax规范 ==
