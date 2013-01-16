@@ -39,14 +39,40 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 2. 支持本地文件查看
 查看多媒体文件
 3. 配置系统信息
-配置多媒体文件根路径
-4. 
+配置多媒体文件根路径等
+4. 视频网站真实URL分析
+支持包括优酷，土豆，迅雷，百度等82个网站视频URL分析
+5. 制定Plugins规范
+可非常方便开发RaspCTL Pugin
 
 = 使用者文档 =
 
 * 如何安装RaspCTL
 
+1. 下载[RaspCTL]
+下载，解压到指定目录
+2.  安装RaspCTL
+chmox +x bin/install.sh; bin/install.sh
+会自动安装RaspCTL依赖的第三方库，主要是python-webpy python-jinja2 python-pexpect依赖
+
 * 如何使用RaspCTL
+
+1.  启动RaspCTL服务
+bin/start.sh
+启动后，在你手机浏览器上输入：
+http://xxx.xxx.xxx.xxx:8000/config 配置你树莓派上本地多媒体文件根目录
+http://xxx.xxx.xxx.xxx:8000/player 进入播放器
+点击添加，选择本地多媒体文件
+点击播放，暂停等功能
+2.  关闭RaspCTL服务
+bin/shutdown.sh
+
+常见问题：
+Q：如何自启动RaspCTL服务
+A：。。。
+Q：如何使用80端口
+A：。。。
+
 
 = 开发者文档 =
 
