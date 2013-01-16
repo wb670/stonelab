@@ -6,6 +6,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 
 = 为什么选择Raspberry Pi&RaspCTL =
 * 为什么选择Raspberry Pi
+
 我们先来看看Raspberry Pi的相关参数：
 || CPU || 700 MHz， ARM1176JZF-S ||
 || GPU（显卡）  || Broadcom VideoCore IV，OpenGL ES 2.0， 1080p30 h.264/MPEG-4 AVC high-profile decoder ||
@@ -23,6 +24,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 家庭中，只要购置了Raspberry Pi和宽带，高清电影电视，免费看。 ：）
 
 * 为什么选择RaspCTL
+
 只有一个原因：Raspberry Pi CPU很弱：700MHZ。
 同样，我们来看一组数据：
 1. Raspbian Terminal下 CPU LOAD在0.2左右
@@ -32,7 +34,13 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 从数据看，只有在Raspbian Terminal下的性能，才能符合用户的期望，所以作者编写了RaspCTL这个控制端。通过手机终端的界面，来操作Raspbian Terminal，实现多媒体播放的功能。
 
 = RaspCTL(V0.1.0)功能特性 =
-1. 视屏，
+1. 支持视屏，音频播放
+支持播放，暂停，停止，快进，快退，播放列表，上一首，下一首等
+2. 支持本地文件查看
+查看多媒体文件
+3. 配置系统信息
+配置多媒体文件根路径
+4. 
 
 = 使用者文档 =
 
