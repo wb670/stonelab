@@ -5,7 +5,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 未来，会不断扩展RaspCTL功能，成为控制家庭物联网的设备中心，比如控制摄像头，空调开关等。此乃后话，按下不表。
 
 = 为什么选择Raspberry Pi&RaspCTL =
-* 为什么选择Raspberry Pi
+== 为什么选择Raspberry Pi ==
 
 我们先来看看Raspberry Pi的相关参数：
 || CPU || 700 MHz， ARM1176JZF-S ||
@@ -17,97 +17,68 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 || 价格 || $35 ||
 好吧，一起来总结下Raspberry Pi的优势吧
 
-1. 小巧：只有一张信用卡大小
-
-2. GPU强悍： 硬解1080P，30帧/S，通俗地将，差不多是iphone4S手机的2倍性能
-
-3. 输出接口丰富： 包括2*USB，1*HDMI
-
-4. 性价比高：$35
+  * 小巧：只有一张信用卡大小
+  * GPU强悍： 硬解1080P，30帧/S，通俗地将，差不多是iphone4S手机的2倍性能
+  * 输出接口丰富： 包括2*USB，1*HDMI
+  * 性价比高：$35
 
 从这些特性看，Raspberry非常合适充当高清视频播放机顶盒，来替代目前的华数机顶盒（华数官方垄断，费用高，质量差）。
 家庭中，只要购置了Raspberry Pi和宽带，高清电影电视，免费看。 ：）
 
-* 为什么选择RaspCTL
-
+== 为什么选择RaspCTL ==
 只有一个原因：Raspberry Pi CPU很弱：700MHZ。
 同样，我们来看一组数据：
-
-1. Raspbian Terminal下 CPU LOAD在0.2左右
-
-2. Raspbian XWindows下， CPU占用率差不多在70%以上
-
-3. [http://xbian.org/ XBian]下，CPU占用率在95%以上
+  * Raspbian Terminal下 CPU LOAD在0.2左右
+  * Raspbian XWindows下， CPU占用率差不多在70%以上
+  * [http://xbian.org/ XBian]下，CPU占用率在95%以上
 
 如果，Raspberry Pi CPU能强悍那么一点点，那么XBian一定是首选，我也不会重新创造RaspCTL这个轮子了。只是目前，XBMC在Raspberry Pi（XBian）上的性能太糟糕了。
 从数据看，只有在Raspbian Terminal下的性能，才能符合用户的期望，所以作者编写了RaspCTL这个控制端。通过手机终端的界面，来操作Raspbian Terminal，实现多媒体播放的功能。
 
 = RaspCTL(V0.1.0)功能特性 =
-1. 支持视屏，音频播放
-
-支持播放，暂停，停止，快进，快退，播放列表，上一首，下一首等
-
-2. 支持本地文件查看
-
-查看多媒体文件
-
-3. 配置系统信息
-
-配置多媒体文件根路径等
-
-4. 视频网站真实URL分析
-
-支持包括优酷，土豆，迅雷，百度等82个网站视频URL分析
-
-5. 制定Plugins规范
-
-可非常方便开发RaspCTL Pugin
+  # 支持视屏，音频播放 
+     * 支持播放，暂停，停止，快进，快退，播放列表，上一首，下一首等
+  # 支持本地文件查看
+     * 查看多媒体文件
+  # 配置系统信息
+     * 配置多媒体文件根路径等
+  # 视频网站真实URL分析
+     * 支持包括优酷，土豆，迅雷，百度等82个网站视频URL分析
+  # 制定Plugins规范
+     * 可非常方便开发RaspCTL Pugin
 
 = 使用者文档 =
+== 如何安装RaspCTL ==
+  # 下载[RaspCTL RaspCTL]
+     # 下载，解压到指定目录
+  # 安装RaspCTL
+     # chmox +x bin/install.sh; bin/install.sh 
+     # 会自动安装RaspCTL依赖的第三方库，主要是python-webpy python-jinja2 python-pexpect依赖
 
-* 如何安装RaspCTL
+== 如何使用RaspCTL ==
+  # 启动RaspCTL服务
+     * bin/start.sh
+     * 启动后，在你手机浏览器上输入：
+     * http://xxx.xxx.xxx.xxx:8000/config 配置你树莓派上本地多媒体文件根目录
+     * http://xxx.xxx.xxx.xxx:8000/player 进入播放器
+     * 点击添加，选择本地多媒体文件
+     * 点击播放，暂停等功能
+  # 关闭RaspCTL服务
+     * bin/shutdown.sh
 
-1. 下载[RaspCTL]
-
-下载，解压到指定目录
-
-2.  安装RaspCTL
-
-chmox +x bin/install.sh; bin/install.sh
-会自动安装RaspCTL依赖的第三方库，主要是python-webpy python-jinja2 python-pexpect依赖
-
-* 如何使用RaspCTL
-
-1.  启动RaspCTL服务
-
-bin/start.sh
-启动后，在你手机浏览器上输入：
-
-http://xxx.xxx.xxx.xxx:8000/config 配置你树莓派上本地多媒体文件根目录
-
-http://xxx.xxx.xxx.xxx:8000/player 进入播放器
-
-点击添加，选择本地多媒体文件
-
-点击播放，暂停等功能
-
-2.  关闭RaspCTL服务
-
-bin/shutdown.sh
-
-常见问题：
-Q：如何自启动RaspCTL服务
-A：。。。
-Q：如何使用80端口
-A：。。。
+== 常见问题 ==
+  * Q：如何自启动RaspCTL服务
+    * 将 bin/start.sh 配置到树莓派的/etc/rc.local exit之前。 同理，你在rc.local中可以启动其他任何服务；
+  * Q：如何使用80端口
+    * debian系统禁用了小于1024的端口，所以RaspCTL只有使用8000端口。可以通过iptable将80端口请求转发到8000端口： iptables -t nat -A PREROUTING -p tcp --dport 81 -j REDIRECT --to-ports 8080
 
 
 = 开发者文档 =
 
-* 类库API
+== 类库API ==
 
-* Ajax规范
+== Ajax规范 ==
 
-* Plugins规范
+== Plugins规范 ==
 
 = 其他 =
