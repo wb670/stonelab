@@ -10,6 +10,10 @@
 <div id="cnf">
 </div>
 
+<h3>系统操作</h3>
+<button id="reboot">重启</button>
+<button id="shutdown">关机</button>
+
 <table id="tabletmpl" border="1" style="display:none">
     <tr>
         <td></td>
@@ -17,6 +21,8 @@
         <td><button>保存</button></td>
     </tr>
 </table>
+
+
 
 <script type="text/javascript">
     cnf = {}; //global var
@@ -61,6 +67,28 @@
             }
         });
     }
+
+    $("#reboot").click(function(data) {
+        qp = {name:"System.reboot", args:[]};
+        $.get('/api', {data:$.toJSON(qp)}, function(data) {
+            if(data && data.status == "Success") {
+                alert("重启中");
+            } else {
+                alert("ERROR");
+            }
+        });
+    });
+
+    $("#shutdown").click(function(data) {
+        qp = {name:"System.shutdown", args:[]};
+        $.get('/api', {data:$.toJSON(qp)}, function(data) {
+            if(data && data.status == "Success") {
+                alert("关机中");
+            } else {
+                alert("ERROR");
+            }
+        });
+    });
 </script>
 </body>
 </html>

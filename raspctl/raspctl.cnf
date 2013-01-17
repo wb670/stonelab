@@ -1,6 +1,6 @@
 [Omxplayer]
-bin = /usr/bin/omxplayer -y -p -o %s '%s'
+bin = bin/mock_omxplayer.sh -y -p -o %s '%s'
 
 [LocalFile]
-media_path = /home/pi/Media
+media_path = /Users/stone/Tmp/root
 

@@ -1,4 +1,4 @@
-import web, json, time, os
+import web, json, time, os, sys, raspctl
 from web.contrib.template import render_jinja
 from rasplib import player, local_file, plugins, cnf, JSONEncoderX, Omxplayer, LocalFile
 
@@ -139,10 +139,14 @@ class Api:
             api = json.loads(i.data)
             if not api and not hasattr(api,'name'):
                 return self.result(api, 'FAIL','Illegal Arguments', None)
-            if 'args' not in api: api['args'] = ''
-            resp = eval('%s(%s)' % (api['name'], ','.join(['"%s"' % arg for arg in api['args']])))
+            func = self._get_func(api['name'])
+            if  'args' in api and len(api['args']) > 0:
+                resp = func(*api['args'])
+            else:
+                resp = func()
             return self.result(api, 'Success', 'Success', resp)
         except Exception as e:
+            print e
             return self.result(api, 'FAIL', str(e), None)
 
     def result(self, api, status, message, result):
@@ -150,10 +154,18 @@ class Api:
         r['api']=api;r['status']=status;r['message']=message;r['result']=result
         return json.dumps(r, cls=JSONEncoderX)
 
+    def _get_func(self, name):
+        info = name.split('.')
+        if not len(info) in [2, 4]:
+            raise Exception, 'API Not Found.'
+        if len(info) == 2: 
+            module, clsfunc = sys.modules['raspctl'], info
+        else:
+            module, clsfunc = sys.modules['.'.join(info[0:2])], info[2:4]
+        return getattr(getattr(module, clsfunc[0]), clsfunc[1])
 
 if __name__ == '__main__':
     plugins.urls.extend(base_urls)
     plugins.load_all()
-    print plugins.urls
     app = web.application(plugins.urls, globals())
     app.run()
