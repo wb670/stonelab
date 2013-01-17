@@ -295,6 +295,7 @@ class Plugin:
         #raspctl lib
         self.render     = None       #lazy init 
         self.player     = player
+        self.media_url  = media_url
         self.file       = local_file
 
         #private attr
@@ -372,7 +373,9 @@ class MediaUrl:
         return self._filter(url, MediaUrl.PATTERN_URL.findall(info))
 
     def _filter(self, url, urls):
-        if 'v.youku.com' in url:
+        if 'youku.com' in url:
+            return [urllib2.urlopen(u).url for u in urls]
+        if 'tudou.com' in url:
             return [urllib2.urlopen(u).url for u in urls]
         return urls
 
