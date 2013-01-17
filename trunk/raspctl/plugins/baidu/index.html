@@ -1,0 +1,177 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>RaspCTL-BaiduVideo</title>
+    <script src="/static/js/jquery-1.8.3.js"></script>
+    <script src="/static/js/jquery.json-2.4.js"></script>
+    <style>
+        div {
+            word-wrap: break-word;
+            word-break: break-all;
+            clear: left;
+        }
+        li {
+            float: left;
+            list-style-type: none; 
+            padding: 0 8px;
+        }
+        li.last {
+            float: none;
+        }
+        li.res {
+            display: block;
+            border: 1px solid;
+            width: 25px;
+            height: 20px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        li.current {
+            border: 1px solid grey;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="searcharea">
+<input id="kw" value="少年四大名捕" size="50"/>
+<button id="search">搜索</button>
+</div>
+
+<div id="videolist">
+</div>
+
+<div id="videotmpl" style="display:none">
+<div>
+    <div name="info">
+        <ul>
+            <li class="last"></li>
+            <li class="last"></li>
+        </ul>
+    </div>
+
+    <div name="sites">
+        <ul></ul>
+    </div>
+     
+    <div name="res">
+        <ul></ul>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+$("#search").click(function(e) {
+    kw = $("#kw").val();
+    if(kw == "") {
+        alert("请输入关键字.");
+        return;
+    }
+    qp = {name:"plugins.baidu.Index.search", args:[kw]};
+    $.get('/api', {data:$.toJSON(qp)}, function(data) {
+        if(data && data.status == "Success") {
+           show_video(data.result); 
+        } else {
+            alert("ERROR.");
+        }
+    });
+});
+
+function show_video(list) {
+    $("#videolist").empty();
+    for (i in list) {
+        v = list[i];
+        $("#videolist").append($("#videotmpl").html());
+        $("#videolist>div:last").attr("id", "video" + i);
+
+        tinfo = $("#videolist div[name=info]:last");
+        tinfo.find("ul li:first").html(v.trunk);
+        tinfo.find("ul li:last").html(v.brief_short);
+
+        for (i in v.sites) {
+            site = v.sites[i];
+            if (site.site_url == "iqiyi.com") {
+                continue;
+            }
+
+            tsites = $("#videolist div[name=sites]:last");
+            tsites.find("ul").append("<li></li>");
+            tsites.find("ul li:last").append("<img></img>" + site.site_name);
+            tsites.find("ul li:last img").attr("src", site.site_logo);
+            tsites.find("ul li:last").attr("name", v.id);
+            tsites.find("ul li:last").attr("site", site.site_url);
+
+            tsites.find("ul li:last").click(function(e) {
+                show_res($(this));
+            } ); 
+        }                
+        tsites.find("ul li:last").attr("class", "last");
+
+        for (i in v.sites[0].episode) {
+            res = v.sites[0].episode[i];
+            episode = (parseInt(i) + 1).toString();
+            tres = $("#videolist div[name=res]:last"); 
+            tres.find("ul").append("<li></li>");
+            tres.find("ul li:last").append("<a></a>");
+            tres.find("ul li:last").html(episode);
+            tres.find("ul li:last").attr("name", v.trunk + episode); 
+            tres.find("ul li:last").attr("url", res.url);
+            tres.find("ul li:last").attr("class", "res");
+
+            tres.find("ul li:last").click(function(e) {
+                play_video($(this).attr("name"), $(this).attr("url")); 
+            });
+        }
+    }
+}
+
+function play_video(name, url) {
+    qp = {name:"plugins.baidu.Index.play", args:[name, url]};
+    $.get('/api', {data:$.toJSON(qp)}, function(data) {
+        if(data && data.status == "Success") {
+            location.href = '/player';
+        } else {
+            alert("ERROR.");
+        }
+    });
+}
+
+function show_res(li) {
+    id = li.attr("name");
+    site = li.attr("site");
+    div = li.parent().parent().parent();
+
+    qp = {name:"plugins.baidu.Index.res", args:[id, site]};
+    $.get('/api', {data:$.toJSON(qp)}, function(data) {
+        if(data && data.status == "Success") {
+            videos = data.result.videos;            
+            tres = div.find("div[name=res]") 
+            tres.find("ul").empty();
+            for (i in videos) {
+                episode = (parseInt(i) + 1).toString();
+                v = videos[i];    
+                tres.find("ul").append("<li></li>");
+                tres.find("ul li:last").append("<a></a>");
+                tres.find("ul li:last").html(episode);
+                tres.find("ul li:last").attr("name", v.title + episode); 
+                tres.find("ul li:last").attr("url", v.url);
+                tres.find("ul li:last").attr("class", "res");
+
+                tres.find("ul li:last").click(function(e) {
+                    play_video($(this).attr("name"), $(this).attr("url")); 
+                });
+            }
+        } else {
+            alert("ERROR.");
+        }
+    });
+}
+
+</script>
+    
+</body>
+</html>
