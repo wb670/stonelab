@@ -358,7 +358,7 @@ class MediaUrl:
     URL         = 'http://www.flvcd.com/parse.php?kw=%s&format=%s'
     ENCODING    = 'GBK'
     
-    PATTERN_URL = re.compile('<a href="(.*)" target="_blank" onclick="')
+    PATTERN_URL = re.compile('<a href="(.*)" target="_blank" [class="link"|onclick=]')
     PATTERN_NS  = u'提示：对不起，FLVCD暂不支持此地址的解析' 
     
 
@@ -373,11 +373,7 @@ class MediaUrl:
         return self._filter(url, MediaUrl.PATTERN_URL.findall(info))
 
     def _filter(self, url, urls):
-        if 'youku.com' in url:
-            return [urllib2.urlopen(u).url for u in urls]
-        if 'tudou.com' in url:
-            return [urllib2.urlopen(u).url for u in urls]
-        return urls
+        return [urllib2.urlopen(u).url for u in urls]
 
 
 #singleton instance

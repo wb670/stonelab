@@ -37,7 +37,7 @@ class Index:
     @classmethod
     def play(cls, name, url):
         urls = plugin.media_url.get_urls(url)
-        if len(urls) == 0:
+        if urls == None or len(urls) == 0:
             return None
         playlist = [(u, '%s-%d' % (name, i)) for (i, u) in enumerate(urls)] if len(urls) > 1 else [(u, name) for u in urls]
         plugin.player.set_playlist(playlist)
