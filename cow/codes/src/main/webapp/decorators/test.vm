@@ -1,8 +1,0 @@
-<html>
-  <title>#if("$!title" == "") cow #else $!title #end</title>
-  <body>
-	<hr/>
-    $body
-	<hr/>
-  </body>
-</html>

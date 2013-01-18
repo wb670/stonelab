@@ -1,8 +1,0 @@
-flup fastcgi nginx  1220tps/82ms 
-
-uwsgi wsgi nginx    3280tps/30ms
-uwsgi proxy nginx   3289tps/30ms 
-uwsgi http          3413tps/29ms
-
-gevent proxy nginx  2917tps/34ms
-gevent http         3357tps/30ms

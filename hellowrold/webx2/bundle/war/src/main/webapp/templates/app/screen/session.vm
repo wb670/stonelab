@@ -1,3 +1,0 @@
-$rundata.getSession().getAttribute("info")
-<p/>
-$rundata.getSession().getAttribute("user")

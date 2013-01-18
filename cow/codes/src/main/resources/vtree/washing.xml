@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<washings>
-    <washing id="1" name="洗涤方式11" imgName="washing1.gif"/>
-    <washing id="2" name="洗涤方式22" imgName="washing1.gif"/>
-    <washing id="3" name="洗涤方式33" imgName="washing1.gif"/>
-    <washing id="4" name="洗涤方式44" imgName="washing1.gif"/>
-    <washing id="5" name="洗涤方式55" imgName="washing1.gif"/>
-</washings>
