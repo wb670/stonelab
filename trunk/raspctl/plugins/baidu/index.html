@@ -5,6 +5,13 @@
     <script src="/static/js/jquery-1.8.3.js"></script>
     <script src="/static/js/jquery.json-2.4.js"></script>
     <style>
+        body {
+            font: 12px arial;
+        }
+        span {
+            font-size: 24px;
+            font-family: "Microsoft YaHei","SimHei";
+        }
         div {
             word-wrap: break-word;
             word-break: break-all;
@@ -21,7 +28,7 @@
         li.res {
             display: block;
             border: 1px solid;
-            width: 25px;
+            width: 50px;
             height: 20px;
             margin-right: 5px;
             margin-bottom: 5px;
@@ -37,8 +44,10 @@
 <body>
 
 <div id="searcharea">
-<input id="kw" value="少年四大名捕" size="50"/>
+<ul><li>
+<input id="kw" value="敢死队" size="50"/>
 <button id="search">搜索</button>
+</li></ul>
 </div>
 
 <div id="videolist">
@@ -48,7 +57,7 @@
 <div>
     <div name="info">
         <ul>
-            <li class="last"></li>
+            <li class="last"><span></span></li>
             <li class="last"></li>
         </ul>
     </div>
@@ -64,6 +73,7 @@
 </div>
 
 <script type="text/javascript">
+$.ajaxSetup({async:false});
 
 $("#search").click(function(e) {
     kw = $("#kw").val();
@@ -71,6 +81,7 @@ $("#search").click(function(e) {
         alert("请输入关键字.");
         return;
     }
+    $("#videolist").empty();
     qp = {name:"plugins.baidu.Index.search", args:[kw]};
     $.get('/api', {data:$.toJSON(qp)}, function(data) {
         if(data && data.status == "Success") {
@@ -87,9 +98,10 @@ function show_video(list) {
         v = list[i];
         $("#videolist").append($("#videotmpl").html());
         $("#videolist>div:last").attr("id", "video" + i);
+        tdiv = $("#video" + i);
 
         tinfo = $("#videolist div[name=info]:last");
-        tinfo.find("ul li:first").html(v.trunk);
+        tinfo.find("ul li:first span").html(v.title);
         tinfo.find("ul li:last").html(v.brief_short);
 
         for (i in v.sites) {
@@ -97,35 +109,26 @@ function show_video(list) {
             if (site.site_url == "iqiyi.com") {
                 continue;
             }
-
-            tsites = $("#videolist div[name=sites]:last");
+            tsites = tdiv.find("div[name=sites]");
             tsites.find("ul").append("<li></li>");
             tsites.find("ul li:last").append("<img></img>" + site.site_name);
             tsites.find("ul li:last img").attr("src", site.site_logo);
             tsites.find("ul li:last").attr("name", v.id);
+            tsites.find("ul li:last").attr("type", v.ty);
             tsites.find("ul li:last").attr("site", site.site_url);
+            tsites.find("ul li:last").attr("title", v.title);
 
             tsites.find("ul li:last").click(function(e) {
-                show_res($(this));
+                var type = $(this).attr("type");
+                if (type == 21) {
+                    show_movie($(this));
+                } else if(type == 22) {
+                    show_tv($(this));
+                }
             } ); 
         }                
         tsites.find("ul li:last").attr("class", "last");
-
-        for (i in v.sites[0].episode) {
-            res = v.sites[0].episode[i];
-            episode = (parseInt(i) + 1).toString();
-            tres = $("#videolist div[name=res]:last"); 
-            tres.find("ul").append("<li></li>");
-            tres.find("ul li:last").append("<a></a>");
-            tres.find("ul li:last").html(episode);
-            tres.find("ul li:last").attr("name", v.trunk + episode); 
-            tres.find("ul li:last").attr("url", res.url);
-            tres.find("ul li:last").attr("class", "res");
-
-            tres.find("ul li:last").click(function(e) {
-                play_video($(this).attr("name"), $(this).attr("url")); 
-            });
-        }
+        tdiv.find("div[name=sites] li:first").click();
     }
 }
 
@@ -133,14 +136,18 @@ function play_video(name, url) {
     qp = {name:"plugins.baidu.Index.play", args:[name, url]};
     $.get('/api', {data:$.toJSON(qp)}, function(data) {
         if(data && data.status == "Success") {
-            location.href = '/player';
+            if(data.result) {
+                location.href = '/player';
+            } else {
+                alert("暂不支持该视频！");
+            }
         } else {
             alert("ERROR.");
         }
     });
 }
 
-function show_res(li) {
+function show_tv(li) {
     id = li.attr("name");
     site = li.attr("site");
     div = li.parent().parent().parent();
@@ -155,8 +162,8 @@ function show_res(li) {
                 episode = (parseInt(i) + 1).toString();
                 v = videos[i];    
                 tres.find("ul").append("<li></li>");
-                tres.find("ul li:last").append("<a></a>");
-                tres.find("ul li:last").html(episode);
+                tres.find("ul li:last").append("<img></img> " + episode);
+                tres.find("ul li:last img").attr("src", li.find("img").attr("src"));
                 tres.find("ul li:last").attr("name", v.title + episode); 
                 tres.find("ul li:last").attr("url", v.url);
                 tres.find("ul li:last").attr("class", "res");
@@ -169,6 +176,25 @@ function show_res(li) {
             alert("ERROR.");
         }
     });
+}
+
+function show_movie(li) {
+    tdiv = li.parent().parent().parent();
+    tres = tdiv.find("div[name=res]");
+    tres.find("ul").empty();
+    tres.find("ul").append("<li></li>");
+    tres.find("ul li").append("<img></img> 播放");
+    tres.find("ul li img").attr("src", li.find("img").attr("src"));
+    tres.find("ul li").attr("name", li.attr("title")); 
+    tres.find("ul li").attr("url", li.attr("site"));
+    tres.find("ul li").attr("class", "res");
+
+    tres.find("ul li").click(function(e) {
+        play_video($(this).attr("name"), $(this).attr("url"));
+    } );
+}
+
+function is_filter(site) {
 }
 
 </script>
