@@ -1,3 +1,4 @@
+#labels RaspCTL
 = 什么是RaspCTL =
 RaspCTL是Raspberry Pi和Control字母的组合，表示树莓派控制端。
 RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等设备）控制[http://www.raspberrypi.org/ 树莓派]的软件。
