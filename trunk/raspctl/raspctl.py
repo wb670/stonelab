@@ -14,7 +14,7 @@ render = render_jinja('templates', encoding='utf-8')
 
 class Index:
     def GET(self):
-        return 'RaspCTL'
+        return render.index()
 
 class Config:
     def GET(self):
