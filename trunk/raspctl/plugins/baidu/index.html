@@ -106,7 +106,7 @@ function show_video(list) {
 
         for (i in v.sites) {
             site = v.sites[i];
-            if (site.site_url == "iqiyi.com") {
+            if (is_filter(site)) {
                 continue;
             }
             tsites = tdiv.find("div[name=sites]");
@@ -195,6 +195,13 @@ function show_movie(li) {
 }
 
 function is_filter(site) {
+    sites = ["CNTV", "PPS", "PPTV", "酷6", "乐视", "优酷", "电影网", "风行网", "迅雷看看"];
+    for (i in sites) {
+        if(sites[i] == site.site_name) {
+            return false;
+        }
+    }
+    return true;
 }
 
 </script>
