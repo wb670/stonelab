@@ -3,9 +3,7 @@ cd $(dirname $_)/..
 BASE=`pwd`
 
 #install 3rd lib
-sudo apt-get install python-webpy
-sudo apt-get install python-jinja2
-sudo apt-get install python-pexpect
+sudo apt-get install python-webpy python-jinja2 python-pexpect
 
 #install required dirs
 mkdir $BASE/logs
