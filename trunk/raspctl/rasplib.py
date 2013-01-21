@@ -108,7 +108,7 @@ class Omxplayer:
             self.stop()
         if not loop == None: self.set_loop(loop)
         Thread(target=self._play, args=(index,)).start()
-        #waiting for self.info info.
+        #waiting for self.info.
         twait = 0.0
         while(self.state != Omxplayer.State_Play or self.index != index):
             time.sleep(0.1); twait += 0.1
@@ -139,10 +139,7 @@ class Omxplayer:
                         self.process.wait()
                         self.process.close()
                     except Exception as e:
-                        pass
-                    if self.con.acquire():
-                        self.con.notify()
-                        self.con.release()
+                        print e
             #compensate. maybe playlist is updated while playing.
             if self.index < len(self.playlist) - 1:
                 index = self.index + 1
@@ -150,6 +147,9 @@ class Omxplayer:
             index = 0
             if len(self.playlist)==0 or not self.loop:
                 break
+        if self.con.acquire():
+            self.con.notify()
+            self.con.release()
         self.state = Omxplayer.State_Init
     
     def pause(self):
@@ -190,9 +190,9 @@ class Omxplayer:
         if self.state in (Omxplayer.State_Play, Omxplayer.State_Pause):
             if self.process and self.process.isalive():
                 self.process.send(Omxplayer.CTL_QUIT)
-                self.state = Omxplayer.State_Init
                 if self.process.isalive():
                     self.process.sendcontrol('C')
+                self.state = Omxplayer.State_Init
     
     def set_playlist(self, playlist):
         playlist = playlist if playlist else []
