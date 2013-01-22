@@ -64,7 +64,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 == 如何安装RaspCTL ==
   # 下载[https://code.google.com/p/stonelab/downloads/list RaspCTL]
      # 下载，解压到指定目录
-     # 或者直接使用svn地址： svn co [https://stonelab.googlecode.com/svn/tags/raspctl-0.1.0] RaspCTL 
+     # 或者直接使用svn地址： svn co [https://stonelab.googlecode.com/svn/tags/raspctl-x.x.x] RaspCTL 
   # 安装RaspCTL
      # chmox +x bin/install.sh; bin/install.sh 
      # 会自动安装RaspCTL依赖的第三方库，主要是python-webpy python-jinja2 python-pexpect依赖
