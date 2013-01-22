@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="gb2312"?>
-<config>
-    <group>
-        <property name="webx2.quickstart.templates" description="templates location" />
-    </group>
-    <script>
-        <generate template="resources.xml.vm" destfile="WEB-INF/resources.xml" charset="GBK"/>
-    </script>
-</config>
