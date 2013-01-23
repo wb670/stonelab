@@ -174,3 +174,6 @@ class Index:
   * 招募UED设计前端界面 0.1.0前端非常糟糕，急待重构
   * 招募Plugin开发者，丰富RaspCTL
   * 期待小白鼠适用RaspCTL
+
+  * Demo
+    [http://ww3.sinaimg.cn/large/6bcfb2bejw1e0xtbflfipj.jpg]
