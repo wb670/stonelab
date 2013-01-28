@@ -16,7 +16,7 @@ def info(users):
     if not users or not users.get('content'):
         return
     for u in users['content']['items']:
-        print '%s %s %s %s %s %s %s %s %s(%s) ' % (kv(u, 'empId'), kv(u, 'lastName'), kv(u, 'emailAddr'), kv(u, 'extensionPhone'), kv(u, 'cellphone'), kv(u, 'aliww'), kv(u, 'tbww'), kv(u, 'depDesc'), kv(u, 'jobDesc'), kv(u, 'jobCode'))
+        print ('%s %s %s %s %s %s %s %s %s(%s) ' % (kv(u, 'empId'), kv(u, 'lastName'), kv(u, 'emailAddr'), kv(u, 'extensionPhone'), kv(u, 'cellphone'), kv(u, 'aliww'), kv(u, 'tbww'), kv(u, 'depDesc'), kv(u, 'jobDesc'), kv(u, 'jobCode'))).encode(DEFAULT_ENCODE)
     print 'Total Count: %d' % (users['content']['count'])
 
 def find(q, page=1, page_size=50):
