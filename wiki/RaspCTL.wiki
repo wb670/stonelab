@@ -5,7 +5,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
 
 目前，通过Raspberry&RaspCTL组合，打造成家庭多媒体播放机顶盒，在此场景中，RaspCTL非常类似[http://xbmc.org XBMC]平台。
 
-未来，会不断扩展RaspCTL功能，成为控制家庭物联网的设备中心，比如控制摄像头，空调开关等。此乃后话，按下不表。
+未来，会不断扩展RaspCTL功能，成为控制家庭物联网的设备中心，比如控制摄像头，空调开关等。此乃后话，当下不表。
 
 = 为什么选择Raspberry Pi&RaspCTL =
 == 为什么选择Raspberry Pi ==
@@ -66,7 +66,7 @@ RaspCTL是一款通过手机终端（泛义上包括手机，平板，电脑等�
      # 下载，解压到指定目录
      # 或者直接使用svn地址： svn co [https://stonelab.googlecode.com/svn/tags/raspctl-x.x.x] RaspCTL 
   # 安装RaspCTL
-     # chmox +x bin/install.sh; bin/install.sh 
+     # chmod +x bin/install.sh; bin/install.sh 
      # 会自动安装RaspCTL依赖的第三方库，主要是python-webpy python-jinja2 python-pexpect依赖
 
 == 如何使用RaspCTL ==
