@@ -14,49 +14,56 @@ import java.util.Collection;
  */
 public interface Member {
 
-    /**
-     * 得到队员信息
-     * 
-     * @return
-     */
-    public Info getInfo();
+	/**
+	 * 得到队员信息
+	 * 
+	 * @return
+	 */
+	public Info getInfo();
 
-    /**
-     * 添加一个队员
-     */
-    public void add(Point point);
+	/**
+	 * 添加一个队员
+	 */
+	public void add(Point point);
 
-    /**
-     * 移动
-     * 
-     * @param p
-     */
-    public void move(Point p);
+	/**
+	 * 移动
+	 * 
+	 * @param p
+	 */
+	public void move(Point p);
 
-    /**
-     * 删除一个队员
-     */
-    public void remove();
+	/**
+	 * 删除一个队员
+	 */
+	public void remove();
 
-    /**
-     * 得到当前所在位置点
-     * 
-     * @return
-     */
-    public Point getPoint();
+	/**
+	 * 得到当前所在位置点
+	 * 
+	 * @return
+	 */
+	public Point getPoint();
 
-    /**
-     * 得到当前所在位置
-     * 
-     * @return
-     */
-    public Area getLocation();
+	/**
+	 * 得到当前所在位置
+	 * 
+	 * @return
+	 */
+	public Area getLocation();
 
-    /**
-     * 开火
-     * 
-     * @param p 瞄准位置
-     */
-    public Collection<Member> fire(Point p);
+	/**
+	 * 开火
+	 * 
+	 * @param p 瞄准位置
+	 */
+	public Collection<Member> fire(Point p);
+
+	/**
+	 * 获得队员的能力范围0-100%
+	 * 
+	 * @return 0-100%
+	 */
+	public double getCapable();
 
 }

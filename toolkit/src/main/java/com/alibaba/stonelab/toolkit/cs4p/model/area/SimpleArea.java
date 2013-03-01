@@ -15,40 +15,56 @@ import com.alibaba.stonelab.toolkit.cs4p.model.Point;
  */
 public class SimpleArea implements Area {
 
-    private Point point;
-    private long  radius;
+	private Point point;
+	private long radius;
 
-    public SimpleArea(Point point, long radius){
-        this.point = point;
-        this.radius = radius;
-    }
+	public SimpleArea(Point point, long radius) {
+		this.point = point;
+		this.radius = radius;
+	}
 
-    public boolean isCross(Area area) {
-        Assert.isInstanceOf(SimpleArea.class, area);
-        Assert.notNull(area);
+	public boolean isCross(Area area) {
+		Assert.isInstanceOf(SimpleArea.class, area);
+		Assert.notNull(area);
 
-        SimpleArea sa = (SimpleArea) area;
-        Assert.notNull(sa.getPoint());
-        double x = (double) sa.getPoint().getX() - point.getX();
-        double y = (double) sa.getPoint().getY() - point.getY();
-        double r = Math.pow(Math.pow(x, 2) + Math.pow(y, 2), 0.5);
-        return r < (radius + sa.getRadius());
-    }
+		SimpleArea sa = (SimpleArea) area;
+		Assert.notNull(sa.getPoint());
+		double x = (double) sa.getPoint().getX() - point.getX();
+		double y = (double) sa.getPoint().getY() - point.getY();
+		double r = Math.pow(Math.pow(x, 2) + Math.pow(y, 2), 0.5);
+		return r < (radius + sa.getRadius());
+	}
 
-    public Point getPoint() {
-        return point;
-    }
+	public int getCrossPercentage(Area area) {
+		Assert.isInstanceOf(SimpleArea.class, area);
+		Assert.notNull(area);
 
-    public void setPoint(Point point) {
-        this.point = point;
-    }
+		SimpleArea sa = (SimpleArea) area;
+		Assert.notNull(sa.getPoint());
 
-    public long getRadius() {
-        return radius;
-    }
+		long total = this.getRadius() + sa.getRadius();
+		double x = (double) sa.getPoint().getX() - point.getX();
+		double y = (double) sa.getPoint().getY() - point.getY();
+		double r = Math.pow(Math.pow(x, 2) + Math.pow(y, 2), 0.5);
 
-    public void setRadius(long radius) {
-        this.radius = radius;
-    }
+		int ret = 100 - (int) ((r / total) * 100);
+		return ret < 0 ? 0 : ret;
+	}
+
+	public Point getPoint() {
+		return point;
+	}
+
+	public void setPoint(Point point) {
+		this.point = point;
+	}
+
+	public long getRadius() {
+		return radius;
+	}
+
+	public void setRadius(long radius) {
+		this.radius = radius;
+	}
 
 }

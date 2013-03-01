@@ -5,39 +5,17 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
+import java.text.MessageFormat;
 
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
-public class Misc extends JFrame implements KeyListener {
+public class Misc {
 
-	public static void main(String[] args) {
-		Misc d = new Misc();
-		d.setVisible(true);
-
+	public static void main(String[] args) throws Exception {
+		String ret = MessageFormat.format("{0,int}", 1001);
+		System.out.println(ret);
 	}
-
-	public Misc() {
-		this.setSize(500, 500);
-		this.setVisible(true);
-		this.addKeyListener(this);
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println(e);
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-	}
-
+	
+	
 }

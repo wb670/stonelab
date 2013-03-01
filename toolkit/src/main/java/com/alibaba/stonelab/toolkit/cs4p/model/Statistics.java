@@ -14,68 +14,68 @@ import java.util.Map;
  */
 public class Statistics {
 
-    private static final Statistics                  INSTANCE = new Statistics();
-    private static final Map<String, StatisticsInfo> STORE    = new HashMap<String, StatisticsInfo>();
+	private static final Statistics INSTANCE = new Statistics();
+	private static final Map<String, StatisticsInfo> STORE = new HashMap<String, StatisticsInfo>();
 
-    private Statistics(){
-    }
+	private Statistics() {
+	}
 
-    public static final Statistics getInstance() {
-        return INSTANCE;
-    }
+	public static final Statistics getInstance() {
+		return INSTANCE;
+	}
 
-    public void addAnnihilate(String name, int value) {
-        if (!STORE.containsKey(name)) {
-            StatisticsInfo info = new StatisticsInfo(name, value, 0);
-            STORE.put(name, info);
-        }
-        STORE.get(name).addAnnihilate(value);
-    }
+	public void addAnnihilate(String name, int value) {
+		if (!STORE.containsKey(name)) {
+			StatisticsInfo info = new StatisticsInfo(name, 0, 0);
+			STORE.put(name, info);
+		}
+		STORE.get(name).addAnnihilate(value);
+	}
 
-    public void addDie(String name, int value) {
-        if (!STORE.containsKey(name)) {
-            StatisticsInfo info = new StatisticsInfo(name, 0, value);
-            STORE.put(name, info);
-        }
-        STORE.get(name).addDie(value);
-    }
+	public void addDie(String name, int value) {
+		if (!STORE.containsKey(name)) {
+			StatisticsInfo info = new StatisticsInfo(name, 0, 0);
+			STORE.put(name, info);
+		}
+		STORE.get(name).addDie(value);
+	}
 
-    public Collection<StatisticsInfo> getStatistics() {
-        return STORE.values();
-    }
+	public Collection<StatisticsInfo> getStatistics() {
+		return STORE.values();
+	}
 
-    public static final class StatisticsInfo {
+	public static final class StatisticsInfo {
 
-        private String name;
-        private int    annihilate;
-        private int    die;
+		private String name;
+		private int annihilate;
+		private int die;
 
-        public StatisticsInfo(String name, int annihilate, int die){
-            this.name = name;
-            this.annihilate = annihilate;
-            this.die = die;
-        }
+		public StatisticsInfo(String name, int annihilate, int die) {
+			this.name = name;
+			this.annihilate = annihilate;
+			this.die = die;
+		}
 
-        public void addAnnihilate(int value) {
-            this.annihilate += value;
-        }
+		public void addAnnihilate(int value) {
+			this.annihilate += value;
+		}
 
-        public void addDie(int value) {
-            this.die += value;
-        }
+		public void addDie(int value) {
+			this.die += value;
+		}
 
-        public String getName() {
-            return name;
-        }
+		public String getName() {
+			return name;
+		}
 
-        public int getAnnihilate() {
-            return annihilate;
-        }
+		public int getAnnihilate() {
+			return annihilate;
+		}
 
-        public int getDie() {
-            return die;
-        }
+		public int getDie() {
+			return die;
+		}
 
-    }
+	}
 
 }

@@ -10,14 +10,14 @@ package com.alibaba.stonelab.toolkit.cs4p.communication.cmd;
  */
 public class Error extends BaseCmd implements Cmd {
 
-    @Override
-    public Cmd parser(String cmd) {
-        return this;
-    }
+	@Override
+	public Cmd parser(String cmd) {
+		return this;
+	}
 
-    @Override
-    public String response() {
-        return "usage:\n[binfo]\n[pinfo]\n[pstat]\n[padd name x y]\n[pmove x y]\n[pfire x y]\n";
-    }
+	@Override
+	public String response() {
+		return "usage:\n[binfo][bctl x]\n[pinfo]\n[pstat]\n[padd name x y]\n[pmove x y]\n[pfire x y]\n";
+	}
 
 }

@@ -13,20 +13,21 @@ import java.util.List;
  */
 public class CmdFactory {
 
-    private static final List<Cmd> CMDS = new ArrayList<Cmd>();
+	private static final List<Cmd> CMDS = new ArrayList<Cmd>();
 
-    static {
-        CMDS.add(new BattleInfo());
-        CMDS.add(new PlayerAdd());
-        CMDS.add(new PlayerInfo());
-        CMDS.add(new PlayerMove());
-        CMDS.add(new PlayerFire());
-        CMDS.add(new PlayerStatistics());
-        CMDS.add(new Error());
-    }
+	static {
+		CMDS.add(new BattleInfo());
+		CMDS.add(new BattleCtl());
+		CMDS.add(new PlayerAdd());
+		CMDS.add(new PlayerInfo());
+		CMDS.add(new PlayerMove());
+		CMDS.add(new PlayerFire());
+		CMDS.add(new PlayerStatistics());
+		CMDS.add(new Error());
+	}
 
-    public static List<Cmd> getCmds() {
-        return CMDS;
-    }
+	public static List<Cmd> getCmds() {
+		return CMDS;
+	}
 
 }

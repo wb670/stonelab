@@ -5,18 +5,24 @@
  */
 package com.alibaba.stonelab.toolkit.cs4p.model;
 
-
 /**
  * @author Stone.J 2010-9-17 下午06:39:37
  */
 public interface Area {
 
-    /**
-     * 两个区域是否相交
-     * 
-     * @param area
-     * @return
-     */
-    public boolean isCross(Area area);
+	/**
+	 * 两个区域是否相交
+	 * 
+	 * @param area
+	 * @return
+	 */
+	// public boolean isCross(Area area);
 
+	/**
+	 * 或者交叉面积百分比
+	 * 
+	 * @param area
+	 * @return
+	 */
+	public int getCrossPercentage(Area area);
 }

@@ -30,7 +30,7 @@ import com.alibaba.stonelab.toolkit.cs4p.model.map.SimpleBattlefield;
 @ChannelPipelineCoverage("all")
 public class CsHandler extends SimpleChannelHandler {
 
-    private static final Charset DEFAULT_CHARSET = Charset.forName("GBK");
+    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
     private SimpleBattlefield    battlefield     = SimpleBattlefield.getInstance();
     private CsSessionManager     sessionManager  = CsSessionManager.getInstance();
