@@ -10,49 +10,69 @@ package com.alibaba.stonelab.toolkit.cs4p.model;
  */
 public class Info {
 
-    private String  id;
-    private String  name;
-    private boolean active;
-    private boolean live;
+	private String id;
+	private String name;
+	private boolean active;
+	private int blood;
+	private boolean live;
 
-    public Info(String id, String name){
-        this.id = id;
-        this.name = name;
+	public Info(String id, String name) {
+		this.id = id;
+		this.name = name;
 
-        this.active = false;
-        this.live = true;
-    }
+		this.active = false;
+		this.blood = 100;
+		this.live = true;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public boolean isActive() {
-        return active;
-    }
+	public boolean isActive() {
+		return active;
+	}
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
-    public boolean isLive() {
-        return live;
-    }
+	public boolean isLive() {
+		return live;
+	}
 
-    public void setLive(boolean live) {
-        this.live = live;
-    }
+	public void setLive(boolean live) {
+		this.live = live;
+	}
 
+	public int getBlood() {
+		return blood;
+	}
+
+	public void setBlood(int blood) {
+		this.blood = blood;
+	}
+
+	public void reduceBlood(int value) {
+		if (value <= 0) {
+			return;
+		}
+		if (this.blood - value <= 0) {
+			this.blood = 0;
+		} else {
+			this.blood = this.blood - value;
+		}
+	}
 }

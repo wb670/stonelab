@@ -5,8 +5,9 @@
  */
 package com.alibaba.stonelab.toolkit.cs4p.model.map;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.util.Assert;
@@ -22,67 +23,77 @@ import com.alibaba.stonelab.toolkit.cs4p.model.Member;
  */
 public class SimpleBattlefield implements Battlefield {
 
-    private static final SimpleBattlefield BATTLEFIELD = new SimpleBattlefield(1024, 1024);
+	private static final SimpleBattlefield BATTLEFIELD = new SimpleBattlefield(1024, 1024);
 
-    // 战场地图长
-    private long                           length;
-    // 战场地图宽
-    private long                           width;
+	// 战场地图长
+	private long length;
+	// 战场地图宽
+	private long width;
 
-    // 队员信息
-    private Collection<Member>             members     = new ConcurrentLinkedQueue<Member>();
+	private boolean battle;
 
-    public static final SimpleBattlefield getInstance() {
-        return BATTLEFIELD;
-    }
+	// 队员信息
+	private Collection<Member> members = new ConcurrentLinkedQueue<Member>();
 
-    private SimpleBattlefield(long length, long width){
-        this.length = length;
-        this.width = width;
-    }
+	public static final SimpleBattlefield getInstance() {
+		return BATTLEFIELD;
+	}
 
-    @Override
-    public void addMember(Member m) {
-        Assert.notNull(m, "member is null.");
-        members.add(m);
-    }
+	private SimpleBattlefield(long length, long width) {
+		this.length = length;
+		this.width = width;
+	}
 
-    @Override
-    public void removeMember(Member m) {
-        Assert.notNull(m, "member is null.");
-        members.remove(m);
-    }
+	@Override
+	public void addMember(Member m) {
+		Assert.notNull(m, "member is null.");
+		members.add(m);
+	}
 
-    @Override
-    public Collection<Member> getMembers() {
-        return members;
-    }
+	@Override
+	public void removeMember(Member m) {
+		Assert.notNull(m, "member is null.");
+		members.remove(m);
+	}
 
-    @Override
-    public Collection<Member> getFiredMembers(Area area) {
-        Collection<Member> firedMembers = new ArrayList<Member>();
-        for (Member member : members) {
-            if (member.getLocation().isCross(area)) {
-                firedMembers.add(member);
-            }
-        }
-        return firedMembers;
-    }
+	@Override
+	public Collection<Member> getMembers() {
+		return members;
+	}
 
-    public long getLength() {
-        return length;
-    }
+	@Override
+	public Map<Member, Integer> getFiredMembers(Area area) {
+		Map<Member, Integer> firedMembers = new HashMap<Member, Integer>();
+		for (Member member : members) {
+			int crossed = member.getLocation().getCrossPercentage(area);
+			if (crossed > 0) {
+				firedMembers.put(member, crossed);
+			}
+		}
+		return firedMembers;
+	}
 
-    public void setLength(long length) {
-        this.length = length;
-    }
+	public long getLength() {
+		return length;
+	}
 
-    public long getWidth() {
-        return width;
-    }
+	public void setLength(long length) {
+		this.length = length;
+	}
 
-    public void setWidth(long width) {
-        this.width = width;
-    }
+	public long getWidth() {
+		return width;
+	}
 
+	public void setWidth(long width) {
+		this.width = width;
+	}
+
+	public boolean isBattle() {
+		return this.battle;
+	}
+
+	public void setBattle(boolean battle) {
+		this.battle = battle;
+	}
 }

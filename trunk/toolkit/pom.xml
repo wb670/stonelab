@@ -72,6 +72,7 @@
         </plugins>
     </build>
 
+    <!--
     <repositories>
         <repository>
             <id>b2b-shared-repo</id>
@@ -82,6 +83,7 @@
             </snapshots>
         </repository>
     </repositories>
+    -->
 
     <dependencies>
         <!-- commons -->
@@ -138,11 +140,13 @@
             <version>1.1.3</version>
         </dependency>
         <!-- db -->
+        <!--
         <dependency>
             <groupId>com.alibaba.shared</groupId>
             <artifactId>headquarters.jdbc.proxy</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
+        -->
         <dependency>
             <groupId>com.alibaba.external</groupId>
             <artifactId>jdbc.mysql.mysql-connector</artifactId>
@@ -244,6 +248,7 @@
             <version>3.0</version>
         </dependency>
         <!-- java tools -->
+        <!--
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
@@ -251,5 +256,6 @@
             <scope>system</scope>
             <systemPath>${env.JAVA_HOME}/lib/tools.jar</systemPath>
         </dependency>
+        -->
     </dependencies>
 </project>

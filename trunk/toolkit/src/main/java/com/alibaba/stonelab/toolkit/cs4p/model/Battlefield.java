@@ -6,6 +6,7 @@
 package com.alibaba.stonelab.toolkit.cs4p.model;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * 战场地图
@@ -14,32 +15,36 @@ import java.util.Collection;
  */
 public interface Battlefield {
 
-    /**
-     * 添加一个队员
-     * 
-     * @param p 指定地图所在位置
-     */
-    public void addMember(Member m);
+	/**
+	 * 添加一个队员
+	 * 
+	 * @param p 指定地图所在位置
+	 */
+	public void addMember(Member m);
 
-    /**
-     * 清除一个队员
-     * 
-     * @param m 队员
-     */
-    public void removeMember(Member m);
+	/**
+	 * 清除一个队员
+	 * 
+	 * @param m 队员
+	 */
+	public void removeMember(Member m);
 
-    /**
-     * 得到所有队员
-     * 
-     * @return
-     */
-    public Collection<Member> getMembers();
+	/**
+	 * 得到所有队员
+	 * 
+	 * @return
+	 */
+	public Collection<Member> getMembers();
 
-    /**
-     * 得到中弹队员
-     * 
-     * @return
-     */
-    public Collection<Member> getFiredMembers(Area area);
+	/**
+	 * 得到中弹队员
+	 * 
+	 * @return
+	 */
+	public Map<Member, Integer> getFiredMembers(Area area);
+
+	public boolean isBattle();
+
+	public void setBattle(boolean battle);
 
 }

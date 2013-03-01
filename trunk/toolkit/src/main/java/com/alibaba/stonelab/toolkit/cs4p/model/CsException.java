@@ -10,43 +10,45 @@ package com.alibaba.stonelab.toolkit.cs4p.model;
  */
 public class CsException extends RuntimeException {
 
-    private static final long serialVersionUID = 1706494635821850814L;
+	private static final long serialVersionUID = 1706494635821850814L;
 
-    private Code              code;
+	private Code code;
 
-    public CsException(Code code){
-        this.code = code;
-    }
+	public CsException(Code code) {
+		this.code = code;
+	}
 
-    public Code getCode() {
-        return code;
-    }
+	public Code getCode() {
+		return code;
+	}
 
-    public static enum Code {
-        /** 移动步伐过大 */
-        STEP_OVERFLOW("你以为会漂啊?"),
-        /** 未激活 */
-        INACTIVE("你还没有上战场呢."),
-        /** 阵亡 */
-        DEAD("你已经玩完了."),
-        /** MULTI_PLAYERS */
-        MULTI_PLAYERS("你创建多人了.");
+	public static enum Code {
+		/** 移动步伐过大 */
+		STEP_OVERFLOW("你以为会漂啊?"),
+		/** 未激活 */
+		INACTIVE("你还没有上战场呢."),
+		/** 阵亡 */
+		DEAD("你已经玩完了."),
+		/** MULTI_PLAYERS */
+		MULTI_PLAYERS("你创建多人了."),
+		/***/
+		NOT_START("对战未开始");
 
-        private Code(String des){
-            this.des = des;
-        }
+		private Code(String des) {
+			this.des = des;
+		}
 
-        private String des;
+		private String des;
 
-        public String getDes() {
-            return des;
-        }
+		public String getDes() {
+			return des;
+		}
 
-    }
+	}
 
-    @Override
-    public synchronized Throwable fillInStackTrace() {
-        return this;
-    }
+	@Override
+	public synchronized Throwable fillInStackTrace() {
+		return this;
+	}
 
 }
