@@ -191,7 +191,8 @@ class Omxplayer:
             if self.process and self.process.isalive():
                 self.process.send(Omxplayer.CTL_QUIT)
                 if self.process.isalive():
-                    self.process.sendcontrol('C')
+                    self.process.kill(9)
+                    #self.process.sendcontrol('C')
                 self.state = Omxplayer.State_Init
     
     def set_playlist(self, playlist):
