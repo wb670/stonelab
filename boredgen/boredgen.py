@@ -30,9 +30,9 @@ class CursorX(CursorStoreResultMixIn, BaseCursor):
         return [Pojo(r) for r in CursorStoreResultMixIn.fetchall(self)]
 
 SQL_TYPES = (
-        ('int'),
+        ('int', 'bigint'),
         ('varchar', 'char'),
-        ('datetime', ''),
+        ('datetime'),
 )
 JAVA_TYPES = (
         'long',
@@ -47,9 +47,9 @@ def mapper(type):
 
 DATA_SOURCE = {
     'host'          : 'localhost',
-    'user'          : 'mysqllab',
-    'passwd'        : 'mysqllab',
-    'db'            : 'mysqllab',
+    'user'          : 'einfo',
+    'passwd'        : 'einfo',
+    'db'            : 'einfo',
     'charset'       : 'utf8',
     'cursorclass'   : CursorX
 }
@@ -111,7 +111,7 @@ def init(dir, pkg):
 
 
 def init_data():
-    tables = [t.Tables_in_mysqllab for t in select('show tables')]
+    tables = [t.Tables_in_einfo for t in select('show tables')]
     for table in tables:
         init_table(table)
         init_model(table)
