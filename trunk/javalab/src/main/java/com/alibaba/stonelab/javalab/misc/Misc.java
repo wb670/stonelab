@@ -5,7 +5,13 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import java.text.MessageFormat;
+import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.mysql.jdbc.Driver;
 
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
@@ -13,9 +19,7 @@ import java.text.MessageFormat;
 public class Misc {
 
 	public static void main(String[] args) throws Exception {
-		String ret = MessageFormat.format("{0,int}", 1001);
-		System.out.println(ret);
+		System.out.println(URLEncoder.encode("设备A", "UTF-8"));
 	}
-	
-	
+
 }

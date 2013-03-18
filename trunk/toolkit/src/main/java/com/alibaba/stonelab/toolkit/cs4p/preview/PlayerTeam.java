@@ -12,6 +12,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,8 +27,8 @@ import net.sf.json.JSONObject;
  */
 public class PlayerTeam {
 
-	private static final String HOST = "10.20.156.88";
-	// private static final String HOST = "localhost";
+	// private static final String HOST = "10.20.156.88";
+	private static final String HOST = "localhost";
 	private static final int PORT = 9999;
 	private static final String ENCODING = "UTF-8";
 	private static final Random RANDOM = new Random();
@@ -36,11 +38,56 @@ public class PlayerTeam {
 	private static final List<String> PLAYERS = new ArrayList<String>();
 
 	public static void main(String[] args) {
+		args = new String[] { "battle" };
+		if (args.length != 1) {
+			System.out.println("Cmd Fail. play.sh [battle|pstat|bstat]");
+			return;
+		}
+		if ("battle".equals(args[0])) {
+			battle();
+		} else if ("pstat".equals(args[0])) {
+			pstat();
+		} else if ("bstat".equals(args[0])) {
+			bstat();
+		} else {
+			System.out.println("Cmd Fail. play.sh [battle|pstat|bstat]");
+		}
+	}
+
+	public static final void battle() {
 		for (int i = 0; i < COUNT; i++) {
 			PLAYERS.add(NAME_PREFIX + i);
 		}
 		for (String name : PLAYERS) {
 			new CPlayer(name);
+		}
+	}
+
+	public static final void pstat() {
+		CPlayer p = new CPlayer();
+		Object[] info = JSONArray.fromObject(p.cmd("pstat")).toArray();
+		Arrays.sort(info, new Comparator<Object>() {
+
+			@Override
+			public int compare(Object o1, Object o2) {
+				JSONObject i1 = (JSONObject) o1;
+				JSONObject i2 = (JSONObject) o2;
+				return i2.getInt("annihilate") - i1.getInt("annihilate");
+			}
+
+		});
+		for (Object o : info) {
+			System.out.println(o);
+		}
+	}
+
+	public static final void bstat() {
+		CPlayer p = new CPlayer();
+		JSONArray members = JSONObject.fromObject(p.cmd("binfo")).getJSONArray("members");
+		for (Object o : members) {
+			JSONObject m = (JSONObject) o;
+			System.out.println(m.getJSONObject("info").getString("name") + ":"
+					+ m.getJSONObject("info").getInt("blood"));
 		}
 	}
 
@@ -56,6 +103,17 @@ public class PlayerTeam {
 		private Socket socket;
 		private OutputStream out;
 		private BufferedReader in;
+
+		public CPlayer() {
+			try {
+				socket = new Socket();
+				socket.connect(new InetSocketAddress(HOST, PORT));
+				out = socket.getOutputStream();
+				in = new BufferedReader(new InputStreamReader(socket.getInputStream(), ENCODING));
+			} catch (IOException e) {
+				close();
+			}
+		}
 
 		public CPlayer(String name) {
 			this.name = name;
@@ -96,8 +154,8 @@ public class PlayerTeam {
 		}
 
 		public void add() {
-			int x = RANDOM.nextInt(1024);
-			int y = RANDOM.nextInt(1024);
+			int x = RANDOM.nextInt(1000) + 20;
+			int y = RANDOM.nextInt(1000) + 20;
 			String resp = cmd(MessageFormat.format("padd {0} {1} {2}", this.name, String.valueOf(x), String.valueOf(y)));
 			if (resp != null) {
 				this.x = x;
@@ -150,6 +208,7 @@ public class PlayerTeam {
 		public void abort() {
 			this.live.set(false);
 			close();
+			System.out.println("DIE. name:" + this.name);
 		}
 
 		public void close() {
@@ -178,10 +237,9 @@ public class PlayerTeam {
 					return resp;
 				} else {
 					if (resp != null && resp.contains("玩完")) {
-						System.out.println("DIE. name:" + this.name);
 						abort();
 					} else if (resp != null && resp.contains("漂")) {
-						System.out.println(resp);
+						System.out.println(cmd);
 						// fix: get server's (x,y) with pinfo,then set to (this.x, this.y)
 					} else if (resp != null && resp.contains("未开始")) {
 						// do nothing.

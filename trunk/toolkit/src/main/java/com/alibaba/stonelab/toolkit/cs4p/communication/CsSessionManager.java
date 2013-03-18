@@ -5,8 +5,8 @@
  */
 package com.alibaba.stonelab.toolkit.cs4p.communication;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.netty.channel.Channel;
 
@@ -15,36 +15,37 @@ import org.jboss.netty.channel.Channel;
  */
 public class CsSessionManager {
 
-    private static final CsSessionManager MANAGER = new CsSessionManager();
+	private static final CsSessionManager MANAGER = new CsSessionManager();
 
-    private Map<Channel, CsSession>       store   = new HashMap<Channel, CsSession>();
+	private Map<Channel, CsSession> store = new ConcurrentHashMap<Channel, CsSession>();
 
-    public static final CsSessionManager getInstance() {
-        return MANAGER;
-    }
+	public static final CsSessionManager getInstance() {
+		return MANAGER;
+	}
 
-    private CsSessionManager(){
-    }
+	private CsSessionManager() {
+	}
 
-    public void add(Channel channel, CsSession session) {
-        store.put(channel, session);
-    }
+	public void add(Channel channel, CsSession session) {
+		store.put(channel, session);
+	}
 
-    public void remove(Channel channel) {
-        CsSession session = store.get(channel);
-        if (session != null) {
-            if (session.getPlayer() != null) {
-                session.getPlayer().remove();
-            }
-        }
-    }
+	public void remove(Channel channel) {
+		CsSession session = store.get(channel);
+		if (session != null) {
+			if (session.getPlayer() != null) {
+				session.getPlayer().remove();
+			}
+		}
+		store.remove(channel);
+	}
 
-    public CsSession get(Channel channel) {
-        CsSession session = store.get(channel);
-        if (session == null) {
-            session = new CsSession();
-        }
-        return session;
-    }
+	public CsSession get(Channel channel) {
+		CsSession session = store.get(channel);
+		if (session == null) {
+			session = new CsSession();
+		}
+		return session;
+	}
 
 }
