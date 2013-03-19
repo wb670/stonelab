@@ -1,0 +1,43 @@
+#labels 命令行,翻译
+# 命令行下的翻译软件
+
+= 软件说明 =
+  命令行下的翻译软件 <br/>
+  支持中文/英文，自动识别中英文 <br/>
+  需要网络支持
+
+
+= 使用说明 =
+  * 下载
+    wget https://stonelab.googlecode.com/files/translate-1.0.0.py -o tl.py <br/>
+    chmod +x tl.py
+
+  * 命令
+    {{{
+Useage:translate.py word
+    }}}
+    比如： ./tl.py 中国 <br/>
+    效果：
+    {{{
+StoneJtekiMacBook-Pro:Tmp stone$ tl.sh 中国
+翻译：
+  China
+
+字典：
+名词
+  1.China
+StoneJtekiMacBook-Pro:Tmp stone$ tl.sh China
+翻译：
+  中国
+
+字典：
+名词
+  1.中国
+  2.瓷器
+  3.华
+  4.中华
+  5.瓷
+形容词
+  1.中国的
+  2.瓷的
+    }}}
