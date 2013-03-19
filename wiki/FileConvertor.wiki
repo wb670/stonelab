@@ -1,0 +1,22 @@
+#labels 文件,编码,转换
+# 基于命令行的文件编码转换工具，类似于Linux下的iconv命令。
+
+= 介绍 =
+基于命令行的文件编码转换工具，类似于Linux下的iconv命令。
+
+= 使用说明 =
+  * 下载 <br/>
+  wget https://stonelab.googlecode.com/files/fconv-0.9.0.py -o fconv.py
+  chmod +x fconv.py
+
+  * 命令介绍
+    {{{
+Usage: fconv [options] file
+
+Options:
+  -h, --help            show this help message and exit
+  -f FENCODING, --from-encoding=FENCODING
+                        Specifies the encoding of the input
+  -t TENCODING, --to-encoding=TENCODING
+                        Specifies the encoding of the output
+    }}}
