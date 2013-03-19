@@ -6,7 +6,7 @@
 
 = 使用说明 =
   * 下载 <br/>
-  wget https://stonelab.googlecode.com/files/fconv-0.9.0.py -o fconv.py
+  wget https://stonelab.googlecode.com/files/fconv-0.9.0.py -o fconv.py <br/>
   chmod +x fconv.py
 
   * 命令介绍
@@ -19,4 +19,13 @@ Options:
                         Specifies the encoding of the input
   -t TENCODING, --to-encoding=TENCODING
                         Specifies the encoding of the output
+    }}}
+    比如: ./fconv.py -f utf-8 -t gbk cs.txt  <br/>
+    效果：
+    {{{
+file named cs.txt start.
+file named cs.txt stoped.
+
+cat cs.txt | iconv -f gbk
+中国
     }}}
