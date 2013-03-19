@@ -16,27 +16,59 @@ BaiduMp3，基于命令行下的百度MP3歌曲批量下载工具。<br/>
   
   * 命令参数介绍
     {{{
-    Usage: baidump3.py [options]
+Usage: baidump3.py [options]
 
-    Options:
-      -h, --help            show this help message and exit
-      -m MODE, --mode=MODE  specifies the command mode
-                            [list|download|multidownload]
-      -o OUTPUT, --output=OUTPUT
-                            specifies the output dir for download
-      -p PAGE, --page=PAGE  specifies the list page
-      -k KEY, --key=KEY     specifies the mp3 keyworld
-      -f FROMPAGE, --from=FROMPAGE
-                            specifies the from page for multidownload
-      -t TOPAGE, --to=TOPAGE
-                            specifies the end page for multidownload
+Options:
+  -h, --help            show this help message and exit
+  -m MODE, --mode=MODE  specifies the command mode
+                        [list|download|multidownload]
+  -o OUTPUT, --output=OUTPUT
+                        specifies the output dir for download
+  -p PAGE, --page=PAGE  specifies the list page
+  -k KEY, --key=KEY     specifies the mp3 keyworld
+  -f FROMPAGE, --from=FROMPAGE
+                        specifies the from page for multidownload
+  -t TOPAGE, --to=TOPAGE
+                        specifies the end page for multidownload
     }}}
 
   * 搜索
     通过-m list指定为搜索模式 -k参数指定搜索关键词，-p关键词指定分页页面号，默认一页显示20条数据。<br/>
-    比如：./baidump3.py -m list -k 70后 -p 2
+    比如：./baidump3.py -m list -k 70后 -p 2 <br/>
     效果：
+    {{{
+./baidump3.py -m list -k 70后 -p 2
+Total: 1000 Page:2
+1007797   刘若英                 	为爱痴狂
+2067170   姜育恒                 	别让我一个人醉
+209442    彭佳慧                 	相见恨晚
+2121730   杨钰莹,毛宁              	心雨
+216206    许美静                 	蔓延
+226444    陈淑桦                 	问
+253833    张学友                 	秋意浓
+274172    张学友                 	三天两夜
+580824    孟庭苇                 	伤了你的心的我伤心
+582858    莫文蔚                 	电台情歌
+650924    姜育恒                 	其实我真的很在乎
+7274415   满文军                 	我需要你
+7277793   林志炫                 	单身情歌
+7280177   林志炫                 	离人
+7302437   李寿全                 	张三的歌
+844889    陈淑桦                 	流光飞舞
+1039139   王菲                  	容易受伤的女人
+1243712   罗大佑                 	恋曲1980
+2076242   李宗盛                 	我是一只小小鸟
+2121739   杨钰莹                 	轻轻的告诉你
+    }}}
 
   * 下载
+    通过-m download指定为下载模式 -k参数指定下载歌曲ID号 -o参数指定下载路径，默认为当前目录。<br/>
+    比如：./baidump3.py -m download -k 1007797 -o ~/Tmp/ <br/>
+    效果：
+    {{{
+Downloading >>> 为爱痴狂.mp3
+    }}}
 
   * 批量下载
+    通过-m multidownload指定为批量下载模式 -k参数指定歌曲关键词， -o参数指定下载路径（默认位为当前目录）， -f参数指定下载开始页面（默认为第一页）， -t参数指定下载结束页面（默认为搜索到的最后一页）
+    比如：
