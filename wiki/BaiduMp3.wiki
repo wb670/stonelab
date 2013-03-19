@@ -1,13 +1,42 @@
-#summary One-sentence summary of this page.
+#labels 百度,MP3,批量下载
+BaiduMp3，基于命令行下的百度MP3歌曲批量下载工具
 
-= Introduction =
+= 软件介绍 =
+BaiduMp3，基于命令行下的百度MP3歌曲批量下载工具。<br/>
+主要支持功能：
+ * 搜索 根据关键词搜索匹配的歌曲
+ * 下载 根据搜索出来的歌曲ID，下载到本地指定目录
+ * 批量下载 根据关键词，批量下载匹配的歌曲，到本地指定目录
 
-Add your content here.
+= 软件使用 =
+  * 下载 
+    # wget https://stonelab.googlecode.com/files/baidump3-0.9.0.py
+    # mv baidump3-0.9.0.py baidump3.py
+    # chmod +x ./baidump3.py
+  
+  * 命令参数介绍
+    {{{
+    Usage: baidump3.py [options]
 
+    Options:
+      -h, --help            show this help message and exit
+      -m MODE, --mode=MODE  specifies the command mode
+                            [list|download|multidownload]
+      -o OUTPUT, --output=OUTPUT
+                            specifies the output dir for download
+      -p PAGE, --page=PAGE  specifies the list page
+      -k KEY, --key=KEY     specifies the mp3 keyworld
+      -f FROMPAGE, --from=FROMPAGE
+                            specifies the from page for multidownload
+      -t TOPAGE, --to=TOPAGE
+                            specifies the end page for multidownload
+    }}}
 
-= Details =
+  * 搜索
+    通过-m list指定为搜索模式 -k参数指定搜索关键词，-p关键词指定分页页面号，默认一页显示20条数据。<br/>
+    比如：./baidump3.py -m list -k 70后 -p 2
+    效果：
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * 下载
+
+  * 批量下载
