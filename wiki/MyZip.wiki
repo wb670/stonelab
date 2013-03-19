@@ -1,0 +1,39 @@
+#labels zip,编码
+# 扩展zip命令，支持文件名编码
+
+= 软件说明 =
+当你在Linux，Mac下（系统编码采用UTF-8）的时候，你会发现使用zip命令打包的文件，一旦在windows系统上解压，解压后出来的文件名都是乱码。<br/>
+在这个场景下，你可以考虑使用myzip命令，它支持压缩的时候，给文件名指定编码。
+
+= 使用说明 =
+  * 下载
+    wget https://stonelab.googlecode.com/files/myzip-0.9.0.py -o myzip.py <br/>
+    chmod +x myzip.py
+
+  * 命令
+    {{{
+Usage: myzip [-options] <zipfile> <files>
+
+Options:
+  -h, --help            show this help message and exit
+  -e ENCODING, --encoding=ENCODING
+                        specify file name's encoding
+     }}}
+    比如：myzip -e gbk mybaidu.zip baidu <br/>
+    效果：
+    {{{ 
+myzip -e gbk mybaidu.zip baidu
+updating: baidu/ (stored 0%)
+  adding: baidu/Have You Never Been Mellow.mp3 (deflated 1%)
+  adding: baidu/Hot Stuff.mp3 (deflated 0%)
+  adding: baidu/Hotel California.mp3 (deflated 0%)
+  adding: baidu/Peace Train.mp3 (deflated 4%)
+  adding: baidu/Rock The Boat.mp3 (deflated 0%)
+  adding: baidu/Roll Away The Stone.mp3 (deflated 0%)
+  adding: baidu/一场游戏一场梦.mp3 (deflated 0%)
+  adding: baidu/一路上有你.mp3 (deflated 0%)
+  adding: baidu/三天两夜.mp3 (deflated 0%)
+  adding: baidu/东方之珠.mp3 (deflated 4%)
+  adding: baidu/为爱痴狂.mp3 (deflated 1%)
+    }}}
+    备注：统计的压缩率可能有文件，暂时不解决。
