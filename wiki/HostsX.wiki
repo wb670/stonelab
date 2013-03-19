@@ -1,0 +1,9 @@
+扩展HostsX，别名（DNS代理服务器）
+
+= 软件说明 =
+  很早之前写的软件， 重新整理文档比较麻烦，只给出之前Blog的链接
+
+  * [http://www.blogjava.net/stone2083/archive/2011/05/23/350868.html Hosts绑定新思路之HTTP代理篇]
+  * [http://www.blogjava.net/stone2083/archive/2011/05/23/350871.html Hosts绑定新思路之DNS代理篇]
+  * [http://www.blogjava.net/stone2083/archive/2011/05/23/350875.html Hosts绑定新思路之DNS代理服务器实现篇]
+  * [http://www.blogjava.net/stone2083/archive/2011/07/04/353664.html DNS代理服务器]
