@@ -1,3 +1,4 @@
+#labels HostsX,DNSProxy
 扩展HostsX，别名（DNS代理服务器）
 
 = 软件说明 =
@@ -7,3 +8,6 @@
   * [http://www.blogjava.net/stone2083/archive/2011/05/23/350871.html Hosts绑定新思路之DNS代理篇]
   * [http://www.blogjava.net/stone2083/archive/2011/05/23/350875.html Hosts绑定新思路之DNS代理服务器实现篇]
   * [http://www.blogjava.net/stone2083/archive/2011/07/04/353664.html DNS代理服务器]
+
+= 源码地址 =
+https://stonelab.googlecode.com/svn/trunk/dns
