@@ -70,5 +70,51 @@ Downloading >>> 为爱痴狂.mp3
     }}}
 
   * 批量下载
-    通过-m multidownload指定为批量下载模式 -k参数指定歌曲关键词， -o参数指定下载路径（默认位为当前目录）， -f参数指定下载开始页面（默认为第一页）， -t参数指定下载结束页面（默认为搜索到的最后一页）
-    比如：
+    通过-m multidownload指定为批量下载模式 -k参数指定歌曲关键词， -o参数指定下载路径（默认位为当前目录）， -f参数指定下载开始页面（默认为第一页）， -t参数指定下载结束页面（默认为搜索到的最后一页）<br/>
+    比如：./baidump3.py -m multidownload -k 70后 -o ~/Tmp/baidu -f 2 -t 3 <br/>
+    效果：
+    {{{
+ MultiDownloading Page 2
+Downloading >>> 为爱痴狂.mp3
+Downloading >>> 别让我一个人醉.mp3
+Downloading >>> 相见恨晚.mp3
+Downloading >>> 蹇冮洦.mp3
+Downloading >>> 蔓延.mp3
+Downloading >>> 问.mp3
+Downloading >>> 秋意浓.mp3
+Downloading >>> 三天两夜.mp3
+Downloading >>> 伤了你的心的我伤心.mp3
+Downloading >>> 电台情歌.mp3
+Downloading >>> 其实我真的很在乎.mp3
+Downloading >>> 鎴戦渶瑕佷綘.mp3
+Downloading >>> 单身情歌.mp3
+Downloading >>> 离人.mp3
+Downloading >>> 张三的歌.mp3
+Downloading >>> 流光飞舞.mp3
+Downloading >>> 容易受伤的女人.mp3
+Downloading Fail.
+Downloading >>> 我是一只小小鸟.mp3
+Downloading >>> 轻轻的告诉你.mp3
+MultiDownloading Page 3
+Downloading >>> 孟婆汤.mp3
+Downloading >>> 情书.mp3
+Downloading >>> 橄榄树.mp3
+Downloading >>> 选择.mp3
+Downloading >>> 结束不是我要的结果.mp3
+Downloading >>> 鍛抽亾.mp3
+Downloading >>> 来生缘.mp3
+Downloading >>> 相思风雨中.mp3
+Downloading >>> 你我的爱只能擦肩而过.mp3
+Downloading >>> 忘情水.mp3
+Downloading >>> 爱如潮水.mp3
+Downloading >>> 特别的爱给特别的你.mp3
+Downloading >>> 千千阙歌.mp3
+Downloading >>> 涛声依旧.mp3
+Downloading >>> Hotel California.mp3
+Downloading >>> Roll Away The Stone.mp3
+Downloading >>> Peace Train.mp3
+Downloading >>> Have You Never Been Mellow.mp3
+Downloading >>> Hot Stuff.mp3
+Downloading >>> Rock The Boat.mp3
+    }}}
+    备注： 有小概率会出现乱码，以及小小概率出现下载失败。
