@@ -48,7 +48,13 @@ def download(id, base):
         return
     #download
     r = urllib2.urlopen(res[0])
-    f = re.findall(P_FILENAME, r.headers['Content-Disposition'].decode('gbk'))[0]
+    try:
+        f = re.findall(P_FILENAME, r.headers['Content-Disposition'].decode('gbk'))[0]
+    except:
+        try:
+            f = re.findall(P_FILENAME, r.headers['Content-Disposition'].decode('utf-8'))[0]
+        except:
+            f = re.findall(P_FILENAME, r.headers['Content-Disposition'])[0]
     print 'Downloading >>> %s' % f
     open(os.path.normpath(base) + '/' + f, 'wb').write(r.read())
     r.close()
@@ -63,14 +69,15 @@ parser.add_option('-f', '--from', dest='frompage', default=None, help='specifies
 parser.add_option('-t', '--to', dest='topage', default=None, help='specifies the end page for multidownload')
 opts,args = parser.parse_args()
 
-if not opts.mode in ['list', 'download', 'multidownload']:
+if len(sys.argv) == 1 or not opts.mode in ['list', 'download', 'multidownload']:
     parser.print_help()
+    sys.exit(-1)
 
 #list
 enc = sys.getfilesystemencoding()
 if opts.mode == 'list':
     if not opts.key:
-        print 'Usage: dmp3.py -m list -key key -p page'
+        print 'Usage: baidump3.py -m list -key key -p page'
         sys.exit(-1)
     total, page, items = list(opts.key.decode(enc), int(opts.page))
     print 'Total: %d Page:%d' % (total, page)
@@ -78,21 +85,21 @@ if opts.mode == 'list':
         print '%s%s\t%s' % (item[0].ljust(10), item[1].ljust(20), item[2])
 elif opts.mode == 'download':
     if not os.path.isdir(opts.output):
-        print 'Usage: dmp3.py -m download -o dir -k id'
+        print 'Usage: baidump3.py -m download -o dir -k id'
         sys.exit(-1)
     if not opts.key:
-        print 'Usage: dmp3.py -m download -o dir -k id'
+        print 'Usage: baidump3.py -m download -o dir -k id'
         sys.exit(-1)
     download(opts.key, opts.output.decode(enc))
 elif opts.mode == 'multidownload':
     if not os.path.isdir(opts.output):
-        print 'Usage: dmp3.py -m multidownload -o dir -k key -M max'
+        print 'Usage: baidump3.py -m multidownload -o dir -k key -M max'
         sys.exit(-1)
     if not opts.key:
-        print 'Usage: dmp3.py -m multidownload -o dir -k key -M max'
+        print 'Usage: baidump3.py -m multidownload -o dir -k key -M max'
         sys.exit(-1)
     if not opts.key:
-        print 'Usage: dmp3.py -m multidownload -o dir -k key -M max'
+        print 'Usage: baidump3.py -m multidownload -o dir -k key -M max'
         sys.exit(-1)
     f = int(opts.frompage) if opts.frompage else 1
     while(True):
@@ -100,7 +107,10 @@ elif opts.mode == 'multidownload':
         total, page, items = list(opts.key.decode(enc), f)
         t = int(opts.topage) if opts.topage else page
         for item in items:
-            download(item[0], opts.output.decode(enc))
+            try:
+                download(item[0], opts.output.decode(enc))
+            except:
+                print 'Downloading Fail.'
         if f >= t:
             break
         f = f + 1
