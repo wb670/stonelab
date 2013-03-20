@@ -1,3 +1,0 @@
-from gevent import wsgi
-from fapp import app
-wsgi.WSGIServer(('', 9000), app, spawn=None).serve_forever()

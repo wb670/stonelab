@@ -1,7 +1,0 @@
-Bundle-Name: Hello World
-Bundle-Description: Hello World
-Bundle-Vendor: Hello World Vendor
-Bundle-Version: 1.0.0
-Bundle-Activator: com.alibaba.stonelab.javalab.osgi.HelloWorldActivator
-Export-Package: com.alibaba.stonelab.javalab.osgi
-Import-Package: org.osgi.framework

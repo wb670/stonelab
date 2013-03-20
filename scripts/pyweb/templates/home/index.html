@@ -1,7 +1,0 @@
-$def with (msg,form)
-$:msg
-$if session.has_key('name'): $:session.name
-
-<form method='post'>
-    $:form.render()
-</form>

@@ -1,5 +1,0 @@
-from flup.server.fcgi import WSGIServer
-from fapp import app
-
-if __name__ == '__main__':
-    WSGIServer(app, bindAddress=('localhost',9000)).run()

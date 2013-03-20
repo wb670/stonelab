@@ -1,3 +1,0 @@
-deposit 存款
-withdrawal 取款
-cash 现金
