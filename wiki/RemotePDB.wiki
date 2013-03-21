@@ -92,11 +92,11 @@ Connection closed by foreign host.
 || cl(ear)  || 取消断点 ||
 || disable || 让断点失效 ||
 || enable || 让断点生效 ||
-|| ignore bpnumber [count] || 忽略断点n次 ||
-|| condition bpnumber [condition] || 给断点添加条件，符合条件的才进入断点 ||
+|| ignore  || 忽略断点n次 ||
+|| condition  || 给断点添加条件，符合条件的才进入断点 ||
 || j(ump) lineno || 跳掉指定行 ||
 || a(rgs) || 打印函数体参数信息 ||
 || p expression || 打印变量 ||
 || pp expression || 同上，打印得漂亮一些 ||
-|| [!]statement || 执行代码，非常有用，可用来修改变量值 ||
+|| ! statement || 执行代码，非常有用，可用来修改变量值 ||
 || q(uit) || 退出调试（pdb的quit很黄很暴力） ||
