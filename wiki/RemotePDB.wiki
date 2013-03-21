@@ -87,11 +87,11 @@ Connection closed by foreign host.
 || n(ext) || 执行下一行代码 ||
 || c(ont(inue)) || 继续，直到遇到下一个断点 ||
 || r(eturn) || 执行到函数体结束那行 ||
-|| b(reak) [[filename:]lineno|function[, condition]] || 设置断点，可以是代码行号，方法名， 还可以加进入条件 ||
-|| tbreak [[filename:]lineno|function[, condition]] || 设置临时断点，进入一次后，自动消失 ||
-|| cl(ear) [bpnumber [bpnumber ...]] || 取消断点 ||
-|| disable [bpnumber [bpnumber ...]] || 让断点失效 ||
-|| enable [bpnumber [bpnumber ...]] || 让断点生效 ||
+|| b(reak) || 设置断点，可以是代码行号，方法名， 还可以加进入条件 ||
+|| tbreak || 设置临时断点，进入一次后，自动消失 ||
+|| cl(ear)  || 取消断点 ||
+|| disable || 让断点失效 ||
+|| enable || 让断点生效 ||
 || ignore bpnumber [count] || 忽略断点n次 ||
 || condition bpnumber [condition] || 给断点添加条件，符合条件的才进入断点 ||
 || j(ump) lineno || 跳掉指定行 ||
