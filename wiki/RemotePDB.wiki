@@ -1,0 +1,102 @@
+#summary rpdb Remote PDB
+#labels PDB,Remote,Python
+
+= 软件介绍 =
+  rpdb扩展了pdb，让pdb支持远程调试功能。<br/>
+  使用了rpdb的python脚本在远程启动，本地通过telnet方式连接上rpdb提供的调试端口，接下来的操作和本地完全一致。
+
+= 使用说明 =
+  * 下载
+    wget https://stonelab.googlecode.com/files/rpdb-0.1.0.tar.gz <br/>
+    有两个文件：rpdb.py：扩展pdb的类库； example.py 演示程序
+  * 安装
+    将rpdb.py拷贝到PYTHONPATH即可，或者直接拷贝rpdb.py上内容到你的python脚本即可（程序非常小巧，30+代码行）
+  * 演示
+    {{{
+pdb = Rpdb()         # 类似于pdb=Pdb()
+pdb = Rpdb(8787) # 指定远程调试端口号
+pdb.set_trace() #设置断点
+    }}}
+    如example.py中程序：
+    {{{
+#!/usr/bin/python
+
+from rpdb import Rpdb
+from random import randint
+from time import sleep
+
+def add(i, j):
+    r = i + j
+    return r
+
+def main():
+    pdb = Rpdb()
+    # pdb = Rpdb(9999) # debug port:9999
+    pdb.set_trace()
+    while True:
+        i = randint(1,10)
+        j = randint(1,10)
+        r = add(i, j)
+        print r
+        sleep(1)
+
+if __name__ == '__main__':
+    main()
+    }}}
+    本地终端输入： telnet xxx.xxx.xxx.xxx 8787
+    {{{
+telnet 127.0.0.1 8787
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+> /Users/stone/Tmp/baidu/rpdb/example.py(15)main()
+-> while True:
+(Pdb) l 
+ 10  	
+ 11  	def main():
+ 12  	    pdb = Rpdb()
+ 13  	    # pdb = Rpdb(9999) # debug port:9999
+ 14  	    pdb.set_trace()
+ 15  ->	    while True:
+ 16  	        i = randint(1,10)
+ 17  	        j = randint(1,10)
+ 18  	        r = add(i, j)
+ 19  	        print r
+ 20  	        sleep(1)
+(Pdb) n
+> /Users/stone/Tmp/baidu/rpdb/example.py(16)main()
+-> i = randint(1,10)
+(Pdb) b 19
+Breakpoint 1 at /Users/stone/Tmp/baidu/rpdb/example.py:19
+(Pdb) c
+> /Users/stone/Tmp/baidu/rpdb/example.py(19)main()
+-> print r
+(Pdb) p r
+11
+(Pdb) q
+Connection closed by foreign host.
+    }}}
+    操作和pdb完全一致。
+
+= PDB常用命令 =
+|| 命令 || 介绍 ||
+|| h(elp) [command] || 输入h或者help 列出pdb支持的所有命令， h [command] 介绍指定命令 ||
+|| w(here) || 列出当前调试所在行，一般会使用 l(ist) ||
+|| l(ist) [first[, last]] || 列出源代码信息 ||
+|| s(tep) || 进入函数体 ||
+|| n(ext) || 执行下一行代码 ||
+|| c(ont(inue)) || 继续，直到遇到下一个断点 ||
+|| r(eturn) || 执行到函数体结束那行 ||
+|| b(reak) [[filename:]lineno|function[, condition]] || 设置断点，可以是代码行号，方法名， 还可以加进入条件 ||
+|| tbreak [[filename:]lineno|function[, condition]] || 设置临时断点，进入一次后，自动消失 ||
+|| cl(ear) [bpnumber [bpnumber ...]] || 取消断点 ||
+|| disable [bpnumber [bpnumber ...]] || 让断点失效 ||
+|| enable [bpnumber [bpnumber ...]] || 让断点生效 ||
+|| ignore bpnumber [count] || 忽略断点n次 ||
+|| condition bpnumber [condition] || 给断点添加条件，符合条件的才进入断点 ||
+|| j(ump) lineno || 跳掉指定行 ||
+|| a(rgs) || 打印函数体参数信息 ||
+|| p expression || 打印变量 ||
+|| pp expression || 同上，打印得漂亮一些 ||
+|| [!]statement || 执行代码，非常有用，可用来修改变量值 ||
+|| q(uit) || 退出调试（pdb的quit很黄很暴力） ||
