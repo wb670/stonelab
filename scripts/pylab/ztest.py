@@ -1,14 +1,19 @@
-from socket import socket, AF_INET, SOCK_STREAM
+import random, time, pdb
 
-class SocketX(socket):
-    
-    def __init__(self, family=2, type=1, proto=0, _sock=None):
-        socket.__init__(self, family, type, proto, _sock)
+debugger = pdb.Pdb()
+
+def add(i , j):
+    ret = i + j 
+    return ret
+
+def index():
+    while(True):
+        debugger.set_trace()
+        i = random.randint(1, 10)
+        j = random.randint(1, 10)
+        ret = add(i, j)
+        print ret
         
-    def readline(self):
-        return socket.recv(self, 1)
-    
-s = SocketX(AF_INET, SOCK_STREAM)
-s.connect(('localhost', 9999))
-s.send('binfo')
-print s.readline()
+        time.sleep(ret / 5)
+
+index()
