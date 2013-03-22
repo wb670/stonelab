@@ -2,16 +2,34 @@
 #labels PDB,Remote,Python
 
 = 软件介绍 =
-  rpdb扩展了pdb，让pdb支持远程调试功能。<br/>
-  使用了rpdb的python脚本在远程启动，本地通过telnet方式连接上rpdb提供的调试端口，接下来的操作和本地完全一致。
+rpdb:远程PDB调试工具，是对pdb的扩展。 <br/>
+在pdb基础上，做了功能加强，主要特性如下：<br/>
+1. 兼容pdb一切语法和使用习惯 <br/>
+2. 增加了远程调试功能， 允许你客户端通过telnet连接到指定调试端口，进行远程调试 <br/>
+3. 增加了rq/rquit命令，支持安全退出模式，避免默认的quik会导致python程序异常退出的情况 <br/>
+4. 允许多次调试 <br/>
+5. 增加suspend模式，在启动时强制或者非强制进入断点 <br/>
 
 = 使用说明 =
-  * 下载
-    wget https://stonelab.googlecode.com/files/rpdb-0.1.0.tar.gz <br/>
-    有两个文件：rpdb.py：扩展pdb的类库； example.py 演示程序
-  * 安装
-    将rpdb.py拷贝到PYTHONPATH即可，或者直接拷贝rpdb.py上内容到你的python脚本即可（程序非常小巧，30+代码行）
-  * 演示
+1) 下载软件 <br/>
+https://code.google.com/p/stonelab/downloads/list <br/>
+下载rpdb-x.x.x.tar.gz，请选择最新版本，目前是0.2.0 <br/>
+
+2) 解压，将程序拷贝到PYTHON PATH目录 （之后我会写个setup.py脚本，自动安装） <br/>
+
+3）编写，python脚本中启动Rpdb，如下 <br/>
+rpdb = Rpdb()             #启动Remote PDB Debugger，使用默认端口：8787，启动时不强制进入断点（有Debugger客户端连接时断点才生效）<br/>
+rpdb = Rpdb(8787)         #启动Remote PDB Debugger，使用指定端口：8787，启动时不强制进入断点（有Debugger客户端连接时断点才生效）<br/>
+rpdb = Rpdb(startup=True) #启动Remote PDB Debugger，使用默认端口：8787，启动时强制进入断点 <br/>
+rpdb = Rpdb(8787, True)   #启动Remote PDB Debugger，使用指定端口：8787，启动时强制进入断点 <br/>
+rpdb.set_trace() <br/>
+
+4) 客户端调试 <br/>
+telnet xxx.xxx.xxx.xxx 8787 <br/>
+命令完全兼容pdb  <br/>
+增加rq/rquit命令，用于安全出退，在这种模式下，远程端python程序不会异常退出 <br/>
+ 
+5) 演示
     {{{
 pdb = Rpdb()         # 类似于pdb=Pdb()
 pdb = Rpdb(8787) # 指定远程调试端口号
@@ -19,26 +37,26 @@ pdb.set_trace() #设置断点
     }}}
     如example.py中程序：
     {{{
-#!/usr/bin/python
-
 from rpdb import Rpdb
-from random import randint
-from time import sleep
+import random
+import time
 
-def add(i, j):
-    r = i + j
+def add(i, j): 
+    r = i + j 
     return r
 
 def main():
-    pdb = Rpdb()
-    # pdb = Rpdb(9999) # debug port:9999
-    pdb.set_trace()
+    rpdb = Rpdb()               #启动Remote PDB Debugger，使用默认端口：8787，启动时不强制进入断点（有Debugger客户端连接时断点才生效）
+    # rpdb = Rpdb(8787)         #启动Remote PDB Debugger，使用指定端口：8787，启动时不强制进入断点（有Debugger客户端连接时断点才生效）
+    # rpdb = Rpdb(startup=True) #启动Remote PDB Debugger，使用默认端口：8787，启动时强制进入断点
+    # rpdb = Rpdb(8787, True)   #启动Remote PDB Debugger，使用指定端口：8787，启动时强制进入断点
     while True:
-        i = randint(1,10)
-        j = randint(1,10)
+        rpdb.set_trace()
+        i = random.randint(1, 10) 
+        j = random.randint(1, 10) 
         r = add(i, j)
         print r
-        sleep(1)
+        time.sleep(1)
 
 if __name__ == '__main__':
     main()
@@ -73,12 +91,26 @@ Breakpoint 1 at /Users/stone/Tmp/baidu/rpdb/example.py:19
 -> print r
 (Pdb) p r
 11
-(Pdb) q
+(Pdb) rq
 Connection closed by foreign host.
+    }}}
+    {{{
+python rpbd/example.py 
+6
+13
+14
+Rpdb(127.0.0.1:54463) debugger: starting.
+15
+Rpdb(127.0.0.1:54463) debugger: stoped.
+6
+6
+17
+11
+  
     }}}
     操作和pdb完全一致。
 
-= PDB常用命令 =
+= rpdb常用命令 =
 || 命令 || 介绍 ||
 || h(elp) [command] || 输入h或者help 列出pdb支持的所有命令， h [command] 介绍指定命令 ||
 || w(here) || 列出当前调试所在行，一般会使用 l(ist) ||
@@ -100,3 +132,4 @@ Connection closed by foreign host.
 || pp expression || 同上，打印得漂亮一些 ||
 || ! statement || 执行代码，非常有用，可用来修改变量值 ||
 || q(uit) || 退出调试（pdb的quit很黄很暴力） ||
+|| rq(uit) || 安全退出（python程序继续运行） ||
