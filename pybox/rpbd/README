@@ -1,0 +1,39 @@
+Remote PDB Debugger
+软件介绍：
+rpdb:远程PDB调试工具，是对pdb的扩展。
+在pdb基础上，做了功能加强，主要特性如下：
+1. 兼容pdb一切语法和使用习惯
+2. 增加了远程调试功能， 允许你客户端通过telnet连接到指定调试端口，进行远程调试
+3. 增加了rq/rquit命令，支持安全退出模式，避免默认的quik会导致python程序异常退出的情况
+4. 允许多次调试
+5. 增加suspend模式，在启动时强制或者非强制进入断点
+
+使用说明:
+1) 下载软件
+https://code.google.com/p/stonelab/downloads/list
+下载rpdb-x.x.x.tar.gz，请选择最新版本，目前是0.2.0
+
+2) 解压，将程序拷贝到PYTHON PATH目录 （之后我会写个setup.py脚本，自动安装）
+
+3）编写，python脚本中启动Rpdb，如下
+rpdb = Rpdb()             #启动Remote PDB Debugger，使用默认端口：8787，启动时不强制进入断点（有Debugger客户端连接时断点才生效）
+rpdb = Rpdb(8787)         #启动Remote PDB Debugger，使用指定端口：8787，启动时不强制进入断点（有Debugger客户端连接时断点才生效）
+rpdb = Rpdb(startup=True) #启动Remote PDB Debugger，使用默认端口：8787，启动时强制进入断点
+rpdb = Rpdb(8787, True)   #启动Remote PDB Debugger，使用指定端口：8787，启动时强制进入断点
+rpdb.set_trace()
+
+4) 客户端调试
+telnet xxx.xxx.xxx.xxx 8787
+命令完全兼容pdb
+增加rq/rquit命令，用于安全出退，在这种模式下，远程端python程序不会异常推崇
+
+
+功能列表：
+V0.1.0
+1）增加远程调试功能
+
+V0.2.0
+1）重构远程调试功能
+2）增加rq/rquit命令，支持安全退出模式
+3）允许多次调试
+4) 增加suspend模式，在启动时强制或者非强制进入断点
