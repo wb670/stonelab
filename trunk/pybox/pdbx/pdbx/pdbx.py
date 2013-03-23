@@ -82,18 +82,18 @@ class RpdbIO:
 class Rpdb(Pdb):
     '''Remote PDB Debugger'''
 
-    def __init__(self, port=8787, startup=False):
+    def __init__(self, port=8787, suspend=True):
         self.con = Condition()
         # pdb server
         self.skt = socket(AF_INET, SOCK_STREAM)
         self.skt.setsockopt(SOL_SOCKET, SO_REUSEADDR, True)
         self.skt.bind(('0.0.0.0', port))
-        self.skt.listen(10)
+        self.skt.listen(1)
         self._listen()
         # debug io
         self.io = RpdbIO()
         self.debugging = False
-        self.startup = startup
+        self.suspend = suspend
         # init pdb
         Pdb.__init__(self, stdin=self.io, stdout=self.io)
     
@@ -101,7 +101,7 @@ class Rpdb(Pdb):
         def accept():
             while True:
                 client , client_addr = self.skt.accept()
-                if self.startup:
+                if self.suspend:
                     self.con.acquire()
                     try:
                         self.con.notify_all()
@@ -121,12 +121,12 @@ class Rpdb(Pdb):
         t.start()
 
     def set_trace(self, frame=None):
-        if self.startup:
+        if self.suspend:
             self.con.acquire()
             try:
                 while not self.debugging:
                     self.con.wait()
-                self.startup = False
+                self.suspend= False
             finally:
                 self.con.release()
         if self.debugging:
@@ -139,11 +139,18 @@ class Rpdb(Pdb):
         return Pdb.do_quit(self, arg)
     do_exit = do_q = do_quit
 
-    def do_rquit(self, arg):
+    def do_xquit(self, arg):
         print 'Rpdb(%s:%s) debugger: stoped.' % self.io.addr
         self.debugging = False
         Pdb.clear_all_breaks(self)
         Pdb.set_continue(self)
         self.io.close()
-        return 1
-    do_EOF = do_rq = do_rquit
+        return True 
+    do_EOF = do_xq = do_xquit
+
+    def help_xquit(self):
+        self.io.writelines(['''xq(uit) - Quit safely from the debugger.
+The program being executed is continued(not abored).
+'''])
+        self.io.flush()
+    help_xq = help_xquit
