@@ -2,7 +2,7 @@
 
 What is it
 ----------
-PDBX: A Remote Pdb Debugger Base On Pdb
+pdbx: A remote pdb debugger Base on pdb
 It's:
 1) be compatible with pdb
 2) remote debug supported
