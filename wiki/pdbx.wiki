@@ -117,9 +117,49 @@ xq/xquit是pdbx新加的命令
     # 支持suspend模式
     # 添加setup.py脚本
 
-Author Info
------------
-author: stone2083<Stone.J>
-email:  stone2083@yahoo.cn
-blog:   http://www.blogjava.net/stone2083
-site:   https://code.google.com/p/stonelab
+= Author Info =
+  * author: stone2083<Stone.J>
+  * email:  stone2083@yahoo.cn
+  * blog:   http://www.blogjava.net/stone2083
+  * site:   https://code.google.com/p/stonelab
+
+= sample(演示) =
+  {{{
+telnet 127.0.0.1 8787
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+--Return--
+> /Library/Python/2.7/site-packages/pdbx/pdbx.py(133)set_trace()->None
+-> Pdb.set_trace(self, frame=frame)
+(Pdb) n
+> /Users/stone/Tmp/sample.py(25)main()
+-> rpdb.set_trace()
+(Pdb) n
+> /Users/stone/Tmp/sample.py(26)main()
+-> i = random.randint(1, 10)
+(Pdb) l  
+ 21  	    # rpdb = Rpdb(9898)          # Debugger started. Port is 9898(Specified Value), Suspend is True(Default Value)
+ 22  	    # rpdb = Rpdb(suspend=False) # Debugger started. Port is 8787(Default Value),   Suspend is False(Specified Value) 
+ 23  	    # rpdb = Rpdb(9898, False)   # Debugger started. Port is 9898(Specified Value), Suspend is False(Specified Value) 
+ 24  	    while True:
+ 25  	        rpdb.set_trace()
+ 26  ->	        i = random.randint(1, 10)
+ 27  	        j = random.randint(1, 10)
+ 28  	        r = add(i, j)
+ 29  	        print r
+ 30  	        time.sleep(1)
+ 31  	
+(Pdb) b 29
+Breakpoint 2 at /Users/stone/Tmp/sample.py:29
+(Pdb) c
+> /Users/stone/Tmp/sample.py(29)main()
+-> print r
+(Pdb) p r
+9
+(Pdb) help xq
+xq(uit) - Quit safely from the debugger.
+The program being executed is continued(not abored).
+(Pdb) xq
+Connection closed by foreign host.
+  }}}
