@@ -21,18 +21,24 @@
     * 强制或者非强制进入断点
 
 = Installing pdbx =
-  # Download pdbx from [https://code.google.com/p/stonelab/downloads/list] or [https://pypi.python.org/pypi] 
-  # Unpack the archive
-    * tar xvf pdbx-x.x.x.tar.gz
-  #  Install pdbx
-    * sudo python setup.py install
+  * manual
+    # Download pdbx from [https://code.google.com/p/stonelab/downloads/list] or [https://pypi.python.org/pypi] 
+    # Unpack the archive
+      * tar xvf pdbx-x.x.x.tar.gz
+    #  Install pdbx
+      * sudo python setup.py install
+  * use easy_install
+    # easy_install pdbx
 
 = 安装pdbx ==
-  # 从[https://code.google.com/p/stonelab/downloads/list] 或者 [https://pypi.python.org/pypi]下载pdbx 
-  # 解压压缩包
-    * tar xvf pdbx-x.x.x.tar.gz
-  #  安装pdbx
-    * sudo python setup.py install
+  * 手动安装
+    # 从[https://code.google.com/p/stonelab/downloads/list] 或者 [https://pypi.python.org/pypi]下载pdbx 
+    # 解压压缩包
+      * tar xvf pdbx-x.x.x.tar.gz
+    #  安装pdbx
+      * sudo python setup.py install
+  * 使用easy_install
+    # easy_install pdbx
 
 = How to use pdbx =
   # Add pbdx in python scripts
