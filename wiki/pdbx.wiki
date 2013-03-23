@@ -1,0 +1,125 @@
+#summary pdbx (Remote Pdb Debugger Base On Pdb)
+#labels pdb,pdbx,remote,debug,python
+
+= What is it =
+  pdbx: A remote pdb debugger base on pdb. It's:
+  # be compatible with pdb
+  # remote debug supported
+  # xq/xquit commands supported
+       * quit safely from debugger, the program being executed is continued(not abored)
+  # redebug supported
+  # suspend mode supported
+
+= 软件介绍 =
+  pdbx: 一款基于pdb的远程pdb调试工具，主要特性有：
+  # 和pdb完全兼容
+  # 支持远程调试功能
+  # 支持xq/xquit命令
+    * 安全退出命令： 使用xq/xquit退出调试，执行的Python脚本会继续执行，而不中断退出（对q/quit命令的改善）
+  # 支持重复调试
+  # 支持suspend模式
+    * 强制或者非强制进入断点
+
+= Installing pdbx =
+  # Download pdbx from [https://code.google.com/p/stonelab/downloads/list] or [https://pypi.python.org/pypi] 
+  # Unpack the archive
+    * tar xvf pdbx-x.x.x.tar.gz
+  #  Install pdbx
+    * sudo python setup.py install
+
+= 安装pdbx ==
+  # 从[https://code.google.com/p/stonelab/downloads/list] 或者 [https://pypi.python.org/pypi]下载pdbx 
+  # 解压压缩包
+    * tar xvf pdbx-x.x.x.tar.gz
+  #  安装pdbx
+    * sudo python setup.py install
+
+= How to use pdbx =
+  # Add pbdx in python scripts
+    {{{
+from pdbx import Rpdb
+rpdb = Rpdb()                # Debugger started. Port is 8787(Default Value),   Suspend is True(Default Value)
+rpdb = Rpdb(9898)            # Debugger started. Port is 9898(Specified Value), Suspend is True(Default Value)
+rpdb = Rpdb(suspend=False)   # Debugger started. Port is 8787(Default Value),   Suspend is False(Specified Value) 
+rpdb = Rpdb(9898, False)     # Debugger started. Port is 9898(Specified Value), Suspend is False(Specified Value) 
+rpdb.set_trace()
+    }}}
+  # Remote debug with telnet
+    {{{
+telnet xxx.xxx.xxx.xxx 8787
+    }}}
+  # Interact with pdb commands
+    {{{
+Documented commands (type help <topic>):
+========================================
+EOF    bt         cont      enable  jump  pp       run      unt     xq   
+a      c          continue  exit    l     q        s        until   xquit
+alias  cl         d         h       list  quit     step     up    
+args   clear      debug     help    n     r        tbreak   w     
+b      commands   disable   ignore  next  restart  u        whatis
+break  condition  down      j       p     return   unalias  where
+
+xq/xquit are new commands in pdbx
+it's used to quit safely from debugger, the program being executed is continued(not abored)
+    }}}
+  # Re-Remote debug with telnet
+    * telnet again.
+
+= 如何使用pdbx =
+  # 在python脚本中添加pdbx代码，设置断点
+    {{{
+from pdbx import Rpdb
+rpdb = Rpdb()                # 启动调试，默认端口8787，强制断点
+rpdb = Rpdb(9898)            # 启动调试，指定端口9898，强制断点
+rpdb = Rpdb(suspend=False)   # 启动调试，默认端口8787，非强制断点
+rpdb = Rpdb(9898, False)     # 启动调试，指定端口9898， 非强制断点
+rpdb.set_trace()
+    }}}
+  # 通过telnet，进入远程调试
+    {{{
+telnet xxx.xxx.xxx.xxx 8787
+    }}}
+  # 使用pdb命令，进入调试交互状态
+    {{{
+Documented commands (type help <topic>):
+========================================
+EOF    bt         cont      enable  jump  pp       run      unt     xq   
+a      c          continue  exit    l     q        s        until   xquit
+alias  cl         d         h       list  quit     step     up    
+args   clear      debug     help    n     r        tbreak   w     
+b      commands   disable   ignore  next  restart  u        whatis
+break  condition  down      j       p     return   unalias  where
+
+xq/xquit是pdbx新加的命令
+使用安全退出模式，执行xq/xquit，远程python脚本自动运行，而非被强制中断退出，是对pdb q/quit命令的改善。
+    }}}
+  # 重复调试
+    * 使用telnet再次进入调试状态
+
+
+= Release Notes =
+  * V0.1.0
+    # remote debug supported
+
+  * V0.2.0
+    # xq/xquit supported
+    # redebug supported
+    # suspend mode supported
+    # add setup.py
+
+= 发布说明 =
+  * V0.1.0
+    # 支持远程调试模式
+
+  * V0.2.0
+    # 支持xq/xquit命令：安全退出模式
+    # 支持重复调试
+    # 支持suspend模式
+    # 添加setup.py脚本
+
+Author Info
+-----------
+author: stone2083<Stone.J>
+email:  stone2083@yahoo.cn
+blog:   http://www.blogjava.net/stone2083
+site:   https://code.google.com/p/stonelab
