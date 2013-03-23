@@ -3,13 +3,13 @@
 from distutils.core import setup
 
 setup(
-    name="rpdb",
+    name="pdbx",
     version="0.2.0",
     description="Remote PDB Debugger Based On PDB",
     author="Stone.J",
     author_email="stone2083@yahoo.cn",
-    url="https://code.google.com/p/stonelab/wiki/RemotePDB",
-    packages=["rpdb"],
+    url="https://code.google.com/p/stonelab/wiki/pdbx",
+    packages=["pdbx"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",

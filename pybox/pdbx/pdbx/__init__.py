@@ -1,1 +1,1 @@
-from rpdb import Rpdb
+from pdbx import Rpdb
