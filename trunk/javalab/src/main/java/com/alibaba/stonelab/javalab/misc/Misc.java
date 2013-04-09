@@ -5,21 +5,28 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import com.mysql.jdbc.Driver;
-
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(URLEncoder.encode("设备A", "UTF-8"));
+		while (true) {
+			stack();
+		}
+	}
+
+	public static void stack() {
+		String step1 = "step1";
+		String step2 = "step2";
+		String step3 = "step3";
+		String step4 = "step4";
+		String step5 = "step5";
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
