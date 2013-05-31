@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <!-- Maven Project Configuration.  -->
+<!-- Maven Project Configuration. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
@@ -17,7 +17,7 @@
         <java.version>1.6</java.version>
         <java.encoding>GBK</java.encoding>
         <webx2-version>2.0</webx2-version>
-        <webx3-version>3.0.0-RC1-fix12</webx3-version>
+        <webx3-version>3.0.6</webx3-version>
         <springext-plugin-version>1.0</springext-plugin-version>
         <jetty-version>6.1.22</jetty-version>
     </properties>
@@ -139,11 +139,15 @@
             <groupId>com.alibaba.external</groupId>
             <artifactId>jakarta.poi</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
             <!-- ================================================= -->
-            <!-- Webx框架依赖                                       -->
+            <!-- Webx框架依赖 -->
             <!-- ================================================= -->
             <dependency>
                 <groupId>com.alibaba.citrus</groupId>
@@ -156,7 +160,7 @@
                 <version>${webx2-version}</version>
             </dependency>
             <!-- ================================================= -->
-            <!-- 日志及相关依赖（用slf4j+logback代替jcl+log4j）    -->
+            <!-- 日志及相关依赖（用slf4j+logback代替jcl+log4j） -->
             <!-- ================================================= -->
             <dependency>
                 <groupId>com.alibaba.external</groupId>
@@ -179,11 +183,11 @@
             <dependency>
                 <groupId>com.alibaba.external</groupId>
                 <artifactId>ch.qos.logback.logback-classic</artifactId>
-                <version>0.9.18</version>
+                <version>0.9.21</version>
                 <scope>runtime</scope>
             </dependency>
             <!-- ======================================== -->
-            <!-- 其它第三方依赖                             -->
+            <!-- 其它第三方依赖 -->
             <!-- ======================================== -->
             <dependency>
                 <groupId>com.alibaba.external</groupId>
@@ -205,6 +209,11 @@
                 <groupId>com.alibaba.external</groupId>
                 <artifactId>jakarta.poi</artifactId>
                 <version>3.6</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.8.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

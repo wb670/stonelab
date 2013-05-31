@@ -1,6 +1,9 @@
+#encoding:utf-8
+
 from rasplib import Plugin
 from urllib2 import urlopen, Request, quote
 import re, json
+from pyquery import PyQuery
 
 urls = (
     '/', 'Index',
@@ -13,26 +16,34 @@ class Index:
 
     ENCODING    = 'GBK'
     SEARCH_URL  = 'http://video.baidu.com/v?word=%s'
-    RES_URL     = 'http://video.baidu.com/htvplaysingles/?id=%s&site=%s'
     HEADERS     = {
         'User-Agent':'Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0'
     }
-    PATTERN = re.compile('T.object.extend\((.*), {"alias"')
 
     def GET(self):
-        return plugin.render.index()
+        kw = u'少年包青天'
+        kw = quote(kw.encode(Index.ENCODING))
+        info = urlopen(Request(Index.SEARCH_URL % (kw), headers=Index.HEADERS)).read().decode(Index.ENCODING)
+        info = info.replace('/browse_static', 'http://video.baidu.com/browse_static')
+        pq = PyQuery(info)
+        #pq('head>title').remove()
+        #pq('div.poster-sec').remove()
+        #pq('div#header').remove()
+        #pq('div#navbar').remove()
+        #pq('div#normalarea').remove()
+        header, body = pq('head').html(), pq('body').html()
+        return plugin.render.index2(
+                header = header, body = body, info=info, pq = pq)
+
 
     @classmethod
     def search(cls, kw):
         kw = quote(kw.encode(Index.ENCODING))
-        info  = urlopen(Request(Index.SEARCH_URL % (kw), headers=Index.HEADERS)).read().decode(Index.ENCODING)
-        vl = Index.PATTERN.findall(info)
-        return [json.loads(v) for v in vl]
-
-    @classmethod
-    def res(cls, id, site):
-        return json.loads(
-                urlopen(Request(Index.RES_URL % (id, site), headers=Index.HEADERS)).read().decode(Index.ENCODING))
+        info = urlopen(Request(Index.SEARCH_URL % (kw), headers=Index.HEADERS)).read().decode(Index.ENCODING)
+        info = info.replace('/browse_static', 'http://video.baidu.com/browse_static')
+        headers = re.findall('<head>([^真]*)</head>', info)[0]
+        print headers
+        
 
     @classmethod
     def play(cls, name, url):

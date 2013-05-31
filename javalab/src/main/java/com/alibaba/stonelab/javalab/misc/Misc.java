@@ -5,28 +5,19 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import java.text.MessageFormat;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
-	public static void main(String[] args) throws Exception {
-		while (true) {
-			stack();
-		}
-	}
+    private static final String[] a = new String[] { "a", "b" };
 
-	public static void stack() {
-		String step1 = "step1";
-		String step2 = "step2";
-		String step3 = "step3";
-		String step4 = "step4";
-		String step5 = "step5";
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        System.out.println(a[0]);
+        a[0] = "abc";
+        System.out.println(a[0]);
+    }
 
 }
