@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:services="http://www.alibaba.com/schema/services"
-    xmlns:mapping-rules="http://www.alibaba.com/schema/services/mapping-rules" xmlns:pull-factories="http://www.alibaba.com/schema/services/pull/factories"
-    xmlns:request-contexts="http://www.alibaba.com/schema/services/request-contexts" xmlns:session-encoders="http://www.alibaba.com/schema/services/request-contexts/session/encoders"
-    xmlns:model-encoders="http://www.alibaba.com/schema/services/request-contexts/session/model-encoders"
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:services="http://www.alibaba.com/schema/services" xmlns:mapping-rules="http://www.alibaba.com/schema/services/mapping-rules"
+    xmlns:pull-factories="http://www.alibaba.com/schema/services/pull/factories" xmlns:request-contexts="http://www.alibaba.com/schema/services/request-contexts"
+    xmlns:session-encoders="http://www.alibaba.com/schema/services/request-contexts/session/encoders" xmlns:model-encoders="http://www.alibaba.com/schema/services/request-contexts/session/model-encoders"
     xmlns:session-idgens="http://www.alibaba.com/schema/services/request-contexts/session/idgens" xmlns:session-stores="http://www.alibaba.com/schema/services/request-contexts/session/stores"
     xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="
@@ -48,11 +47,19 @@
                 <session-stores:cookie-store id="temporaryCookie">
                     <session-stores:cookie name="tmp" />
                 </session-stores:cookie-store>
+                <session-stores:store id="file" class="com.alibaba.stonelab.webxsample.sample.web.common.session.FileSessionStore">
+                    <beans:property name="base" value="/Users/stone/Tmp/" />
+                </session-stores:store>
             </stores>
             <store-mappings>
+                <match name="name" store="file" />
                 <match name="*" store="temporaryCookie" />
             </store-mappings>
         </session>
+        <request-contexts:request-context name="emailHead"
+            class="com.alibaba.stonelab.webxsample.sample.web.common.requestcontext.EmailHeadRequestContextFactoryImpl" />
+        <request-contexts:request-context name="emailHead2"
+            class="com.alibaba.stonelab.webxsample.sample.web.common.requestcontext.EmailHeadRequestContextFactoryImpl" />
     </services:request-contexts>
 
     <!-- 支持上传文件。 -->

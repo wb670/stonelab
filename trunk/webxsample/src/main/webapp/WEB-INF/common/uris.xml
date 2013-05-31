@@ -14,7 +14,10 @@
     ">
 
     <services:uris>
-        <uri id="server" />
+        <uri id="server">
+            <serverURI>http://localhost</serverURI>
+            <serverPort>8081</serverPort>
+        </uri>
 
         <turbine-uri id="sampleLink" exposed="true" extends="server">
             <componentPath>/</componentPath>

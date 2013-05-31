@@ -3,19 +3,20 @@
  */
 package com.alibaba.stonelab.javalab.netty;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundMessageHandlerAdapter;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.LineBasedFrameDecoder;
+import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
+
+import org.jboss.netty.bootstrap.ServerBootstrap;
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ChannelPipeline;
+import org.jboss.netty.channel.ChannelPipelineFactory;
+import org.jboss.netty.channel.Channels;
+import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.channel.SimpleChannelHandler;
+import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder;
+import org.jboss.netty.handler.codec.frame.LengthFieldPrepender;
 
 /**
  * @author <a href="mailto:li.jinl@tmall.com>Stone.J</a>
@@ -34,53 +35,30 @@ public class EchoServer {
 	}
 
 	public void run() throws Exception {
-		// Configure the server.
-		ServerBootstrap b = new ServerBootstrap();
-		try {
-			b.group(new NioEventLoopGroup(), new NioEventLoopGroup(1));
-			b.channel(NioServerSocketChannel.class);
-			b.option(ChannelOption.SO_BACKLOG, 100);
-			b.childHandler(new EchoServerChannelInitializer());
+		ServerBootstrap b = new ServerBootstrap(new NioServerSocketChannelFactory(Executors.newFixedThreadPool(10),
 
-			// Start the server.
-			ChannelFuture f = b.bind(port).sync();
+		Executors.newFixedThreadPool(10), 2));
+		b.setPipelineFactory(new ChannelPipelineFactory() {
 
-			// Wait until the server socket is closed.
-			f.channel().closeFuture().sync();
-		} finally {
-			// Shut down all event loops to terminate all threads.
-			b.shutdown();
-		}
+			@Override
+			public ChannelPipeline getPipeline() throws Exception {
+				return Channels.pipeline(new LengthFieldBasedFrameDecoder(10204, 0, 4), new EchoHandler(),
+						new LengthFieldPrepender(4));
+			}
+		});
+
+		b.bind(new InetSocketAddress(port));
 	}
 
-	public static class EchoServerChannelInitializer extends ChannelInitializer<SocketChannel> {
+	public static class EchoHandler extends SimpleChannelHandler {
 
 		@Override
-		protected void initChannel(SocketChannel ch) throws Exception {
-			ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
-			ch.pipeline().addLast(new EchoServerHandler());
-			ch.pipeline().addLast(new LengthFieldPrepender(4));
+		public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+			ChannelBuffer buf = (ChannelBuffer) e.getMessage();
+			buf.readInt();
+			e.getChannel().write(buf.readBytes(buf.readableBytes()));
 		}
+
 	}
 
-	@Sharable
-	public static class EchoServerHandler extends ChannelInboundMessageHandlerAdapter<ByteBuf> {
-
-		@Override
-		public void messageReceived(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-			System.out.println(new String(msg.array()));
-			ctx.nextOutboundByteBuffer().writeBytes(msg.array());
-		}
-
-		@Override
-		public void endMessageReceived(ChannelHandlerContext ctx) throws Exception {
-			ctx.flush();
-		}
-
-		@Override
-		public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-			System.out.println("exception.");
-			ctx.close();
-		}
-	}
 }

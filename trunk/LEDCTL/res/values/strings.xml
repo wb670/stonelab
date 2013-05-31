@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LED控制端</string>
+    <string name="action_settings">设置</string>
+    <string name="tv_gateway">网关</string>
+    <string name="tv_port">端口</string>
+    <string name="b_connect">连接</string>
+    <string name="b_cancel">退出</string>
+    <string name="connect_fail">无法连接到网关</string>
+    <string name="ok">确定</string>
+    <string name="warning">警告</string>
+    <string name="on">开</string>
+    <string name="off">关</string>
+    <string name="allon">全开</string>
+    <string name="alloff">全关</string>
+    <string name="scene">场景</string>
+    <string name="store">存储</string>
+    <string name="back">返回</string>
+    <string name="quit">退出</string>
+
+</resources>

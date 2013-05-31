@@ -21,28 +21,29 @@ import com.alibaba.citrus.turbine.Context;
  */
 public class Bean implements ApplicationContextAware {
 
-    private ApplicationContext ctx;
+	private ApplicationContext ctx;
 
-    public void execute(Context context) {
-        Map<String, Object> root = ctx.getParent().getBeansOfType(Object.class);
-        Map<String, Object> component = ctx.getBeansOfType(Object.class);
+	@SuppressWarnings("unchecked")
+	public void execute(Context context) {
+		Map<String, Object> root = (Map<String, Object>) ctx.getParent().getBeansOfType(Object.class);
+		Map<String, Object> component = ctx.getBeansOfType(Object.class);
 
-        Collection<Object> rbs = root.values();
-        Collection<Object> cbs = component.values();
+		Collection<Object> rbs = root.values();
+		Collection<Object> cbs = component.values();
 
-        System.out.println("Root Beans:");
-        System.out.println(rbs);
-        System.out.println();
-        System.out.println("Component Beans:");
-        System.out.println(cbs);
+		System.out.println("Root Beans:");
+		System.out.println(rbs);
+		System.out.println();
+		System.out.println("Component Beans:");
+		System.out.println(cbs);
 
-        context.put("root", rbs);
-        context.put("component", cbs);
-    }
+		context.put("root", rbs);
+		context.put("component", cbs);
+	}
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.ctx = applicationContext;
-    }
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.ctx = applicationContext;
+	}
 
 }
