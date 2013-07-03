@@ -5,19 +5,27 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
-import java.text.MessageFormat;
-
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
-    private static final String[] a = new String[] { "a", "b" };
+    public static void main(String[] args) throws Exception {
+        System.out.println(A.class.getMethod("a").getDeclaringClass());
+        System.out.println(B.class.getMethod("a").getDeclaringClass());
 
-    public static void main(String[] args) {
-        System.out.println(a[0]);
-        a[0] = "abc";
-        System.out.println(a[0]);
     }
 
+    public static class A {
+
+        public void a() {
+        };
+
+    }
+
+    public static class B extends A {
+
+        public void b() {
+        };
+    }
 }
