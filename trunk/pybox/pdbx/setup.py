@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name="pdbx",
-    version="0.2.0",
+    version="0.3.0",
     description="Remote PDB Debugger Based On PDB",
     author="Stone.J",
     author_email="stone2083@yahoo.cn",
