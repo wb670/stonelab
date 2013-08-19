@@ -10,6 +10,7 @@ It's:
     quit safely from debugger, the program being executed is continued(not abored)
 4) redebug supported
 5) suspend mode supported
+6) pystack(like jstack) supported
 
 
 Installing pdbx
@@ -52,6 +53,38 @@ it's used to quit safely from debugger, the program being executed is continued(
 4) Re-Remote debug with telnet
 telnet again.
 
+5) use pystack
+enable pystack in python scripts and then run the scripts
+e.g.
+import pdbx
+pdbx.enable_pystack()
+
+use kill -30 pid, then scripts will print python thread stack info:
+"CP Server Thread-4" tid=4369723392
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-7" tid=4382343168
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"MainThread" tid=140735286018432
+    at app.run()(raspctl.py:173)
+    at return wsgi.runwsgi(self.wsgifunc(*middleware))(application.py:313)
+    at return httpserver.runsimple(func, validip(listget(sys.argv, 1, '')))(wsgi.py:54)
+    at server.start()(httpserver.py:157)
+    at self.tick()(__init__.py:1765)
+    at s, addr = self.socket.accept()(__init__.py:1800)
+    at sock, addr = self._sock.accept()(socket.py:202)
+    at pystack()(pdbx.py:179)
+    at for filename, lineno, _, line in traceback.extract_stack(stack):(pdbx.py:168)
+
 
 Release Notes
 -------------
@@ -64,6 +97,8 @@ V0.2.0
 3) suspend mode supported
 4) add setup.py
 
+v0.3.0
+1) pystack supported
 
 Author Info
 -----------

@@ -5,8 +5,13 @@ Created on 2013-3-22
 '''
 
 from pdb import Pdb
-from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR , SHUT_RDWR
+from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR, \
+    SHUT_RDWR
 from threading import Lock, Thread, Condition
+import signal
+import sys
+import threading
+import traceback
 
 class RpdbIO:
     '''a proxy io for remote pdb.'''
@@ -126,7 +131,7 @@ class Rpdb(Pdb):
             try:
                 while not self.debugging:
                     self.con.wait()
-                self.suspend= False
+                self.suspend = False
             finally:
                 self.con.release()
         if self.debugging:
@@ -154,3 +159,26 @@ The program being executed is continued(not abored).
 '''])
         self.io.flush()
     help_xq = help_xquit
+
+# pystack
+def pystack():
+    for tid, stack in sys._current_frames().items():
+        info = []
+        t = _get_thread(tid)
+        info.append('"%s" tid=%d' % (t.name, tid))
+        for filename, lineno, _, line in traceback.extract_stack(stack):
+            info.append('    at %s(%s:%d)' % (line, filename[filename.rfind('/') + 1:], lineno))
+        print '\r\n'.join(info)
+        print ''
+
+def _get_thread(tid):
+    for t in threading.enumerate():
+        if t.ident == tid:
+            return t
+    return None
+
+def _pystack(sig, frame):
+    pystack()
+
+def enable_pystack():
+    signal.signal(signal.SIGUSR1, _pystack)
