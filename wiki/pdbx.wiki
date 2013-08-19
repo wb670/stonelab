@@ -178,13 +178,14 @@ Connection closed by foreign host.
   }}}
 
 = pystack介绍 =
+{{{
 python脚本中:
 import pdbx
 pdbx.enable_pystack() # 开启pystack功能
 运行python脚本
 
 kill -30 pid (python脚本的进程号),则打印所有线程的执行信息, 比如:
-{{{
+
 "CP Server Thread-10" tid=4420878336
     at self.__bootstrap_inner()(threading.py:525)
     at self.run()(threading.py:552)
