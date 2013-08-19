@@ -112,6 +112,9 @@ xq/xquit是pdbx新加的命令
     # redebug supported
     # suspend mode supported
     # add setup.py
+ 
+  * V0.3.0
+    # pystack(like jstack) supported
 
 = 发布说明 =
   * V0.1.0
@@ -122,6 +125,10 @@ xq/xquit是pdbx新加的命令
     # 支持重复调试
     # 支持suspend模式
     # 添加setup.py脚本
+
+  * V0.3.0
+    # 支持pystack (类似java中的jstack)
+    
 
 = Author Info =
   * author: stone2083<Stone.J>
@@ -169,3 +176,93 @@ The program being executed is continued(not abored).
 (Pdb) xq
 Connection closed by foreign host.
   }}}
+
+= pystack介绍 =
+python脚本中:
+import pdbx
+pdbx.enable_pystack() # 开启pystack功能
+运行python脚本
+
+kill -30 pid (python脚本的进程号),则打印所有线程的执行信息, 比如:
+{{{
+"CP Server Thread-10" tid=4420878336
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-9" tid=4416671744
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-1" tid=4383019008
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-7" tid=4408258560
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-4" tid=4395638784
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-2" tid=4387225600
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"MainThread" tid=140735286018432
+    at app.run()(raspctl.py:173)
+    at return wsgi.runwsgi(self.wsgifunc(*middleware))(application.py:313)
+    at return httpserver.runsimple(func, validip(listget(sys.argv, 1, '')))(wsgi.py:54)
+    at server.start()(httpserver.py:157)
+    at self.tick()(__init__.py:1765)
+    at s, addr = self.socket.accept()(__init__.py:1800)
+    at sock, addr = self._sock.accept()(socket.py:202)
+    at pystack()(pdbx.py:181)
+    at for filename, lineno, _, line in traceback.extract_stack(stack):(pdbx.py:169)
+
+"CP Server Thread-5" tid=4399845376
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-8" tid=4412465152
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-3" tid=4391432192
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+
+"CP Server Thread-6" tid=4404051968
+    at self.__bootstrap_inner()(threading.py:525)
+    at self.run()(threading.py:552)
+    at conn = self.server.requests.get()(__init__.py:1367)
+    at self.not_empty.wait()(Queue.py:168)
+    at waiter.acquire()(threading.py:244)
+}}}
