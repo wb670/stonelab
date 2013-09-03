@@ -23,7 +23,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:inputType="text|number"
-            android:text="42.121.131.66"
+            android:text="192.168.1.120"
             tools:ignore="HardcodedText" />
     </TableRow>
 
@@ -45,7 +45,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:inputType="text|number"
-            android:text="9999"
+            android:text="6000"
             tools:ignore="HardcodedText" />
     </TableRow>
 

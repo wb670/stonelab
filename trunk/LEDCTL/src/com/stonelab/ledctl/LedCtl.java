@@ -7,21 +7,19 @@ import java.net.Socket;
 
 public class LedCtl {
 
-	public static final String LINESEP = "\r\n";
-
-	public static final String CTL_QUIT = "0";
-	public static final String CTL_ON1 = "1";
-	public static final String CTL_OFF1 = "2";
-	public static final String CTL_ON2 = "3";
-	public static final String CTL_OFF2 = "4";
-	public static final String CTL_ON3 = "5";
-	public static final String CTL_OFF3 = "6";
-	public static final String CTL_ON4 = "7";
-	public static final String CTL_OFF4 = "8";
-	public static final String CTL_ON = "9";
-	public static final String CTL_OFF = "10";
-	public static final String CTL_SCENE = "11";
-	public static final String CTL_STORE = "12";
+	public static final byte CTL_QUIT = 0x00;
+	public static final byte CTL_ON1 = 0x01;
+	public static final byte CTL_OFF1 = 0x02;
+	public static final byte CTL_ON2 = 0x03;
+	public static final byte CTL_OFF2 = 0x04;
+	public static final byte CTL_ON3 = 0x05;
+	public static final byte CTL_OFF3 = 0x06;
+	public static final byte CTL_ON4 = 0x07;
+	public static final byte CTL_OFF4 = 0x08;
+	public static final byte CTL_ON = 0x09;
+	public static final byte CTL_OFF = 0x0a;
+	public static final byte CTL_SCENE = 0x0b;
+	public static final byte CTL_STORE = 0x0c;
 
 	private static final LedCtl INSTANCE = new LedCtl();
 
@@ -60,9 +58,9 @@ public class LedCtl {
 		}
 	}
 
-	public void ctl(String cmd) {
+	public void ctl(byte cmd) {
 		try {
-			out.write((cmd + LINESEP).getBytes());
+			out.write(cmd);
 			out.flush();
 		} catch (Exception e) {
 			throw new LedCtlException("ctl fail.", e);
