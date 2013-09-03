@@ -13,6 +13,7 @@ import android.widget.Switch;
 public class CtlActivity extends Activity {
 
 	private LedCtl ledCtl = LedCtl.getLedCtl();
+	private boolean all;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -32,21 +33,24 @@ public class CtlActivity extends Activity {
 	}
 
 	@SuppressLint("NewApi")
-	private void onSwitch(int id, final String off, final String on) {
+	private void onSwitch(int id, final byte off, final byte on) {
 		((Switch) findViewById(id))
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 					@Override
 					public void onCheckedChanged(CompoundButton b,
 							boolean checked) {
-						String ctl = checked ? on : off;
+						if (all) {
+							return;
+						}
+						byte ctl = checked ? on : off;
 						ledCtl.ctl(ctl);
 					}
 				});
 	}
 
 	@SuppressLint("NewApi")
-	private void onButton(int id, final String ctl) {
+	private void onButton(int id, final byte ctl) {
 		((Button) findViewById(id)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -57,17 +61,19 @@ public class CtlActivity extends Activity {
 	}
 
 	@SuppressLint("NewApi")
-	private void onButton(int id, final String ctl, final boolean on) {
+	private void onButton(int id, final byte ctl, final boolean on) {
 		((Button) findViewById(id)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				ledCtl.ctl(ctl);
 
+				all = true;
 				((Switch) findViewById(R.id.on1)).setChecked(on);
 				((Switch) findViewById(R.id.on2)).setChecked(on);
 				((Switch) findViewById(R.id.on3)).setChecked(on);
 				((Switch) findViewById(R.id.on4)).setChecked(on);
+				all = false;
 			}
 		});
 
