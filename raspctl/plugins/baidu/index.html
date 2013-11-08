@@ -39,6 +39,10 @@
         a {
             text-decoration: none;
         }
+        #videolist img {
+            width:  16px;
+            height: 16px;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +89,7 @@ $("#search").click(function(e) {
     qp = {name:"plugins.baidu.Index.search", args:[kw]};
     $.get('/api', {data:$.toJSON(qp)}, function(data) {
         if(data && data.status == "Success") {
-           show_video(data.result); 
+            show_video(data.result.sResult.aldjson); 
         } else {
             alert("ERROR.");
         }

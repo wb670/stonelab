@@ -9,7 +9,7 @@ Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 
 from threading import Thread, Condition
 from json import JSONEncoder
-import os, pexpect, time, re, ConfigParser
+import sys, os, pexpect, time, re, ConfigParser
 
 class Config:
     FILE = 'raspctl.cnf'
@@ -37,7 +37,7 @@ class LocalFile:
     TYPE_FILE     = 'f'
     
     def __init__(self, encoding='UTF-8'):
-        self.encoding = encoding
+        self.encoding = sys.getfilesystemencoding() if sys.getfilesystemencoding else  encoding
 
     def get_mediapath(self):
         return cnf.data.get('LocalFile', 'media_path') if cnf.data.has_option('LocalFile', 'media_path') else LocalFile.MEDIA_ROOTPATH 
@@ -64,6 +64,7 @@ class LocalFile:
         try:
             return f.decode(self.encoding)
         except UnicodeEncodeError:
+            print 'DEBUG>>>_unicode. value is %s' % f
             return f
 
 #singleton instance
@@ -192,7 +193,6 @@ class Omxplayer:
                 self.process.send(Omxplayer.CTL_QUIT)
                 if self.process.isalive():
                     self.process.kill(9)
-                    #self.process.sendcontrol('C')
                 self.state = Omxplayer.State_Init
     
     def set_playlist(self, playlist):
@@ -359,7 +359,7 @@ class MediaUrl:
     URL         = 'http://www.flvcd.com/parse.php?kw=%s&format=%s'
     ENCODING    = 'GBK'
     
-    PATTERN_URL = re.compile('<a href="(.*)" target="_blank" [class="link"|onclick=]')
+    PATTERN_URL = re.compile(r'<a href="(.*)" target="_blank" .*onclick=')
     PATTERN_NS  = u'提示：对不起，FLVCD暂不支持此地址的解析' 
     
 

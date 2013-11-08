@@ -2,5 +2,4 @@
 bin = /usr/bin/omxplayer -y -p -o %s '%s'
 
 [LocalFile]
-media_path = /Users/stone/Tmp
-
+media_path = /home/pi/Media 
