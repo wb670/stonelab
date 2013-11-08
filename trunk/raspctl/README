@@ -1,15 +1,22 @@
 # 0.1.0
-1. player
-2. local file
-3. configuration
-4. media url analysis
-5. ajax spec
-6. plugins spec
+1. 多媒体播放器
+2. 本地文件支持
+3. 配置文件支持
+4. 多媒体URL分析
+5. AJAX规范
+6. 插件规范
 
 # 0.1.1
-1. plugins baidu viedo
-2. reboot & shutdown raspberry pi
-3. index page
+1. 百度插件支持
+2. 支持在线重启,关闭RASPCTL
+3. 增加Index页面
 
 # 0.1.1
-4. player bugfix
+1. 多媒体播放器Bugfix
+
+# 0.1.2
+1. 多媒体播放器多线程Bugfix
+
+# 0.1.3
+1. 百度插件接口变动修复
+2. 硕鼠网接口变动修复
