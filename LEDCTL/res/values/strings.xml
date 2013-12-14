@@ -18,5 +18,9 @@
     <string name="store">存储</string>
     <string name="back">返回</string>
     <string name="quit">退出</string>
+    <string name="title_activity_wave">声波</string>
+    <string name="b_start">发声波</string>
+    <string name="b_record">收声波</string>
+    <string name="tv_wave">频率</string>
 
 </resources>
