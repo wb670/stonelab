@@ -3,15 +3,20 @@
  * Alibaba.com ("Confidential Information"). You shall not disclose such Confidential Information and shall use it only
  * in accordance with the terms of the license agreement you entered into with Alibaba.com.
  */
-package com.alibaba.stonelab.javalab.misc.dubbo;
+package com.alibaba.stonelab.javalab.misc.spring;
 
 /**
- * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2013-7-2
+ * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2013-10-8
  */
-public interface HelloService {
+public class Target implements Api  {
 
-    void say(String name);
+    public void func1() {
+    }
 
-    void batchSay(String name, int loop);
+    public void func2() {
+    }
+
+    public void func3() {
+    }
 
 }
