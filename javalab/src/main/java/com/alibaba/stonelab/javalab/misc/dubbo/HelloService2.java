@@ -6,12 +6,10 @@
 package com.alibaba.stonelab.javalab.misc.dubbo;
 
 /**
- * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2013-7-2
+ * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2013-9-25
  */
-public interface HelloService {
+public interface HelloService2 {
 
     void say(String name);
-
-    void batchSay(String name, int loop);
 
 }

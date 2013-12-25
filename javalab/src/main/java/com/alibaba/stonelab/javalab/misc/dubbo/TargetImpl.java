@@ -8,11 +8,18 @@ package com.alibaba.stonelab.javalab.misc.dubbo;
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2013-7-2
  */
-public class HelloServiceImpl implements HelloService {
+public class TargetImpl implements HelloService {
 
     @Override
-    public String say(String name) {
-        return "Hello, " + name + ".";
+    public void say(String name) {
+
+    }
+
+    @Override
+    public void batchSay(String name, int loop) {
+        for (int i = 0; i < loop; i++) {
+
+        }
     }
 
 }

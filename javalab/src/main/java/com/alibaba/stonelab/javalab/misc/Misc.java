@@ -5,27 +5,30 @@
  */
 package com.alibaba.stonelab.javalab.misc;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+
 /**
  * @author <a href="mailto:li.jinl@alibaba-inc.com">Stone.J</a> 2011-1-26
  */
 public class Misc {
 
     public static void main(String[] args) throws Exception {
-        System.out.println(A.class.getMethod("a").getDeclaringClass());
-        System.out.println(B.class.getMethod("a").getDeclaringClass());
+        FutureTask<Integer> task = new FutureTask<Integer>(new Callable<Integer>() {
+            private int count;
 
+            @Override
+            public Integer call() throws Exception {
+                Thread.sleep(5000);
+                return ++count;
+            }
+        });
+
+        task.run();
+
+        for (int i = 0; i < 100; i++) {
+            System.out.println(task.get());
+        }
     }
 
-    public static class A {
-
-        public void a() {
-        };
-
-    }
-
-    public static class B extends A {
-
-        public void b() {
-        };
-    }
 }

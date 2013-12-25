@@ -7,24 +7,20 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
     default-autowire="byName">
 
-    <dubbo:application name="tinyzen" owner="tinyzen" organization="tinyzen" />
-    <dubbo:registry address="10.125.5.200:9090" />
+    <bean id="api" class="com.alibaba.stonelab.javalab.misc.spring.ApiFactory" />
 
-    <dubbo:reference id="hello" interface="com.alibaba.stonelab.javalab.misc.dubbo.HelloService" protocol="dubbo" version="1.0.0" />
-    <bean id="hello2" class="com.alibaba.stonelab.javalab.misc.dubbo.TargetImpl" />
+    <bean id="info" class="com.alibaba.stonelab.javalab.misc.spring.InfoIntercetpor" />
 
-    <bean id="protection" class="com.alibaba.stonelab.javalab.misc.dubbo.Protection" />
-
-    <bean id="protectionPointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+    <bean id="infoPointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.alibaba.stonelab.javalab.misc.dubbo.HelloService.*</value>
+                <value>com.alibaba.stonelab.javalab.misc.spring.Target.*</value>
             </list>
         </property>
     </bean>
 
     <aop:config>
-        <aop:advisor advice-ref="protection" pointcut-ref="protectionPointcut" />
+        <aop:advisor advice-ref="info" pointcut-ref="infoPointcut" />
     </aop:config>
 
 </beans>
