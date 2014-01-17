@@ -15,7 +15,7 @@ import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.alibaba.stonelab.webxsample.sample.web.common.valve.PerformJsonValve;
 
 /**
- * @author Stone.J 2010-8-17 обнГ12:31:26
+ * @author Stone.J 2010-8-17 О©╫О©╫О©╫О©╫12:31:26
  */
 public class Json {
 

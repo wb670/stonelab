@@ -1,19 +1,21 @@
-import random, time, pdb
+import threading
+import time
+import pdbx
 
-debugger = pdb.Pdb()
+def b(name):
+    time.sleep(100000)
+def a():
+    b("test")
 
-def add(i , j):
-    ret = i + j 
-    return ret
+def myrun(name):
+    threading.Thread(target=a, name=name,).start()
 
-def index():
-    while(True):
-        debugger.set_trace()
-        i = random.randint(1, 10)
-        j = random.randint(1, 10)
-        ret = add(i, j)
-        print ret
-        
-        time.sleep(ret / 5)
+myrun("t1")
+myrun("t2")
 
-index()
+
+pdbx.enable_pystack()
+for i in xrange(10000000):
+    print i
+    time.sleep(10)
+print 'done'

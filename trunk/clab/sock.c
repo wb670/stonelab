@@ -15,6 +15,9 @@
 #include <event2/event.h>
 #include <stddef.h>
 
+void sock_client();
+void sock_server();
+
 void sock_main()
 {
 	if (fork() == 0)
@@ -51,7 +54,8 @@ void sock_server()
 	{
 		printf("server is waiting...\n");
 		client_len = sizeof(client_addr);
-		client_fd = accept(server_fd, (struct sockaddr *) &client_addr, &client_len);
+		client_fd = accept(server_fd, (struct sockaddr *) &client_addr,
+				(socklen_t*) &client_len);
 
 		read(client_fd, &ch, 1);
 		ch++;
