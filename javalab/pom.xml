@@ -83,6 +83,11 @@
     <dependencies>
         <!-- learning -->
         <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>aliyun-openservices</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.taobao.common.smonitor</groupId>
             <artifactId>smonitor</artifactId>
             <version>1.0.9.8</version>
