@@ -1,0 +1,77 @@
+<html>
+<head>
+<script type="text/javascript" src="swfupload/swfupload.js"></script>
+<script type="text/javascript" src="swfupload/handlers.js"></script>
+<script type="text/javascript" src="swfupload/zip.js"></script>
+</head>
+<body>
+
+<div>
+<span id="placeholder"></span>
+<span id="bar"></span>
+<!--input id="file" type="file" /-->
+</div>
+
+<script type="text/javascript">
+var swfu;
+window.onload = function() {
+    swfu = new SWFUpload({
+        upload_url              :   "http://oss.aliyun.test:8080/upload",
+        flash_url               :   "swfupload/swfupload.swf",
+
+        file_post_name          :   "file",
+        post_params             :   {
+            "key"               :   "value",
+        },
+        file_types              :   "*.*",
+
+        button_placeholder_id   :   "placeholder",
+        button_width            :   100,
+        button_height           :   18,
+        button_text             :   "浏览",
+        button_window_mode      :   SWFUpload.WINDOW_MODE.TRANSPARENT,
+        button_cursor           :   SWFUpload.CURSOR.HAND,
+
+        custom_settings         :   {
+            upload_target       :   "bar"
+        },
+
+        debug                   :   true,
+
+        file_dialog_complete_handler    :       fileDialogComplete,
+        file_queued_handler             :       fileQueued,
+        upload_start_handler            :       uploadStart,
+        upload_progress_handler         :       uploadProgress,
+        upload_complete_handler         :       uploadComplete,
+    });
+};
+
+function fileQueued(file) {
+    alert(JSON.stringify(file));
+}
+
+function fileDialogComplete(numFilesSelected, numFilesQueued) {
+    if (numFilesQueued > 0) {
+        swfu.startUpload();
+    }
+}
+
+function uploadStart(file) {
+    alert(JSON.stringify(file));
+}
+
+function uploadProgress(file, bytesLoaded) {
+    var percent = Math.ceil((bytesLoaded / file.size) * 100);
+    if( percent > 100) {
+        percent = 100;
+    }
+    document.getElementById(swfu.customSettings.upload_target).innerHTML="percent:" + percent + "%";
+}
+
+function uploadComplete(file) {
+    alert(file.name + " upload complete.");
+}
+
+</script>
+</body>
+</html>

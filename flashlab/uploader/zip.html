@@ -1,0 +1,37 @@
+<html>
+<head>
+<script type="text/javascript" src="http://gildas-lormeau.github.io/zip.js/demos/zip.js"></script>
+</head>
+<body>
+
+<div>
+<input id="file" type="file" />
+<input id="exe" type="button" onclick="read()" value="读取" />
+<span id="entries"></span>
+</div>
+
+<script type="text/javascript">
+function read() {
+    files = document.getElementById("file").files;
+    if(files.length > 0) {
+        zip.createReader(new zip.BlobReader(files[0]), function(reader) {
+            reader.getEntries(function(entries) {
+                alert(entries.length);
+                for(i=0; i <entries.length; i++ ) {
+                    node = document.getElementById("entries")
+                    node.innerHTML = node.innerHTML + "<br/>" + entries[i].filename;
+                }
+            });
+
+            reader.close(function() {
+                alert("closed.");
+            });
+        }, function(error) {
+            alert(error);
+        });
+    }
+}
+</script>
+
+</body>
+</html>
