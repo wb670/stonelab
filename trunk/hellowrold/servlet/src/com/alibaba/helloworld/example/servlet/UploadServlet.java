@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +19,22 @@ public class UploadServlet extends HttpServlet {
     private static final long   serialVersionUID = 1L;
 
     private static final String BASE             = "/Users/stone/Tmp/tmp/";
-    private static final String CROSSDOMAIN      = "<?xml version=\"1.0\"?><cross-domain-policy><allow-access-from domain=\"*\" to-ports=\"*\" /></cross-domain-policy>";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("=========================================");
         System.out.println("Method:GET; port:" + req.getRemotePort());
-        resp.getOutputStream().write(CROSSDOMAIN.getBytes());
+        Enumeration<?> enumeration = req.getHeaderNames();
+        while (enumeration.hasMoreElements()) {
+            String hd = enumeration.nextElement().toString();
+            System.out.println(hd + ":" + req.getHeader(hd));
+        }
+        resp.getOutputStream().write("Welcome to UploadServlet".getBytes());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPut(req, resp);
     }
 
     @Override
